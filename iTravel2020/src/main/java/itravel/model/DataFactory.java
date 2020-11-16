@@ -17,6 +17,7 @@ public class DataFactory {
                     initFollowsData();
 
                     initBooksData();
+                    initPostsData();
                 }
             }
         }
@@ -36,6 +37,22 @@ public class DataFactory {
         instance.getUserList().add(new User("000-61-1525", "user", "Dang Thu Ha Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "dthle@miu.edu", "d"));
         instance.getUserList().add(new User("000-61-1635", "user", "Le Hieu Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "lle@mum.edu", "l"));
     }
+    private static void initPostsData(){
+        for (int i = 1; i<=30; i++){
+            String strID 	= String.format("%03d", i);
+            //String strUserID= String.format("userId%03d", i);
+            String strUserID= String.valueOf(i);
+            String strImage = String.format("Image %03d", i);
+            String strTitle = String.format("Title %03d", i);
+            String strContent = String.format("Content %03d", i);
+            String strCategory = String.format("Category %03d", i);
+            String strTags = String.format("Tags %03d", i);
+            String strTime = LocalDate.of(2020, 11, i).toString();
+            instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime));
+
+        }
+    }
+
 
     private static void init_PostsData (){
         for (int i = 1; i <= 30; i++)

@@ -15,8 +15,13 @@ window.onload = function(){
             reader.readAsDataURL(input.files[0]);
         }
     });
+    showHideForm();
 
-//show and hide edit form
+
+    $('#editinfo').click(editUserInfo);
+}
+function showHideForm(){
+    //show and hide edit form
     $('#show').on('click', function () {
         $('.center').show();
         $(this).hide();
@@ -26,10 +31,7 @@ window.onload = function(){
         $('.center').hide();
         $('#show').show();
     })
-
-    $('#editinfo').click(editUserInfo);
 }
-
 function getCurrentUser() {
     console.log('call getCurrentUser');
     $.post("GetCurrentUserInfoServlet")
@@ -37,6 +39,7 @@ function getCurrentUser() {
             console.log(user);
             displayUserInfo(user);
             updateUserInfoInEditForm(user);
+            UpdateUserInfoInHomePage(user);
 
         })
         .fail(function(error){
@@ -167,6 +170,7 @@ function chooseFile() {
 function uploadPhoto() {
     $("#upload").click(function () {
         $("#myfile").show();
+        uploadImage();
     });
 }
 //load data info for edit form after user click edit button
@@ -205,4 +209,12 @@ function upAvatar(){
             alert(error);
         });
 }
+//update data for Hompage
+function UpdateUserInfoInHomePage(user) {
+    $('#userId').html(user.id);
+    $('#name').html(user.fullName);
+    //$('#eid').val(user.id);
+    $('#address').html(user.city + ", "+ user.state);
+    $('#byear').html(user.birthYear);
 
+}

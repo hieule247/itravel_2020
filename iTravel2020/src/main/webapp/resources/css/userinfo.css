@@ -10,7 +10,10 @@
 .navbar-nav li a:hover {
     color: #1abc9c !important;
 }
-
+.w3-circle{
+    width: 100px;
+    height: 100px;
+}
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 800px}
 
@@ -107,9 +110,37 @@ input{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .center input{
-    width: 400px;
+    width: 200px;
 }
-
+#image_frame {
+    width: 100px;
+}
 .hideform {
     display: none;
 }
+/*.container {*/
+/*    width: 50%;*/
+/*    margin-left: 25%;*/
+/*    background: #008080;*/
+/*    border: 2px solid #F00;*/
+/*    padding: 5px;*/
+/*}*/
+
+/**/
+
+/*#image_frame {*/
+/*    min-height: 250px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*input {*/
+/*    display: block;*/
+/*    font-size: 30px;*/
+/*    color: #F00;*/
+/*    width: 100%;*/
+/*    text-align: center;*/
+/*}*/
+
+/*input[type='file'] {*/
+/*    color: #FFF;*/
+/*}*/

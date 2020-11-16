@@ -15,7 +15,14 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="resources/css/register.css" type="text/css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="resources/css/userinfo.css" type="text/css" rel="stylesheet" />
+<script src="resources/js/userTravelInfo.js" type="text/javascript"></script>
+<script src="resources/js/UserPostMn.js" type="text/javascript"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=&v=weekly"
+        defer
+></script>
 <style>
     html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 </style>
@@ -25,8 +32,8 @@
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Itravel</a>
         <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="My Profile"><i class="fa fa-user"></i></a>
-<%--        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>--%>
+        <a href="userTravelInfo.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="My Profile"><i class="fa fa-user"></i></a>
+        <%--        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>--%>
         <div class="w3-dropdown-hover w3-hide-small">
             <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>
             <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
@@ -36,7 +43,8 @@
             </div>
         </div>
         <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-            <img src="/w3images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+            <img src="resources/images/bg/avatar.jpeg" class="w3-circle" style="height:23px;width:23px" alt="Avatar" width="200px">
+
         </a>
     </div>
 </div>
@@ -59,11 +67,12 @@
             <div class="w3-card w3-round w3-white">
                 <div class="w3-container">
                     <h4 class="w3-center">My Profile</h4>
-                    <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+                    <p class="w3-center"><img src="resources/images/bg/avatar.jpeg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
                     <hr>
-                    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-                    <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                    <p><i id="userId" class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></p>
+                    <p><i id="name" class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></p>
+                    <p ><i  id="address" class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i></p>
+                    <p ><i id="byear" class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i></p>
                 </div>
             </div>
             <br>
@@ -148,29 +157,111 @@
                     <div class="w3-card w3-round w3-white">
                         <div class="w3-container w3-padding">
                             <h6 class="w3-opacity">How would you feel today?</h6>
-                            <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-                            <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>
+                            <form  id="formAdd" action="ImageUploadServlet"
+                                   method="post"
+                                   enctype="multipart/form-data">
+                                <%--                                <label for="id">Post Id</label>--%>
+                                <%--                                <input id="id" type="number"/>--%>
+                                <%--                                <label for="title">Title</label>--%>
+                                <p id="title" contenteditable="true" class="w3-border w3-padding">Title: </p>
+                                <p id="content" contenteditable="true" class="w3-border w3-padding">Status: Freedom</p>
+                                <label for="category">Category</label>
+
+                                <select id="category" class="inline">
+                                    <option selected>General</option>
+                                    <option>Traveling</option>
+                                    <option>Discussion</option>
+                                    <option>Question</option>
+                                </select>
+                                <label for="tags">Feeling</label>
+                                <select id="tags">
+                                    <option selected>Happy</option>
+                                    <option>Sad</option>
+                                    <option>Confuse</option>
+                                    <option>Nothing</option>
+                                </select>
+                                <br/>
+                                <label for="image" class="btn">Upload Photo</label>
+                                <input type="file" name="imageUpload" src="" id="image" accept="image/*" />
+                                <div id="floating-panel">
+                                    <input id="latlng" type="text" value="40.714224,-73.961452" />
+                                    <input id="submit" type="button" value="Reverse Geocode" />
+                                </div>
+                                <div id="map"></div>
+                                <br/>
+
+                                <%--                            <button id="add" type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>--%>
+                                <span id="add" class="w3-button w3-theme"><i class="fa fa-pencil"></i> Post</span>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+            <dt></dt>
+            <div class="w3-container w3-card w3-white w3-round w3-margin" id="post"><br>
                 <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>John Doe</h4><br>
+
+                <span id="utime" class="w3-right w3-opacity">1 min</span>
+                <label for="uid">Post ID: </label>
+                <span id="uid">Post id</span><br>
+                <label for="utitle">Title: </label>
+                <span id="utitle"></span><br>
+                <div id="image_frame"></div>
                 <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <%--                <label for="ucontent"></label>>--%>
+                <span id="ucontent"> </span>
+                <img src="" style="width:100%" class="image" id="image">
                 <div class="w3-row-padding" style="margin:0 -16px">
-                    <div class="w3-half">
+                    <label for="ucategory">Category: </label>
+                    <div class="w3-half" id="ucategory">
                         <img src="/w3images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
                     </div>
-                    <div class="w3-half">
+                    <label for="utag">In Mode: </label>
+                    <div class="w3-half" id="utag">
                         <img src="/w3images/nature.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
                     </div>
                 </div>
+
                 <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
                 <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+                <br/>
+                <button id="show" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i>  Update</button>
+                <button id="del" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i>  Delete</button>
+                <div class="center hideform">
+                    <button id="close" style="float: right;">X</button>
+                    <form id="formUpdate" action="ImageUploadServlet"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        <p id="u-title" contenteditable="true" class="w3-border w3-padding"/>
+                        <p id="u-content" contenteditable="true" class="w3-border w3-padding">Status: Freedom</p>
+                        <label for="u-category">Category</label>
+
+                        <select id="u-category" class="inline">
+                            <option selected>General</option>
+                            <option>Traveling</option>
+                            <option>Discussion</option>
+                            <option>Question</option>
+                        </select>
+                        <label for="u-tags">Feeling</label>
+                        <select id="u-tags">
+                            <option selected>Happy</option>
+                            <option>Sad</option>
+                            <option>Confuse</option>
+                            <option>Nothing</option>
+                        </select>
+                        <br/>
+                        <label for="u-image" class="btn">Upload Photo</label>
+                        <input type="file" name="imageUpload" src="" id="u-image" accept="image/*" />
+                        <input id="upd" type="button" value="Update"></form>
+                    <%--                    <input type="hidden" value="false" id="isValid">--%>
+                    <%--                    <input class="open-form" type="button" value="Submit" id="upd">--%>
+
+                    </form>
+                </div>
+
             </div>
 
             <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
@@ -193,6 +284,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
                 <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+
             </div>
 
             <!-- End Middle Column -->

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -75,7 +74,7 @@ public class UserInfoServlet extends HttpServlet {
         }
 
         User newUser = new User(id, "user", fname, gender, state, city, street,
-                    zip,parseInt(year) , email, pwd);
+                zip,parseInt(year) , email, pwd);
 
 
         String respJson = new Gson().toJson(newUser);

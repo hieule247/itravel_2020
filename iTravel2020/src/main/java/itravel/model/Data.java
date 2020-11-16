@@ -12,6 +12,7 @@ public class Data {
     private List<WordFilter> wordFilters;
 
     private List<Book> books;
+    private List<Post> posts;
     private ArrayList<Member> members;
     public Data(){
         users   = new ArrayList<>();
@@ -22,6 +23,7 @@ public class Data {
 
         books   = new ArrayList<>();
         members = new ArrayList<>();
+        posts = new ArrayList<>();
     }
 
     // ------------------- User Management
@@ -106,6 +108,73 @@ public class Data {
         }
         // Not found or login error
         return null;
+    }
+//post mn
+    public List<Post> getPostList() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+    public int getPostIdx(String id){
+        for (int i=0; i < posts.size(); i++){
+            if (posts.get(i).getId().equals(id))
+                return i;
+        }
+        // not found
+        return -1;
+    }
+
+
+    public void addPost(String id, String userId, String image, String title, String content, String category, String tags, String time){
+        posts.add(new Post(id, userId, image, title, content, category, tags, time));
+
+    }
+    public Post getPost(String id){
+        return posts.parallelStream().filter(b -> b.getId().equals(id)).findAny().orElse(null);
+    }
+
+    public void updPost(String id, String userId, String image, String title, String content, String category, String tags, String time){
+        int curIdx = getPostIdx(id);
+        Post curPost = getPost(id);
+        curPost.setContent(content);
+        curPost.setImage(image);
+        curPost.setTitle(title);
+        curPost.setCategory(category);
+        curPost.setTags(tags);
+        curPost.setDate(time);
+
+        // Update
+        posts.set(curIdx, curPost);
+    }
+
+    public void delPost(String id){
+        int idx = getPostIdx(id);
+        if (idx != -1)
+            users.remove(idx);
+    }
+
+    public List<Post> searchPost(String name){
+
+        return posts.parallelStream()
+                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
+                        || b.getContent().toLowerCase().contains(name.toLowerCase())
+                        ||b.getCategory().toLowerCase().contains(name.toLowerCase())
+                        ||b.getTags().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+
+    }
+    public List<Post> findPostsByUserId(String userId){
+        //List<Post> list = new ArrayList<>();
+        List<Post> postList = new ArrayList<>();
+        for (Post b : posts) {
+            if (b.getUserId() == userId) {
+                postList.add(b);
+
+            }
+        }
+        return postList;
     }
 
     // ------------------- _Post Management

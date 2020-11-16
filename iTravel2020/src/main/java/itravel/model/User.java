@@ -1,5 +1,7 @@
 package itravel.model;
 
+import java.util.List;
+
 public class User {
     private String id;
     private String userType;
@@ -14,6 +16,12 @@ public class User {
     private String password;
     // Using for admin
     private String status; // active, deActive
+    //User for search post
+    private List<Post> posts;
+
+    public List<Post> getPosts() {
+        return posts;
+    }
 
     public User() {
         id          = "";

@@ -5,7 +5,6 @@ import itravel.model.Data;
 import itravel.model.DataFactory;
 import itravel.model.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Clock;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
@@ -35,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 
     }
     public void doRegister(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-            // Get Data from parameter
+        // Get Data from parameter
         String gender = request.getParameter("gender");
         String state = request.getParameter("state");
         String city = request.getParameter("city");
@@ -59,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
         if (item!=null) {
             //response.getWriter().write("false");
             // process error register
-           //System.out.println("false");
+            //System.out.println("false");
             //return;
 
 //           sendToClient(data, request, response);
@@ -77,7 +74,7 @@ public class RegisterServlet extends HttpServlet {
             String id = ""+s;
             System.out.println(id);
 
-              //int y = parseInt(year);
+            //int y = parseInt(year);
             User newUser = new User(id, "user", fname, gender, state, city, street,
                     zip,parseInt(year) , email, pwd);
             //listUser = data.addUser(id, "user", name, gender, state, city, street, zip, parseInt(year), email, password);
@@ -85,7 +82,7 @@ public class RegisterServlet extends HttpServlet {
             System.out.println(newUser.getFullName());
 
             updateRegisterSession(request, newUser, true);
-                // Redirect to User page
+            // Redirect to User page
 
 //            sendToClient(data, request, response);
 //            response.getWriter().write("true");
@@ -93,7 +90,7 @@ public class RegisterServlet extends HttpServlet {
 //            response.sendRedirect("userTravelInfo.jsp");
             System.out.println("THis is test to send");
             return;
-            }
+        }
 
 
     }
