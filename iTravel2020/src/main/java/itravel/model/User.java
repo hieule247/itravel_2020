@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String password;
     // Using for admin
-    private String status; // active, deActive
+//    private String status; // active, deActive
     private boolean activType = false;
 
     private List<Post> posts;
@@ -38,7 +38,7 @@ public class User {
         email       = "";
         password    = "";
         // using for admin
-        status      = "active";
+//        status      = "active";
         activType = false;
     }
 
@@ -56,7 +56,7 @@ public class User {
         this.email      = email;
         this.password   = password;
         // using for admin
-        this.status      = "active";
+//        this.status      = "active";
         this.activType = false;
     }
 
@@ -148,13 +148,13 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
     public boolean getActivType() { return activType; }
 
