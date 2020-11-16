@@ -12,14 +12,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="resources/js/common.js"></script>
-    <script type="text/javascript" src="resources/js/lib.js"></script>
+    <script type="text/javascript" src="resources/js/SearchMnAjax.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Search Form</h1>
         <p><label for="name">Enter some text: </label><input id='name' type='text' name='name'/>
-            <button id='btnBook' type='button' value='book'>Search Book</button>
-            <button id='btnMember' type='button' value='member'>Search Member</button>
+            <button id='btnPost' type='button' value='post'>Search Post</button>
+            <button id='btnUser' type='button' value='user'>Search User</button>
+            <button id='btnFollowedPost' type='button' value='followedPost'>Followed Post</button>
             <a href="index.jsp">Back Home</a>
         </p>
         <table class="table table-bordered">
