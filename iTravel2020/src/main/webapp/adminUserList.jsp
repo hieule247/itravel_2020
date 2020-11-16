@@ -20,7 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="resources/js/ShowUserListAjax.js"></script>
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/BookMnAjax.js"></script>
 
 </head>
 <body>
@@ -36,33 +35,14 @@
             <div>
                 <div>Search: <input type="text" id="myInput"/></div>
                 <hr/>
-                <div id="updMemberForm">
-                    <form>
-                        <table>
-                            <tr><td><label for="id">User ID</label></td><td><input type="text" id="id" name="id"></td></tr>
-                            <tr><td><label for="title">User Name</label></td><td><input type="text" id="title" name="title"></td></tr>
-                            <tr><td><label for="author">User Eail</label></td><td><input type="text" id="author" name="author"></td></tr>
-                            <tr><td><label for="subject">User Type</label></td><td><input type="text" id="subject" name="subject"></td></tr>
-                            <tr><td><label for="isbn">ActiveType</label></td><td><input type="text" id="isbn" name="isbn"></td></tr>
-                            <tr><td></td><td>
-                                <input type="hidden" value="false" id="isValid">
-                                <input type="button" value="Add" id="add">
-                                <input type="button" value="Update" id="upd">
-                                <input type="button" value="Delete" id="del">
-
-                            </td></tr>
-                        </table>
-                    </form>
-                </div>
                 <!-- List Display -->
-                <hr/>
                 <div>
-                    <table class="changeHistory" id="users">
+                    <table id="users">
                         <thead>
                         <tr>
                             <th>User ID</th>
                             <th>User Name</th>
-                            <th>User Eail</th>
+                            <th>User Email</th>
                             <th>User Type</th>
                             <th>ActiveType</th>
                             <th></th>
