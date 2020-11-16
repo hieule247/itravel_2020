@@ -121,15 +121,15 @@ public class Data {
     }
 
     public List<User> searchUser(String name){
-/*
         return users.parallelStream()
-
-                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
-                        || b.getAuthor().toLowerCase().contains(name.toLowerCase())
-                        || b.getIsbn().toLowerCase().contains(name.toLowerCase()))
+                .filter(b -> b.getId().toLowerCase().contains(name.toLowerCase())
+                        || b.getFullName().toLowerCase().contains(name.toLowerCase())
+                        || b.getState().toLowerCase().contains(name.toLowerCase())
+                        || b.getStreet().toLowerCase().contains(name.toLowerCase())
+                        || b.getCity().toLowerCase().contains(name.toLowerCase())
+                        || b.getZipCode().toLowerCase().contains(name.toLowerCase())
+                        || b.getEmail().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
-*/
-        return null;
     }
 
     public User getUserByEmail(String email){

@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,10 +33,10 @@
             <hr/>
             <div>
                 <div>Search: <input type="text" id="myInput"/></div>
-                <hr/>
                 <!-- List Display -->
+                <hr/>
                 <div>
-                    <table id="users">
+                    <table id="users" class="table">
                         <thead>
                         <tr>
                             <th>User ID</th>

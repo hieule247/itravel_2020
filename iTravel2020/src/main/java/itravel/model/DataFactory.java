@@ -18,6 +18,7 @@ public class DataFactory {
 
                     initBooksData();
                     initPostsData();
+                    initWordFiltersData();
                 }
             }
         }
@@ -89,6 +90,15 @@ public class DataFactory {
             String strTravellerID= String.format("userId%03d", i);
             String strUserID= String.format("userId%03d", i);
             instance.getFollowList().add(new Follow(strID, strTravellerID, strUserID));
+        }
+    }
+
+    private static void initWordFiltersData (){
+        for (int i = 1; i <= 20; i++)
+        {
+            String strID    = String.format("%03d", i);
+            String strValue = String.format("%03d", i);
+            instance.getWordFilterList().add(new WordFilter(strID, strValue));
         }
     }
 

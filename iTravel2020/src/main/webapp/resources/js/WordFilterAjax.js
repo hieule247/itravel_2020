@@ -48,6 +48,10 @@ function onDel() {
     // Prepare parameters
     let $cmdType = "del";
     let $id = $("#id").val();
+    // Check validate
+    checkValidate();
+    if ($('#isValid').val() === "false")
+        return;
     // post and receive data
     $.post("WordFilterServlet",
         {cmdType: $cmdType, id:$id},

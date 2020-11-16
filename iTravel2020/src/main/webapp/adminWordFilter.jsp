@@ -21,40 +21,42 @@
         <%@include file="adminLContent.jsp"%>
         <!-- Main content -->
         <div class="col-md-8 text-left">
-            <h1>WORD FILTER MANAGEMENT</h1>
+            <h1>DEFINE WORD FILTER</h1>
             <hr/>
             <div>
                 <div>Search: <input type="text" id="myInput"/></div>
                 <hr/>
                 <div id="updMemberForm">
                     <form>
-                        <table>
-                            <tr><td><label for="id">Book ID</label></td><td><input type="text" id="id" name="id"></td></tr>
-                            <tr><td><label for="title">Title</label></td><td><input type="text" id="title" name="title"></td></tr>
-                            <tr><td><label for="author">Author</label></td><td><input type="text" id="author" name="author"></td></tr>
-                            <tr><td><label for="subject">Subject</label></td><td><input type="text" id="subject" name="subject"></td></tr>
-                            <tr><td><label for="isbn">ISBN</label></td><td><input type="text" id="isbn" name="isbn"></td></tr>
-                            <tr><td></td><td>
-                                <input type="hidden" value="false" id="isValid">
-                                <input type="button" value="Add" id="add">
-                                <input type="button" value="Update" id="upd">
-                                <input type="button" value="Delete" id="del">
-                            </td></tr>
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <label for="id">ID</label><br>
+                                    <input type="text" id="id" name="id">
+                                </td>
+                                <td>
+                                    <label for="value">VALUE</label><br>
+                                    <input type="text" id="value" name="value">
+                                </td>
+                                <td>
+                                    <br>
+                                    <input type="hidden" value="false" id="isValid">
+                                    <input type="button" value="  Add " id="add">
+                                    <input type="button" value="Update" id="upd">
+                                    <input type="button" value="Delete" id="del">
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </div>
                 <!-- List Display -->
                 <hr/>
                 <div>
-                    <table id="books" class="table">
+                    <table id="wordfilters" class="table">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>TITLE</th>
-                            <th>AUTHOR</th>
-                            <th>SUBJECT</th>
-                            <th>ISBN</th>
-                            <th></th>
+                            <th>VALUE</th>
                         </tr>
                         </thead>
                         <tbody>
