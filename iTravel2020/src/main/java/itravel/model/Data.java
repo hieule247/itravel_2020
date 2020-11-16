@@ -13,6 +13,8 @@ public class Data {
 
     private List<Book> books;
     private ArrayList<Member> members;
+    private Page<User> page = new Page<>();
+
     public Data(){
         users   = new ArrayList<>();
         _posts  = new ArrayList<>();
@@ -23,6 +25,47 @@ public class Data {
         books   = new ArrayList<>();
         members = new ArrayList<>();
     }
+
+    public Page<User> getPage() {
+        return page;
+    }
+
+    public  Page<User> page(int pageNo, int pageSize) {
+        List<User> deactivUserList = getDeactivUserList();
+        //核心是给page中的五个属性一一赋值
+
+        //Page<User> page = new Page<>();
+
+        // 设置每页显示的数量
+        //page.setPageSize(pageSize);
+        // 求总记录数
+        //Integer pageTotalCount = deactivUserList.size();
+        // 设置总记录数
+        //page.setPageTotalCount(pageTotalCount);
+        // 求总页码
+        //Integer pageTotal = pageTotalCount / pageSize;
+        //if (pageTotalCount % pageSize > 0) {
+        // pageTotal+=1;
+        // }
+        // 设置总页码
+        //page.setPageTotal(pageTotal);
+
+        // 设置当前页码
+        //page.setPageNo(pageNo);
+
+        // 求当前页数据的开始索引
+        //int begin = (page.getPageNo() - 1) * pageSize;
+        // 求当前页数据
+        List<User> onePageUsers  = new LinkedList<>();
+        onePageUsers = deactivUserList.subList(pageNo,pageSize);
+        // 设置当前页数据
+        page.setItems(onePageUsers);
+
+        System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
+
+        return page;
+    }
+
 
     // ------------------- User Management
     public List<User> getUserList(){
@@ -66,6 +109,8 @@ public class Data {
         // Update
         users.set(curIdx, curUser);
     }
+
+
 
     public void delUser(String id){
         int idx = getUserIdx(id);
@@ -397,4 +442,32 @@ public class Data {
                         || m.getPhone().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    public List<User> getDeactivUserList(){
+        List<User> deactivUserList = new ArrayList<>();
+        for(User user : users){
+            if(user.getActivType()== false)
+                deactivUserList.add(user);
+        }
+        return deactivUserList;
+    }
+
+    public void updUserStates(String id, boolean status){
+        int curIdx = getUserIdx(id);
+        User curUser = getUser(id);
+
+        curUser.setActivType(status);
+        // Update
+        users.set(curIdx, curUser);
+    }
+    public void changeUserActiveType(User user){
+
+        if(user.getActivType() == true){
+            user.setActivType(false);
+        }else{
+            user.setActivType(true);
+        }
+    }
+
+
 }

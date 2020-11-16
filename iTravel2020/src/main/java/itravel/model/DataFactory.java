@@ -34,6 +34,9 @@ public class DataFactory {
         instance.getUserList().add(new User("000-61-1699", "user", "Henok Abraham Haile", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "habraham@miu.edu", "h"));
         instance.getUserList().add(new User("000-61-1775", "user", "Hailian Zhang", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "hzhang@miu.edu", "h"));
         instance.getUserList().add(new User("000-61-1525", "user", "Dang Thu Ha Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "dthle@miu.edu", "d"));
+        instance.getUserList().add(new User("000-61-1775", "user", "Hailian Zhang", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "hzhang@miu.edu", "h"));
+        instance.getUserList().add(new User("000-61-1775", "user", "Hailian Zhang", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "hzhang@miu.edu", "h"));
+
         instance.getUserList().add(new User("000-61-1635", "user", "Le Hieu Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "lle@mum.edu", "l"));
     }
 
