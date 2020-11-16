@@ -16,12 +16,14 @@ public class User {
     private String password;
     // Using for admin
     private String status; // active, deActive
-    //User for search post
+    private boolean activType = false;
+
     private List<Post> posts;
 
     public List<Post> getPosts() {
         return posts;
     }
+
 
     public User() {
         id          = "";
@@ -37,6 +39,7 @@ public class User {
         password    = "";
         // using for admin
         status      = "active";
+        activType = false;
     }
 
     public User(String id, String userType, String fullName, String gender, String state, String city, String street,
@@ -54,6 +57,7 @@ public class User {
         this.password   = password;
         // using for admin
         this.status      = "active";
+        this.activType = false;
     }
 
     public String getId() {
@@ -150,5 +154,27 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean getActivType() { return activType; }
+
+    public void setActivType(boolean activType) { this.activType = activType; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userType='" + userType + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", birthYear=" + birthYear +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", activType=" + activType +
+                '}';
     }
 }
