@@ -41,7 +41,7 @@ public class Data {
         // 设置每页显示的数量
         //page.setPageSize(pageSize);
         // 求总记录数
-        //Integer pageTotalCount = deactivUserList.size();
+        Integer pageTotalCount = deactivUserList.size();
         // 设置总记录数
         //page.setPageTotalCount(pageTotalCount);
         // 求总页码
@@ -58,10 +58,14 @@ public class Data {
         // 求当前页数据的开始索引
         //int begin = (page.getPageNo() - 1) * pageSize;
         // 求当前页数据
+
+
         List<User> onePageUsers  = new LinkedList<>();
         onePageUsers = deactivUserList.subList(pageNo,pageSize);
         // 设置当前页数据
         page.setItems(onePageUsers);
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
 
         System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
 
