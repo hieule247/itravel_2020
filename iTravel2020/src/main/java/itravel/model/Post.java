@@ -1,5 +1,6 @@
 package itravel.model;
 
+import java.sql.DataTruncation;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Post {
     String category;
     String tags;
     String date;
+    String location;
 
 
     //Using for admin
@@ -26,10 +28,11 @@ public class Post {
         this.category = "";
         this.tags = "";
         this.date = "";
+        this.location="";
         this.status = "deActive";//changed
     }
 
-    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date) {
+    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date, String location) {
         this.id = id;
         this.userId = userId;
         this.image = image;
@@ -38,9 +41,18 @@ public class Post {
         this.category = category;
         this.tags = tags;
         this.date = date;
+        this.location = location;
 
         //using for admin
         this.status = "deActive";
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getTags() {
