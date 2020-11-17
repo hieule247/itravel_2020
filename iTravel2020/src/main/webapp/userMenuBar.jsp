@@ -10,15 +10,15 @@ Created by: Hieu Le, Ha Le, Hailian Zhang
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Itravel</a>
+            <a class="navbar-brand" href="homePage.jsp">Itravel</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="user_PostManagement.jsp">"Post Management"</a></li>
-                <li><a href="userCommentManagement.jsp">"Comment Management"</a></li>
-                <li><a href="userFollowManagement.jsp">"Follower List"</a></li>
+                <li><a href="user_PostManagement.jsp">Post Management</a></li>
+                <li><a href="userCommentManagement.jsp">Comment Management</a></li>
+                <li><a href="userFollowManagement.jsp">Follower List</a></li>
                 <li><a href="userWeatherService.jsp">Weather</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

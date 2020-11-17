@@ -20,8 +20,9 @@
         <%@include file="userLContent.jsp"%>
         <!-- Main content -->
         <div class="col-md-8 text-left">
-            <h1>USER PAGE</h1>
+            <h1>User</h1>
         </div>
+
         <!-- End Main content -->
         <%@include file="userRContent.jsp"%>
     </div>

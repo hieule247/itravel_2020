@@ -185,7 +185,7 @@
                                 <input type="file" name="imageUpload" src="" id="image" accept="image/*" />
                                 <div id="floating-panel">
                                     <input id="latlng" type="text" value="40.714224,-73.961452" />
-                                    <input id="submit" type="button" value="Reverse Geocode" />
+                                    <input id="location" type="button" value="Reverse Geocode" />
                                 </div>
                                 <div id="map"></div>
                                 <br/>
@@ -264,28 +264,8 @@
 
             </div>
 
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">16 min</span>
-                <h4>Jane Doe</h4><br>
-                <hr class="w3-clear">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-            </div>
 
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                <span class="w3-right w3-opacity">32 min</span>
-                <h4>Angie Jane</h4><br>
-                <hr class="w3-clear">
-                <p>Have you seen this?</p>
-                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
 
-            </div>
 
             <!-- End Middle Column -->
         </div>
@@ -340,9 +320,7 @@
 <br>
 
 <!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-    <h5>Website made By <a href="#">Hieu Le, Ha Le and Hailian</a></h5>
-</footer>
+<%@include file="footer.jsp"%>
 
 
 <script>

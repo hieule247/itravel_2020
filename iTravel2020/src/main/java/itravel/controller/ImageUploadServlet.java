@@ -38,12 +38,14 @@ public class ImageUploadServlet extends HttpServlet {
         Part part = request.getPart("imageUpload");
 
         // Getting Application Path
-        String appPath = request.getServletContext().getRealPath("");
+        String appPath = request.getServletContext().getRealPath("/");
         System.out.println("appPath");
         System.out.println(appPath);
 
+        System.err.println(this.getClass().getResource("/").getPath());
+
         // File path where all files will be stored
-        String imagePath = appPath + "images";
+        String imagePath = appPath + "resources/images/";
         System.out.println(imagePath);
 
         // Creates the file directory if it does not exists
@@ -61,7 +63,7 @@ public class ImageUploadServlet extends HttpServlet {
         if(validateImage(imageName)){
             try{
                 part.write(imagePath + File.separator + imageName);
-                out.print("<img src=\"images/"+imageName+"\" >");
+                out.print("<img src=\"resources/images/"+imageName+"\" >");
             }catch (Exception ex) {
                 out.print("<h1>"+ex.getMessage()+"</h1>");
             }

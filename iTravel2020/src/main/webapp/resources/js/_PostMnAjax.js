@@ -18,38 +18,43 @@ function onAdd() {
     alert("ddddd");
     // Prepare parameters
     let $cmdType = "add";
-    let $id = $("#id").val();
+    // let $id = $("#id").val();
     let $image = $("#image").val();
     let $title = $("#title").val();
     let $content = $("#content").val();
     let $category = $("#category").val();
     let $tags = $("#tags").val();
+    let $time = $("#time").val();
+    let $location = $("#location").val();
     // Check validate
     checkValidate();
     if ($('#isValid').val() === "false")
         return;
     // post and receive data
     $.post("_PostMnServlet",
-        {cmdType: $cmdType, id:$id, image:$image, title:$title, content:$content, category:$category, tags:$tags},
+        {cmdType: $cmdType, image:$image, title:$title, content:$content, category:$category, tags:$tags, time:$time, location:$location},
         disp_PostList);
 }
 
 function onUpd() {
     // Prepare parameters
     let $cmdType = "upd";
-    let $id = $("#id").val();
+    // let $id = $("#id").val();
     let $image = $("#image").val();
     let $title = $("#title").val();
     let $content = $("#content").val();
     let $category = $("#category").val();
     let $tags = $("#tags").val();
+    let $time = $("#time").val();
+    let $location = $("#location").val();
+
     // Check validate
-    checkValidate();
+    //checkValidate();
     if ($('#isValid').val() === "false")
         return;
     // post and receive data
     $.post("_PostMnServlet",
-        {cmdType: $cmdType, id:$id, image:$image, title:$title, content:$content, category:$category, tags:$tags},
+        {cmdType: $cmdType, image:$image, title:$title, content:$content, category:$category, tags:$tags, time: $time, location: $location},
         disp_PostList);
 }
 
@@ -80,9 +85,12 @@ function disp_PostList(respJson) {
     // Remove old Data
     let $table = $('#_posts');
     $table.find($('._post')).remove();
+
+
     // Update new data
     $.each(respJson, function(i, item){
         // New Row
+
         let $row = "<tr class=\"_post\">"
             + "<td>" + item.id + "</td>"
             + "<td>" + item.image + "</td>"
@@ -90,7 +98,9 @@ function disp_PostList(respJson) {
             + "<td>" + item.content + "</td>"
             + "<td>" + item.category + "</td>"
             + "<td>" + item.tags + "</td>"
-            + "</tr>";
+            + "<td>" + item.time + "</td>"
+            + "<td>" + item.location + "</td>";
         $("#_posts").append($row);
+
     });
 }

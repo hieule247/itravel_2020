@@ -54,9 +54,12 @@ public class _PostMnServlet extends HttpServlet {
         String content  = req.getParameter("content");
         String category = req.getParameter("category");
         String tags     = req.getParameter("tags");
+        String time     = req.getParameter("time");
+        String location     = req.getParameter("location");
+
         // Not Exist: Add new _Post
         if (data.get_Post(id) == null)
-            data.add_Post(id, userId, image, title, content, category, tags);
+            data.add_Post(id, userId, image, title, content, category, tags, time, location);
         // send data to client
         sendToClient(data, req, resp);
     }
@@ -70,8 +73,10 @@ public class _PostMnServlet extends HttpServlet {
         String content = req.getParameter("content");
         String category = req.getParameter("category");
         String tags = req.getParameter("tags");
+        String time = req.getParameter("time");
+        String location = req.getParameter("location");
         // Update the _Post
-        data.upd_Post(id, userId, image, title, content, category, tags);
+        data.upd_Post(id, userId, image, title, content, category, tags, time, location);
         // Send data to client
         sendToClient(data, req, resp);
     }

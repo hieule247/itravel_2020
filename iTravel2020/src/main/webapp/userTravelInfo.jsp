@@ -15,39 +15,10 @@
 
 </head>
 <body>
-
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="homePage.jsp">Itravel</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<%--				<li><a href="homePage.jsp">Home</a></li>--%>
-				<li class="active"><a href="#">My Profile</a></li>
-				<li><a href="#">Activities</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
-
+<%@include file="userMenuBar.jsp"%>
 <div class="container-fluid text-center">
 	<div class="row content">
-		<div class="col-md-2 sidenav">
-
-			<p><a href="#">Link</a></p>
-			<p><a href="#">Link</a></p>
-			<p><a href="#">Link</a></p>
-		</div>
+		<%@include file="userLContent.jsp"%>
 		<div class="col-md-8 text-left">
 
 			<div class="row">
@@ -194,63 +165,37 @@
 
 						<div class="tab-content">
 							<div id="home" class="tab-pane fade in active">
-								<form action="">
-									What i am doing for my life?<br>
-									<form>
-										<textarea></textarea>
-										<br>
-										<input type="button" value="Submit">
-									</form>
-									I’m really good at<br>
-									<form>
-										<textarea></textarea>
-										<br>
-										<input type="button" value="Submit">
-									</form>
-									Things are interesting for me<br>
-									<form>
-										<textarea></textarea>
-										<br>
-										<input type="button" value="Submit">
-									</form>
-									You should message me if:<br>
-									<form>
-										<textarea></textarea>
-										<br>
-										<input type="button" value="Submit">
-									</form>
-								</form>
 
-							</div>
-							<div id="menu1" class="tab-pane fade">
-								<h3>Upload your photo</h3>
-								<form action="">
-									<input type="file" name="pic" accept="image/*">
+								<span id="intro">Introduce your self</span><br>
+								<form>
+									<textarea></textarea>
 									<br>
-									<input type="submit">
+									<input type="button" value="Submit">
 								</form>
+
+								<div id="menu1" class="tab-pane fade">
+									<h3>Upload your photo</h3>
+									<form action="">
+										<input type="file" name="pic" accept="image/*">
+										<br>
+										<input type="submit">
+									</form>
+								</div>
+
 							</div>
-
 						</div>
-					</div>
 
+					</div>
 				</div>
 			</div>
+
 		</div>
-		<div class="col-md-2 sidenav">
-			<div class="well">
-				<p>ADS</p>
-			</div>
-			<div class="well">
-				<p>ADS</p>
-			</div>
-		</div>
+		<!-- End Main content -->
+		<%@include file="userRContent.jsp"%>
 	</div>
 </div>
 
-<footer class="container-fluid text-center">
-	<p>Designed by Ha Le</p>
-</footer>
+<%@include file="footer.jsp"%>
 
 </body>
 </html>

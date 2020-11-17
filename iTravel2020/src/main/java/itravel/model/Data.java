@@ -41,7 +41,7 @@ public class Data {
         // 设置每页显示的数量
         //page.setPageSize(pageSize);
         // 求总记录数
-        Integer pageTotalCount = deactivUserList.size();
+        //Integer pageTotalCount = deactivUserList.size();
         // 设置总记录数
         //page.setPageTotalCount(pageTotalCount);
         // 求总页码
@@ -58,14 +58,10 @@ public class Data {
         // 求当前页数据的开始索引
         //int begin = (page.getPageNo() - 1) * pageSize;
         // 求当前页数据
-
-
         List<User> onePageUsers  = new LinkedList<>();
         onePageUsers = deactivUserList.subList(pageNo,pageSize);
         // 设置当前页数据
         page.setItems(onePageUsers);
-        page.setPageNo(pageNo);
-        page.setPageSize(pageSize);
 
         System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
 
@@ -125,15 +121,15 @@ public class Data {
     }
 
     public List<User> searchUser(String name){
+/*
         return users.parallelStream()
-                .filter(b -> b.getId().toLowerCase().contains(name.toLowerCase())
-                        || b.getFullName().toLowerCase().contains(name.toLowerCase())
-                        || b.getState().toLowerCase().contains(name.toLowerCase())
-                        || b.getStreet().toLowerCase().contains(name.toLowerCase())
-                        || b.getCity().toLowerCase().contains(name.toLowerCase())
-                        || b.getZipCode().toLowerCase().contains(name.toLowerCase())
-                        || b.getEmail().toLowerCase().contains(name.toLowerCase()))
+
+                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
+                        || b.getAuthor().toLowerCase().contains(name.toLowerCase())
+                        || b.getIsbn().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
+*/
+        return null;
     }
 
     public User getUserByEmail(String email){
@@ -158,7 +154,7 @@ public class Data {
         // Not found or login error
         return null;
     }
-//post mn
+    //post mn
     public List<Post> getPostList() {
         return posts;
     }
@@ -176,15 +172,15 @@ public class Data {
     }
 
 
-    public void addPost(String id, String userId, String image, String title, String content, String category, String tags, String time){
-        posts.add(new Post(id, userId, image, title, content, category, tags, time));
+    public void addPost(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
+        posts.add(new Post(id, userId, image, title, content, category, tags, time, location));
 
     }
     public Post getPost(String id){
         return posts.parallelStream().filter(b -> b.getId().equals(id)).findAny().orElse(null);
     }
 
-    public void updPost(String id, String userId, String image, String title, String content, String category, String tags, String time){
+    public void updPost(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
         int curIdx = getPostIdx(id);
         Post curPost = getPost(id);
         curPost.setContent(content);
@@ -193,6 +189,7 @@ public class Data {
         curPost.setCategory(category);
         curPost.setTags(tags);
         curPost.setDate(time);
+        curPost.setLocation(location);
 
         // Update
         posts.set(curIdx, curPost);
@@ -244,11 +241,11 @@ public class Data {
         return -1;
     }
 
-    public void add_Post(String id, String userId, String image, String title, String content, String category, String tags){
-        _posts.add(new _Post(id, userId, image, title, content, category, tags));
+    public void add_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
+        _posts.add(new _Post(id, userId, image, title, content, category, tags, time, location));
     }
 
-    public void upd_Post(String id, String userId, String image, String title, String content, String category, String tags){
+    public void upd_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
         int curIdx = get_PostIdx(id);
         _Post cur_Post = get_Post(id);
 
@@ -257,6 +254,8 @@ public class Data {
         cur_Post.setContent(content);
         cur_Post.setCategory(category);
         cur_Post.setTags(tags);
+        cur_Post.setTime(tags);
+        cur_Post.setLocation(tags);
         // Update
         _posts.set(curIdx, cur_Post);
     }

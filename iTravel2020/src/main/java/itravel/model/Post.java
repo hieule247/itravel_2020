@@ -13,6 +13,15 @@ public class Post {
     String tags;
     String date;
 
+    String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     //Using for admin
     private String status; //active, deActive
@@ -26,10 +35,11 @@ public class Post {
         this.category = "";
         this.tags = "";
         this.date = "";
+        this.location="";
         this.status = "active";
     }
 
-    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date) {
+    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date, String location) {
         this.id = id;
         this.userId = userId;
         this.image = image;
@@ -38,10 +48,12 @@ public class Post {
         this.category = category;
         this.tags = tags;
         this.date = date;
+        this.location= location;
 
         //using for admin
         this.status = "active";
     }
+
 
     public String getTags() {
         return tags;
@@ -114,6 +126,8 @@ public class Post {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 
     //public static List<Post> getPosts(String userId) {
 //        return userId.getPosts();

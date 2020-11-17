@@ -63,6 +63,7 @@ public class UserPostServlet extends HttpServlet {
         String tags = request.getParameter("tags");
         System.out.println(tags);
         String time = request.getParameter("time");
+        String location = request.getParameter("location");
 
         //if post not exist, add new Post
         int id = 0;
@@ -77,8 +78,8 @@ public class UserPostServlet extends HttpServlet {
 //        else {
         System.out.println("test - done");
             id = data.getPostList().size() +1;
-            data.addPost(String.valueOf(id), userId, image, title, content, category, tags, LocalDate.now().toString());
-            Post post = new Post(String.valueOf(id), userId, image, title, content, category, tags, time);
+            data.addPost(String.valueOf(id), userId, image, title, content, category, tags, LocalDate.now().toString(), location);
+            Post post = new Post(String.valueOf(id), userId, image, title, content, category, tags, time, location);
             updatePostSession(request, post, true);
  //       }
         System.out.println(id);
@@ -106,10 +107,11 @@ public class UserPostServlet extends HttpServlet {
         String tags = request.getParameter("tags");
         System.out.println(tags);
         String time = request.getParameter("time");
+        String location = request.getParameter("location");
         
 
         //update post
-        data.updPost(id, userId, image, title, content, category, tags, time);
+        data.updPost(id, userId, image, title, content, category, tags, time, location);
         updatePostSession(request, data.getPost(id), true);
         //send to client
         sendToClient(data, request, response);

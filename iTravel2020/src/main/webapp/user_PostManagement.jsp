@@ -11,6 +11,8 @@
 
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="resources/js/_PostMnAjax.js"></script>
+    <script src="resources/js/userTravelInfo.js" type="text/javascript"></script>
+    <%--    <script src="resources/js/UserPostMn.js" type="text/javascript"></script>--%>
 
 </head>
 <body>
@@ -29,12 +31,15 @@
                 <div id="upd_PostForm">
                     <form>
                         <table>
-                            <tr><td><label for="id">Post ID</label></td><td><input type="text" id="id" name="id"></td></tr>
+                            <%--                            <tr><td><label for="id">Post ID</label></td><td><input type="text" id="id" name="id"></td></tr>--%>
                             <tr><td><label for="image">Image</label></td><td><input type="text" id="image" name="image"></td></tr>
                             <tr><td><label for="title">Title</label></td><td><input type="text" id="title" name="title"></td></tr>
                             <tr><td><label for="content">Content</label></td><td><input type="text" id="content" name="content"></td></tr>
                             <tr><td><label for="category">Category</label></td><td><input type="text" id="category" name="category"></td></tr>
                             <tr><td><label for="tags">Tags</label></td><td><input type="text" id="tags" name="tags"></td></tr>
+                            <tr><td><label for="time">Time</label></td><td><input type="text" id="time" name="time"></td></tr>
+                            <tr><td><label for="location">Tags</label></td><td><input type="text" id="location" name="location"></td></tr>
+
                             <tr><td></td><td>
                                 <input type="hidden" value="false" id="isValid">
                                 <input type="button" value="Add" id="add">
@@ -56,6 +61,8 @@
                             <th>CONTENT</th>
                             <th>CATEGORY</th>
                             <th>TAGS</th>
+                            <th>TIME</th>
+                            <th>LOCATION</th>
                             <th></th>
                         </tr>
                         </thead>
