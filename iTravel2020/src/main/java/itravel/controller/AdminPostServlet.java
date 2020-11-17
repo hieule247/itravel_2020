@@ -48,6 +48,7 @@ public class AdminPostServlet extends HttpServlet {
         }else if(cmdType.equals("prePage")){
             doPrePage(pagePost, data, req, resp);
         }
+
     }
 
 
@@ -108,10 +109,14 @@ public class AdminPostServlet extends HttpServlet {
 
     public void doUpdUserActiveType(Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // Get Data from parameter
+        System.out.println("hello");
         String id = req.getParameter("id");
         // Update the book
+        System.out.println(id);
         Post post = data.getPost(id);//这个确定是哪个
+        System.out.println(post);
         data.changePostActiveType(post);
+        System.out.println(post.getStatus());
         sendToClient(data, req, resp);
 
     }

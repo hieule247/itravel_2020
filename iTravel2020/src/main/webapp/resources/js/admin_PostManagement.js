@@ -54,7 +54,7 @@ function displayDeactiveUserOnPage(data){
             "<td>" + user.content + "</td>" +
             "<td>" + user.category + "</td>" +
             "<td>" + user.tags+ "</td>" +
-            "<td>" + user.date+ "</td>" +
+            "<td>" + user.time+ "</td>" +
             "<td>" + user.status+ "</td>" +
             "<td>" + $aStatus + "</td>" +
             "</tr>";
@@ -76,6 +76,7 @@ function onUpdStatus(){//因为是动态的，要用anonymous function或 $(docu
         onDisplyShowDeactiveUserOnPage
     );
     alert("The post is changed!");
+
 }
 
 function onNextPage(){
@@ -97,7 +98,4 @@ function onPreviousPage(){
         onDisplyShowDeactiveUserOnPage
     );
     alert("prepage");
-}
-function onHello(){
-    alert("Hello");
 }

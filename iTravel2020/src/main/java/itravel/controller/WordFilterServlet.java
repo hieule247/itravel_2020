@@ -109,14 +109,16 @@ public class WordFilterServlet extends HttpServlet {
         int pageNo = pageWordFilter.getPageNo();
         System.out.println("doShowOnPage pageNo: "+pageNo);
         int pageSize = pageWordFilter.getPageSize();
+        System.out.println("doShowOnPage pageNo: "+pageSize);
         Page<WordFilter> wordFilterPage = data.filterWordsPage(pageNo, pageSize);
         List<WordFilter> wordFilterList = wordFilterPage.getItems();
+        System.out.println(wordFilterList);
         String respJson = new Gson().toJson(wordFilterList);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
         resp.getWriter().write(respJson);//resp里面的都是返回到action里面的，这里是把json的字符串返回到ajax的action里
-
+        System.out.println("sent");
     }
 
     public void doNextPage(Page<WordFilter> pageWordFilter, Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {

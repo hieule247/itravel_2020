@@ -16,7 +16,7 @@ public class DataFactory {
                     init_PostsData();
                     initCommentsData();
                     initFollowsData();
-
+                    initWordFiltersData();
                     initBooksData();
                     initPostsData();
                 }
@@ -64,6 +64,8 @@ public class DataFactory {
                 instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
             }
         }
+
+
     }
 
 
@@ -104,6 +106,17 @@ public class DataFactory {
             String strUserID= String.format("userId%03d", i);
             instance.getFollowList().add(new Follow(strID, strTravellerID, strUserID));
         }
+    }
+    private static void initWordFiltersData (){
+        for (int i = 1; i <= 20; i++)
+        {
+            String strID    = String.format("%03d", i);
+            String strValue = String.format("%03d", i);
+            instance.getWordFilterList().add(new WordFilter(strID, strValue));
+        }
+        instance.getWordFilterList().add(new WordFilter("345", "^abc$"));
+        instance.getWordFilterList().add(new WordFilter("345", "hello"));
+        instance.getWordFilterList().add(new WordFilter("345", "^aaa"));
     }
 
     private static void initBooksData (){

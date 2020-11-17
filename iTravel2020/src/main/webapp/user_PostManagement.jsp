@@ -80,7 +80,6 @@
         <%@include file="userRContent.jsp"%>
     </div>
 </div>
-
 <%@include file="footer.jsp"%>
 </body>
 </html>

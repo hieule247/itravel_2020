@@ -698,10 +698,10 @@ public class Data {
     }
     public void changePostActiveType(Post post){
 
-        if(post.getStatus().equals("deActive")){
-            post.setStatus("Active");
+        if(post.getStatus() == false){
+            post.setStatus(true);
         }else{
-            post.setStatus("deActive");
+            post.setStatus(false);
         }
     }
 

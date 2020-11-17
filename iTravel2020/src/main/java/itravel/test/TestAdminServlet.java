@@ -6,6 +6,12 @@ import itravel.model.Page;
 import itravel.model.User;
 import org.junit.Test;
 
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
 //import jdk.internal.jline.internal.TestAccessible;
 
 /**
@@ -38,6 +44,9 @@ public class TestAdminServlet {
     public void test2(){
         Data data = DataFactory.getInstance();
         Page<User> pageUser = data.getPage();
+
+
+
 
     }
 

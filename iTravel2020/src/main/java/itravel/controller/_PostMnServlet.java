@@ -1,9 +1,7 @@
 package itravel.controller;
 
 import com.google.gson.Gson;
-import itravel.model.Data;
-import itravel.model.DataFactory;
-import itravel.model.User;
+import itravel.model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,7 +58,17 @@ public class _PostMnServlet extends HttpServlet {
         // Not Exist: Add new _Post
         if (data.get_Post(id) == null)
             data.add_Post(id, userId, image, title, content, category, tags, time, location);
-        // send data to client
+
+        //add for filter
+        String healthy = (String)req.getAttribute("content");
+        if(healthy.equals("false")){
+            _Post post = data.get_Post(id);
+            post.setStatus("deActive");
+        }else{
+            _Post post = data.get_Post(id);
+            post.setStatus("Active");
+        }
+// send data to client
         sendToClient(data, req, resp);
     }
 

@@ -6,6 +6,7 @@ import itravel.model.Page;
 import itravel.model.WordFilter;
 import org.junit.Test;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.List;
 
 /**
@@ -23,6 +24,10 @@ public class FilterWordsTest {
         //list.subList(filterPage.getPageNo(),filterPage.getPageSize());
         Page<WordFilter> page = data.filterWordsPage(filterPage.getPageNo(),filterPage.getPageSize());
         System.out.println(page.getItems());
+        List<WordFilter> wordFilterListlist = data.getWordFilterList();
+        for(WordFilter wordFilter: wordFilterListlist){
+            System.out.println(wordFilter.getValue());
+        }
 
 
     }

@@ -11,7 +11,7 @@ public class Post {
     private String time;
     private String location;
     // Using for admin
-    private String status; // active, deActive
+    private boolean status; // active, deActive
 
     public Post() {
         this.id         = "";
@@ -24,7 +24,7 @@ public class Post {
         this.time       = "";
         this.location   = "";
         // using for admin
-        this.status     = "active";
+        this.status     = false;
     }
 
     public Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location) {
@@ -38,7 +38,7 @@ public class Post {
         this.time       = time;
         this.location   = location;
         // using for admin
-        this.status     = "active";
+        this.status     = false;
     }
 
     public String getId() {
@@ -97,11 +97,11 @@ public class Post {
         this.tags = tags;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -119,5 +119,20 @@ public class Post {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", category='" + category + '\'' +
+                ", tags='" + tags + '\'' +
+                ", date='" + time + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
