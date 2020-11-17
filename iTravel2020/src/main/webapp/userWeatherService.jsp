@@ -25,6 +25,9 @@
         <div>
             <script src="https://apps.elfsight.com/p/platform.js" defer></script>
             <div class="elfsight-app-0c5cf1aa-4eea-45b4-8f9c-5df59600c626"></div>
+<!--            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-591da6c6-3d61-4041-9f4b-73077aa177c1"></div>
+-->
         </div>
         <!-- End Main content -->
     </div>

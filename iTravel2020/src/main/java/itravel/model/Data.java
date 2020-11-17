@@ -539,7 +539,7 @@ public class Data {
             else { // Existed Fail Count > 0
                 Duration duration = Duration.between(curItem.getTimeLog(), lastFailAt);
                 // time > 10 min: No need deActive
-                if (duration.toMinutes() > 1) {
+                if (duration.toMinutes() > 10) {
                     return false; // No need deActive
                 }
                 // Increase fail count
