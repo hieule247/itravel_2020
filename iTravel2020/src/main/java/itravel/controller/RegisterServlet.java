@@ -50,6 +50,8 @@ public class RegisterServlet extends HttpServlet {
         //System.out.println(item);
         List<User> listUser = data.getUserList();
         int count = listUser.size();
+        int s = 0;
+        System.out.println(count+ "list size");
 
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
@@ -70,13 +72,15 @@ public class RegisterServlet extends HttpServlet {
 
         } else {
             //response.getWriter().write("true");
-            int s = count+1;
+            s = count+1;
             String id = ""+s;
             System.out.println(id);
 
             //int y = parseInt(year);
             User newUser = new User(id, "user", fname, gender, state, city, street,
                     zip,parseInt(year) , email, pwd);
+            newUser.setId(id);
+            System.out.println(id);
             //listUser = data.addUser(id, "user", name, gender, state, city, street, zip, parseInt(year), email, password);
             listUser.add(newUser);
             System.out.println(newUser.getFullName());
@@ -97,6 +101,9 @@ public class RegisterServlet extends HttpServlet {
 
     public void updateRegisterSession(HttpServletRequest req, User user , Boolean isLogged) {
         HttpSession session = req.getSession();
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("userType", user.getUserType());
+        session.setAttribute("isLogged", isLogged);
 
         session.setAttribute("user", user);
 
