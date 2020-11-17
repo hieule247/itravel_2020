@@ -19,6 +19,7 @@ public class DataFactory {
                     initBooksData();
                     initPostsData();
                     initWordFiltersData();
+                    initLogLoginsData();
                 }
             }
         }
@@ -101,6 +102,10 @@ public class DataFactory {
             instance.getWordFilterList().add(new WordFilter(strID, strValue));
         }
         instance.getWordFilterList().add(new WordFilter("345", "^abc$"));
+    }
+
+    private static void initLogLoginsData (){
+        // Nothing to initialize
     }
 
     private static void initBooksData (){

@@ -24,9 +24,13 @@ function onLogin() {
     if ($('#isValid').val() === "false")
         return;
     // post and receive datas
+    // $.post("loginServlet",
+    //     {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword})
+    //     .done(doLoginResult);
+
     $.post("loginServlet",
         {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword},
-        doLoginSuccess);
+        doLoginResult);
 }
 
 function checkValidate() {
@@ -46,9 +50,8 @@ function checkValidate() {
     return true;
 }
 
-function doLoginSuccess(respJson) {
-alert("client login success");
-
+function doLoginResult(respJson) {
+alert(respJson);
     /*
     // Remove old Data
     let $table = $('#books');
