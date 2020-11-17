@@ -18,22 +18,21 @@ $(document).on("click",".deactiveUser",function(){
 });
 
 function onLoadInitData() {
+    alert("init");
     // Prepare parameters
     let $cmdType = "init";
-    $.post("AdminServlet",
-        {cmdType: $cmdType},//没有action的名字，就直接到post方法，通过验证，再选择执行哪个
-        //onDisplyShowDeactiveUser
-
+    $.post("AdminPostServlet",
+        {cmdType: $cmdType},
         onDisplyShowDeactiveUserOnPage
     );
     alert("init");
 }
 
 function onDisplyShowDeactiveUserOnPage() {
-     alert("onDisplyShowDeactiveUserOnPage");
+    alert("onDisplyShowDeactiveUserOnPage");
     let $cmdType = "ShowOnPage";
     // post and receive data
-    $.post("AdminServlet",
+    $.post("AdminPostServlet",
         {cmdType: $cmdType, },//json数据格式
 
         displayDeactiveUserOnPage);
@@ -51,10 +50,12 @@ function displayDeactiveUserOnPage(data){
         let $aStatus = '<button class="deactiveUser" value=' + user.id + '>ChangeActiveStatus</button>'
         let $user = "<tr class=\"user\">" +
             "<td>"+ user.id + "</td>" +
-            "<td>"+ user.FullName + "</td>" +
-            "<td>" + user.email + "</td>" +
-            "<td>" + user.userType + "</td>" +
-            "<td>" + user.activType+ "</td>" +
+            "<td>"+ user.title + "</td>" +
+            "<td>" + user.content + "</td>" +
+            "<td>" + user.category + "</td>" +
+            "<td>" + user.tags+ "</td>" +
+            "<td>" + user.date+ "</td>" +
+            "<td>" + user.status+ "</td>" +
             "<td>" + $aStatus + "</td>" +
             "</tr>";
         $("#users").append($user);
@@ -69,18 +70,18 @@ function onUpdStatus(){//因为是动态的，要用anonymous function或 $(docu
     let $cmdType = "updActType";
     let $id = $(".deactiveUser").val();
     // post and receive data
-    $.post("AdminServlet",
+    $.post("AdminPostServlet",
         {cmdType: $cmdType, id:$id},
         //displayDeactiveUser
         onDisplyShowDeactiveUserOnPage
     );
-    alert("The user is actived!");
+    alert("The post is changed!");
 }
 
 function onNextPage(){
     // Prepare parameters
     let $cmdType = "nextPage";
-    $.post("AdminServlet",
+    $.post("AdminPostServlet",
         {cmdType: $cmdType},
         onDisplyShowDeactiveUserOnPage
     );
@@ -91,9 +92,12 @@ function onPreviousPage(){
     alert("prepage");
     // Prepare parameters
     let $cmdType = "prePage";
-    $.post("AdminServlet",
+    $.post("AdminPostServlet",
         {cmdType: $cmdType},
         onDisplyShowDeactiveUserOnPage
     );
     alert("prepage");
+}
+function onHello(){
+    alert("Hello");
 }

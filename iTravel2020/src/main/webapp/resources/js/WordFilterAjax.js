@@ -4,14 +4,17 @@ $(document).ready(function () {
     $('#add').click(onAdd);
     $('#upd').click(onUpd);
     $('#del').click(onDel);
+    $('#prePage').click(onPreviousPage);
+    $('#nextPage').click(onNextPage);
 });
 
 function onLoadInitData() {
+    alert("init")
     // Prepare parameters
     let $cmdType = "init";
     $.post("WordFilterServlet",
         {cmdType: $cmdType},
-        dispWordFilterList);
+        ondispWordFilterList);
 }
 
 function onAdd() {
@@ -26,7 +29,7 @@ function onAdd() {
     // post and receive data
     $.post("WordFilterServlet",
         {cmdType: $cmdType, id:$id, value:$value},
-        dispWordFilterList);
+        ondispWordFilterList);
 }
 
 function onUpd() {
@@ -41,7 +44,7 @@ function onUpd() {
     // post and receive data
     $.post("WordFilterServlet",
         {cmdType: $cmdType, id:$id, value:$value},
-        dispWordFilterList);
+        ondispWordFilterList);
 }
 
 function onDel() {
@@ -55,7 +58,7 @@ function onDel() {
     // post and receive data
     $.post("WordFilterServlet",
         {cmdType: $cmdType, id:$id},
-        dispWordFilterList);
+        ondispWordFilterList);
 }
 
 function checkValidate() {
@@ -71,6 +74,17 @@ function checkValidate() {
     $('#isValid').val("true");
 }
 
+function ondispWordFilterList() {
+    alert("ondispWordFilterList");
+    let $cmdType = "ShowOnPage";
+    // post and receive data
+    $.post("WordFilterServlet",
+        {cmdType: $cmdType, },//json数据格式
+
+        dispWordFilterList);
+    alert("ondispWordFilterList");
+}
+
 function dispWordFilterList(respJson) {
     // Remove old Data
     let $table = $('#wordfilters');
@@ -84,4 +98,25 @@ function dispWordFilterList(respJson) {
             + "</tr>";
         $("#wordfilters").append($row);
     });
+}
+function onNextPage(){
+    alert("nextpage");
+    // Prepare parameters
+    let $cmdType = "nextPage";
+    $.post("WordFilterServlet",
+        {cmdType: $cmdType},
+        ondispWordFilterList
+    );
+    alert("nextpage");
+}
+
+function onPreviousPage(){
+    alert("prepage");
+    // Prepare parameters
+    let $cmdType = "prePage";
+    $.post("WordFilterServlet",
+        {cmdType: $cmdType},
+        ondispWordFilterList
+    );
+    alert("prepage");
 }

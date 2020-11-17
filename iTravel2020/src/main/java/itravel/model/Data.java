@@ -1,6 +1,10 @@
 package itravel.model;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,12 +14,16 @@ public class Data {
     private List<CommentPost> comments;
     private List<Follow> follows;
     private List<WordFilter> wordFilters;
+    private List<LogLogin> logLogins;
 
     private List<Book> books;
     private List<Post> posts;
     private ArrayList<Member> members;
     private Page<User> page = new Page<>();
-
+    private Page<Post> postPage = new Page<>();
+    private Page<WordFilter> wordFilterPage = new Page<>();
+    // Using for AutoID
+    private int logLoginMax;
     public Data(){
         users   = new ArrayList<>();
         _posts  = new ArrayList<>();
@@ -26,10 +34,17 @@ public class Data {
         books   = new ArrayList<>();
         members = new ArrayList<>();
         posts = new ArrayList<>();
+        logLogins = new ArrayList<>();
     }
 
     public Page<User> getPage() {
         return page;
+    }
+    public Page<Post> getPostPage() {
+        return postPage;
+    }
+    public Page<WordFilter> getwordFilterPage() {
+        return wordFilterPage;
     }
 
     public  Page<User> page(int pageNo, int pageSize) {
@@ -66,6 +81,30 @@ public class Data {
         System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
 
         return page;
+    }
+
+
+    public  Page<Post> postPage(int pageNo, int pageSize) {
+        List<Post> listPost = getPostList();
+        Integer pageTotalCount = listPost.size();
+        List<Post> onePagePost  = new LinkedList<>();
+        onePagePost = listPost.subList(pageNo,pageSize);
+        postPage.setItems(onePagePost);
+
+        System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
+
+        return postPage;
+    }
+    public  Page<WordFilter> filterWordsPage(int pageNo, int pageSize) {
+        List<WordFilter> listWordFilter = getWordFilterList();
+        Integer pageTotalCount = listWordFilter.size();
+        List<WordFilter> onePageWordFilter  = new LinkedList<>();
+        onePageWordFilter = listWordFilter.subList(pageNo,pageSize);
+        wordFilterPage.setItems(onePageWordFilter);
+
+        System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
+
+        return wordFilterPage;
     }
 
 
@@ -369,7 +408,7 @@ public class Data {
                 .collect(Collectors.toList());
     }
 
-    // ------------------- Follow Management
+    // ------------------- WordFilter Management
     public List<WordFilter> getWordFilterList(){
         return wordFilters;
     }
@@ -413,6 +452,110 @@ public class Data {
                 .collect(Collectors.toList());
     }
 
+    // ------------------- LogLogin
+    public List<LogLogin> getLogLoginList(){
+        return logLogins;
+    }
+
+    public LogLogin getLogLogin(int id){
+        return logLogins.parallelStream().filter(b -> b.getId() == id).findAny().orElse(null);
+    }
+
+    public int getLogLoginIdx(int id){
+        for (int i=0; i < logLogins.size(); i++){
+            if (logLogins.get(i).getId() == id)
+                return i;
+        }
+        // not found
+        return -1;
+    }
+
+    public void addLogLogin(int id, String userId, LocalDateTime dateTime, int status, String notes){
+        logLogins.add(new LogLogin(id, userId, dateTime, status, notes));
+    }
+
+    public void updLogLogin(int id, String userId, LocalDateTime dateTime, int status, String notes){
+        int curIdx = getLogLoginIdx(id);
+        LogLogin curItem = getLogLogin(id);
+
+        curItem.setUserId(userId);
+        curItem.setTimeLog(dateTime);
+        curItem.setStatus(status);
+        curItem.setNotes(notes);
+        // Update
+        logLogins.set(curIdx, curItem);
+    }
+
+    public void delLogLogin(int id){
+        int idx = getLogLoginIdx(id);
+        if (idx != -1)
+            logLogins.remove(idx);
+    }
+
+    public List<LogLogin> searchLogLogin(String name){
+        return logLogins.parallelStream()
+                .filter(b -> b.getNotes().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+    // Using for Login checking
+    public int getMaxLogLoginId(){
+        int maxId = 0;
+        for (int i=0; i < logLogins.size(); i++){
+            int curId = logLogins.get(i).getId();
+            if (curId > maxId){
+                maxId = curId;
+            }
+        }
+        // return value
+        return maxId;
+    }
+
+    public void addLogLogin(String userId, int status, String notes){
+        int maxId = getMaxLogLoginId();
+        // Add to DB
+        logLogins.add(new LogLogin(maxId + 1, userId, LocalDateTime.now(), status, notes));
+    }
+    // Author: Hieu Le
+    public Boolean needDeactiveUser(String userId){
+        int failCount = 0;
+        LocalDateTime lastFailAt = null;
+        // Loop for checking: start from newest
+        for (int i = logLogins.size() - 1; i >= 0 ; i--){
+            LogLogin curItem  = logLogins.get(i);
+            // Not same
+            if (!curItem.getUserId().equals(userId))
+                continue;
+            // --- Have Login successful
+            if (curItem.getStatus() == 1) {
+                return false; // No need deActive
+            }
+            // --- Login Fail:
+            // Found Newest Login fail: Assign first item here
+            if (failCount == 0) {
+                failCount = 1;
+                lastFailAt = curItem.getTimeLog();
+            }
+            else { // Existed Fail Count > 0
+                Duration duration = Duration.between(curItem.getTimeLog(), lastFailAt);
+                // time > 10 min: No need deActive
+                if (duration.toMinutes() > 10) {
+                    return false; // No need deActive
+                }
+                // Increase fail count
+                failCount++;
+                if (failCount >= 3) // Time <= 10 min And Fail count >= 3
+                    return true; // NEED deActive
+            }
+        }
+        // No need
+        return false;
+    }
+
+    public void deActiveUser (String id){
+        User item = getUser(id);
+        if (item != null)
+            item.setActivType(false);
+    }
     // ------------------- Book Management
     public List<Book> getBookList(){
         return books;
@@ -538,6 +681,14 @@ public class Data {
             user.setActivType(false);
         }else{
             user.setActivType(true);
+        }
+    }
+    public void changePostActiveType(Post post){
+
+        if(post.getStatus().equals("deActive")){
+            post.setStatus("Active");
+        }else{
+            post.setStatus("deActive");
         }
     }
 

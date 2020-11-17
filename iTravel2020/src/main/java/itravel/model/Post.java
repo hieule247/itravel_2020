@@ -13,15 +13,6 @@ public class Post {
     String tags;
     String date;
 
-    String location;
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     //Using for admin
     private String status; //active, deActive
@@ -35,11 +26,10 @@ public class Post {
         this.category = "";
         this.tags = "";
         this.date = "";
-        this.location="";
-        this.status = "active";
+        this.status = "deActive";//changed
     }
 
-    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date, String location) {
+    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date) {
         this.id = id;
         this.userId = userId;
         this.image = image;
@@ -48,12 +38,10 @@ public class Post {
         this.category = category;
         this.tags = tags;
         this.date = date;
-        this.location= location;
 
         //using for admin
-        this.status = "active";
+        this.status = "deActive";
     }
-
 
     public String getTags() {
         return tags;
@@ -127,9 +115,21 @@ public class Post {
         this.status = status;
     }
 
-
-
-    //public static List<Post> getPosts(String userId) {
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", category='" + category + '\'' +
+                ", tags='" + tags + '\'' +
+                ", date='" + date + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+//public static List<Post> getPosts(String userId) {
 //        return userId.getPosts();
 //    }
 }

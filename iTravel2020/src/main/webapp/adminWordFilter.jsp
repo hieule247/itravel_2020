@@ -49,6 +49,7 @@
                         </table>
                     </form>
                 </div>
+
                 <!-- List Display -->
                 <hr/>
                 <div>
@@ -62,6 +63,10 @@
                         <tbody>
                         </tbody>
                     </table>
+                    <div>
+                        <input id="prePage" size=" "  name="prePageButton" type="button" value="Previous Page"/>
+                        <input id="nextPage"  size=" " name="nextPage" type="button" value="Next Page"/>
+                    </div>
                 </div>
 
             </div>
