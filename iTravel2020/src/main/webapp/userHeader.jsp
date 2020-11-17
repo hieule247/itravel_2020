@@ -34,7 +34,7 @@
     </div>
 
     <div class="logo-component">
-        <a href="index.jsp" title="iTravel 2020">
+        <a href="homePage.jsp" title="iTravel 2020">
             <div class="logo-txt">
                 <img class="logo-icon" src="resources/images/itravel2020.svg" width="194" height="47"
                      alt="Open Library logo">
