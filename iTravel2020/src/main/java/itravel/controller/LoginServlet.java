@@ -66,18 +66,19 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("user.... login....SUCCESS ..... !!!!");
                 updateLoginSession(req, userId, userType, true);
                 // Redirect to User page
+                // resp.sendRedirect("userTravelInfo.jsp?userId=" + userId);
                 resp.sendRedirect("userTravelInfo.jsp");
             }
         }
     }
 
-    public void updateLoginSession(HttpServletRequest req, String userID, String userType, Boolean isLogged) {
+    public void updateLoginSession(HttpServletRequest req, String userId, String userType, Boolean isLogged) {
         HttpSession session = req.getSession();
-        session.setAttribute("userID", userID);
+        session.setAttribute("userId", userId);
         session.setAttribute("userType", userType);
         session.setAttribute("isLogged", isLogged);
         // Log tracking
-        System.out.println("Updated session: " + userID + ", " + userType + ", " + isLogged);
+        System.out.println("Updated session: " + userId + ", " + userType + ", " + isLogged);
     }
 
     public void sendToClient(String result, HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -34,6 +34,18 @@ function checkValidate() {
 }
 
 function onLoadInitData(){
+/*    // Get parameter from url
+    let searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('userId') == false)
+        return;
+    let userId = searchParams.get('userId');
+    alert (userId);
+    //prepare parameters
+    let $cmdType = "init";
+    //checkValidate();
+    $.post("UserPostServLet", {cmdType : $cmdType, userId : userId}, disp_PostList);
+*/
+    alert ("loooooaaaaaddd.... User post");
     //prepare parameters
     let $cmdType = "init";
     //checkValidate();

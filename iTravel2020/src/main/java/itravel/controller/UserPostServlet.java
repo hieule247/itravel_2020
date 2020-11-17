@@ -23,8 +23,17 @@ public class UserPostServlet extends HttpServlet {
         Data data = DataFactory.getInstance();
         String cmdType = request.getParameter("cmdType");
         //check
-        if(cmdType.equals("init")){
-            doLoadInitPost(data, request, response);
+        if (cmdType.equals("init")) {
+            // doLoadInitPost(data, request, response);
+            System.out.println("init: post ...... loaddinggggg!!!!!");
+            HttpSession session = request.getSession();
+            String userId = (String) session.getAttribute("userId");
+
+            // send to client
+            String respJson = new Gson().toJson(data.findPostsByUserId(userId));
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(respJson);
         }
         else if(cmdType.equals("add")){
             doAddPost(data, request, response);

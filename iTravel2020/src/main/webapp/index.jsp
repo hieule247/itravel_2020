@@ -32,9 +32,9 @@
             <fieldset>
                 <label>user/user or admin/admin</label><hr>
                 <label for="txtUserName">Email</label>
-                <input type="text" id="txtUserName" name="txtUserName" value="admin"><br>
+                <input type="text" id="txtUserName" name="txtUserName" value="user"><br>
                 <label for="txtPassword">Password</label>
-                <input type="password" id="txtPassword" name="txtPassword" value="admin"><br>
+                <input type="password" id="txtPassword" name="txtPassword" value="user"><br>
                 <a href="#forgotPassword">Forgot Password?</a><br>
                 <input type="submit" id="btnLogin" name="btnLogin" value="LOGIN"><br>
                 <label>Not a member?</label><a href="signupForm.jsp">Signup Now</a>

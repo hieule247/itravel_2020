@@ -33,6 +33,26 @@ function showHideForm(){
     })
 }
 function getCurrentUser() {
+    // Get parameter from url
+    // let searchParams = new URLSearchParams(window.location.search);
+    // if (searchParams.has('userId') == false)
+    //     return;
+    // let userId = searchParams.get('userId');
+    // alert (userId);
+    console.log('call getCurrentUser');
+    $.post("GetCurrentUserInfoServlet", {"cmdType" : "load"})
+        .done(function (user){
+            console.log(user);
+            displayUserInfo(user);
+            updateUserInfoInEditForm(user);
+            UpdateUserInfoInHomePage(user);
+
+        })
+        .fail(function(error){
+            console.error(error);
+        });
+
+    /*
     console.log('call getCurrentUser');
     $.post("GetCurrentUserInfoServlet")
         .done(function (user){
@@ -45,6 +65,7 @@ function getCurrentUser() {
         .fail(function(error){
             console.error(error);
         });
+*/
 }
 
 function displayUserInfo(user){

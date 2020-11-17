@@ -250,6 +250,7 @@ public class Data {
                 .collect(Collectors.toList());
 
     }
+
     public List<Post> findPostsByUserId(String userId){
         //List<Post> list = new ArrayList<>();
         List<Post> postList = new ArrayList<>();
@@ -265,6 +266,18 @@ public class Data {
     // ------------------- _Post Management
     public List<_Post> get_PostList(){
         return _posts;
+    }
+
+    public List<_Post> get_PostsByUserId (String userId){
+        List<_Post> result = new ArrayList<>();
+
+        for (int i = _posts.size() - 1; i >= 0 ; i--) {
+            _Post item = _posts.get(i);
+            if (item.getUserId().equals(userId)) {
+                result.add(item);
+            }
+        }
+        return result;
     }
 
     public _Post get_Post(String id){

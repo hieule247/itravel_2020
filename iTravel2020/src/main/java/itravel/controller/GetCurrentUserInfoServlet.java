@@ -15,7 +15,43 @@ import java.io.IOException;
 
 @WebServlet("/GetCurrentUserInfoServlet")
 public class GetCurrentUserInfoServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Data data = DataFactory.getInstance();
+        String cmdType = req.getParameter("cmdType");
+        // Check
+//        if (cmdType.equals("load")) {
+//            System.out.println("Loading........ Data khoi tao thanh cong");
+//            String userId = req.getParameter("userId");
+//            // send data loaded to client
+//            // sendToClient(data, resp);
+//            String respJson = new Gson().toJson(data.getUser(userId));
+//            resp.setContentType("application/json");
+//            resp.setCharacterEncoding("UTF-8");
+//            resp.getWriter().write(respJson);
+//        }
+
+        // Check
+        if (cmdType.equals("load")) {
+            System.out.println("Loading........ Data khoi tao thanh cong");
+            HttpSession session = req.getSession();
+            String userId = (String) session.getAttribute("userId");
+            System.out.println("user id ==== " + userId);
+            // send data loaded to client
+            // sendToClient(data, resp);
+            String respJson = new Gson().toJson(data.getUser(userId));
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(respJson);
+        }
+    }
+
+/*
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         doGet(request, response);
     }
 
@@ -29,6 +65,8 @@ public class GetCurrentUserInfoServlet extends HttpServlet {
         // Process register
         displayUserInfo(data, request, response);
     }
+*/
+
     public void displayUserInfo(Data data, HttpServletRequest request, HttpServletResponse resp)throws IOException, ServletException{
         HttpSession session = request.getSession();
 //        User item = data.getUser();

@@ -71,7 +71,7 @@ public class DataFactory {
         for (int i = 1; i <= 30; i++)
         {
             String strID 	= String.format("%03d", i);
-            String strUserID= String.format("userId%03d", i);
+            String strUserID= String.format("%03d", i % 5);
             String strImage = String.format("Image %03d", i);
             String strTitle = String.format("Title %03d", i);
             String strContent = String.format("Content %03d", i);
@@ -82,6 +82,7 @@ public class DataFactory {
 
             instance.get_PostList().add(new _Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
         }
+        // Update more post base userID
     }
 
     private static void initCommentsData (){

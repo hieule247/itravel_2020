@@ -91,8 +91,12 @@ public class _PostMnServlet extends HttpServlet {
     }
 
     public void sendToClient(Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Get userId from Session
+        HttpSession session = req.getSession();
+        String userId = (String)session.getAttribute("userId");
 
-        String respJson = new Gson().toJson(data.get_PostList());
+        String respJson = new Gson().toJson(data.get_PostsByUserId(userId));
+        // String respJson = new Gson().toJson(data.get_PostList());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(respJson);
@@ -102,7 +106,7 @@ public class _PostMnServlet extends HttpServlet {
         HttpSession session = req.getSession();
         // Write to log for debug
         String strType = (String)session.getAttribute("userType");
-        String strId = (String)session.getAttribute("userID");
+        String strId = (String)session.getAttribute("userId");
         Boolean logged = (Boolean) session.getAttribute("isLogged");
         System.out.println("Before Updated session: " + strId + ", " + strType + ", " + logged);
         // isLogged == invalid
