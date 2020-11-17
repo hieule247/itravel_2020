@@ -51,7 +51,7 @@ function displayDeactiveUserOnPage(data){
         let $aStatus = '<button class="deactiveUser" value=' + user.id + '>ChangeActiveStatus</button>'
         let $user = "<tr class=\"user\">" +
             "<td>"+ user.id + "</td>" +
-            "<td>"+ user.FullName + "</td>" +
+            "<td>"+ user.fullName + "</td>" +
             "<td>" + user.email + "</td>" +
             "<td>" + user.userType + "</td>" +
             "<td>" + user.activType+ "</td>" +
