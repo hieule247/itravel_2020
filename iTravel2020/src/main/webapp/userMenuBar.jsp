@@ -14,7 +14,7 @@ Created by: Hieu Le, Ha Le, Hailian Zhang
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="index.jsp">Home</a></li>
+                <li><a href="homePage.jsp">Home</a></li>
                 <li><a href="about.jsp">About</a></li>
                 <li><a href="user_PostManagement.jsp">"Post Management"</a></li>
                 <li><a href="userCommentManagement.jsp">"Comment Management"</a></li>

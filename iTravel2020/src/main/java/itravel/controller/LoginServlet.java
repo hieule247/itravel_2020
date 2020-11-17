@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("user.... login....SUCCESS ..... !!!!");
                 updateLoginSession(req, userId, userType, true);
                 // Redirect to User page
-                resp.sendRedirect("user.jsp");
+                resp.sendRedirect("userTravelInfo.jsp");
             }
         }
     }
