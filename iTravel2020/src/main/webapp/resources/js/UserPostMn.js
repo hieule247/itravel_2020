@@ -4,10 +4,13 @@ $(document).ready(function () {
     uploadImage();
     uploadImage1();
     getCurrPostList();
-    displayPostListOnHomePage();
+
     $('#upd').click(onUpdate);
     $('#del').click(onDelete);
     initMap();
+    setTimeout(function (){
+        getPostList();
+    },1500)
 
     //show and hide edit form
 
@@ -39,6 +42,29 @@ function getCurrPostList(){
     let $cmdType = "getPostList";
     //checkValidate();
     $.post("UserPostServLet", {cmdType : $cmdType}, disp_PostList);
+}
+function getPostList(){
+    let $cmdType = "getPosts";
+    let $userID = $('#userId').text();
+    console.log("get post list");
+    // $.post("UserPostServLet",
+    //     {
+    //         cmdType : $cmdType
+    //     })
+    //     .done(function (posts){
+    //         console.log(posts);
+    //         displayPostListOnHomePage(posts);
+    //
+    //     })
+    //
+    //     .fail(function (error) {
+    //         alert(error);
+    //     });
+    console.log($cmdType);
+    $.post("UserPostServlet",
+        {
+            cmdType: $cmdType, userID: $userID
+        }, displayPostListOnHomePage);
 }
 
 function onLoadInitData(){
@@ -355,46 +381,48 @@ function geocodeLatLng(geocoder, map, infowindow) {
     });
 }
 function displayPostListOnHomePage(respJson){
-    let $table = $('#_posts');
+    let $table = $('#posts');
  //   $table.find($('._post')).remove();
 
-
+    var allPostHTML = "";
     // Update new data
     $.each(respJson, function(i, item) {
+        allPostHTML +=displaySinglePost(item);
 
-        $("#uimage").html(item.image);
-        $("#uid").html(item.id);
-        $('#utitle').html(item.title);
-        $('#ucontent').html(item.content);
-        $('#ucategory').html(item.category);
-        $('#utag').html(item.tags);
-        $('#utime').html(item.time);
-        $table.append(displaySinglePost(item));
+        // $("#uimage").html(item.image);
+        // $("#uid").html(item.id);
+        // $('#utitle').html(item.title);
+        // $('#ucontent').html(item.content);
+        // $('#ucategory').html(item.category);
+        // $('#utag').html(item.tags);
+        // $('#utime').html(item.time);
+        // $table.append(displaySinglePost(item));
     });
+    $('#all-post').html(allPostHTML);
     //console.log(item.time);
     // for(var i =0; i<10; i++){
     //
     // }
 }
 function displaySinglePost(post){
-    var post = '<div class="w3-container w3-card w3-white w3-round w3-margin" id="post"><br>' +
+    var postHTML = '<div class="w3-container w3-card w3-white w3-round w3-margin" id="post-@id1@"><br>' +
         '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
 
-        '<span id="utime" class="w3-right w3-opacity">@Date@</span>'+
-    '<label for="uid">Post ID: </label>'+
-    '<span id="uid">@id@</span><br>'+
-        '<label for="utitle">Title: </label>'+
-        '<span id="utitle">@title@</span><br>'+
-        '<div id="image_frame"><img src="@image@"></div>'+
+        '<span class="w3-right w3-opacity">@date@</span>'+
+    '<label for="uid-@id1@">Post ID: </label>'+
+    '<span id="uid-@id1@">@id@</span><br>'+
+        '<label for="utitle-@title1@">Title: </label>'+
+        '<span id="utitle-@title1@">@title@</span><br>'+
+        '<div ><img src="@image@"></div>'+
         '<hr class="w3-clear">'+
 
-            '<span id="ucontent">@content@</span>'+
+            '<span >@content@</span>'+
             '<img src="" style="width:100%" class="image" id="image">'+
                 '<div class="w3-row-padding" style="margin:0 -16px">'+
-                    '<label for="ucategory">@category@</label>'+
-                    '<div class="w3-half" id="ucategory">General</div>'+
-                    '<label for="utag">In Mode: </label>'+
-                    '<div class="w3-half" id="utag">@tag@</div>'+
+                    '<label for="ucategory-@category1@">@category@</label>'+
+                    '<div class="w3-half" id="ucategory-@category1@">General</div>'+
+                    '<label for="utag-@tag1@">In Mode: </label>'+
+                    '<div class="w3-half" id="utag-@tag1@">@tag@</div>'+
                 '</div>'+
 
                 '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>'+
@@ -404,4 +432,13 @@ function displaySinglePost(post){
                     '<button id="del" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i> &nbsp;Delete</button>'+
 
                 '</div>'
+
+    postHTML = postHTML.replace('@id@', post.id);
+    postHTML = postHTML.replace('@date@', post.time);
+    postHTML = postHTML.replace('@image@', post.image);
+    postHTML = postHTML.replace('@title@', post.title);
+    postHTML = postHTML.replace('@content@', post.content);
+    postHTML = postHTML.replace('@category@', post.category);
+    postHTML = postHTML.replace('@tag@', post.tags);
+    return postHTML;
 }

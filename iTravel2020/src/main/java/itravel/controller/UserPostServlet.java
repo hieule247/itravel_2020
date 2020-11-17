@@ -23,17 +23,27 @@ public class UserPostServlet extends HttpServlet {
         //check isLogged - no need to check because client already check
        // if(isLogged(request, response)== false)
         //    return;
+        System.out.println("do post request");
         Data data = DataFactory.getInstance();
         String cmdType = request.getParameter("cmdType");
+        String userID = request.getParameter("userID");
+        System.out.println(cmdType+"command type");
+        System.out.println(userID+"USer ID get");
+        System.out.println("init: post ...... loaddinggggg!!!!!");
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute("user");
+      // String userId = user.getId();
+       // System.out.println(user.getId());
+
         //check
         if (cmdType.equals("init")) {
             // doLoadInitPost(data, request, response);
             System.out.println("init: post ...... loaddinggggg!!!!!");
-            HttpSession session = request.getSession();
-            String userId = (String) session.getAttribute("userId");
-
+//            HttpSession session = request.getSession();
+//            String userId = (String) session.getAttribute("userId");
+//            System.out.println(userId);
             // send to client
-            String respJson = new Gson().toJson(data.findPostsByUserId(userId));
+            String respJson = new Gson().toJson(data.findPostsByUserId(userID));
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(respJson);
@@ -47,8 +57,12 @@ public class UserPostServlet extends HttpServlet {
         else if(cmdType.equals("del")){
             doDelPost(data, request, response);
         }
-        else if(cmdType.equals("getPostList")){
-            getUserPostList(data, request, response);
+//        else if(cmdType.equals("getPostList")){
+//            getUserPostList(data, request, response);
+//        }
+        else if(cmdType.equals("getPosts")){
+            System.out.println("get posts ");
+            getPostList(data, request, response);
         }
 
     }
@@ -221,6 +235,7 @@ public class UserPostServlet extends HttpServlet {
 public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute("user");
+    System.out.println(user);
     List<Post> posts = new ArrayList<>();
     for (int i =0; i<data.getPostList().size(); i++){
         if(data.getPostList().contains(user.getId())){
@@ -231,6 +246,24 @@ public void getUserPostList(Data data, HttpServletRequest request, HttpServletRe
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     response.getWriter().write(respJson);
+
+
+    }
+    public void getPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        HttpSession session = request.getSession();
+//        Post post = (Post) session.getAttribute("post");
+//        System.out.println(post);
+//        List<Post> posts = new ArrayList<>();
+//        for (int i =0; i<data.getPostList().size(); i++){
+//            if(data.getPostList().contains(user.getId())){
+//                posts.add(data.getPost(user.getId()));
+//            }
+//        }
+        List <Post> postList = data.getPostList();
+        String respJson = new Gson().toJson(postList);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
 
 
     }

@@ -31,6 +31,7 @@ function getCurrentUser() {
 function displayUserInfo(user){
     $('#name').html(user.fullName);
     $('#userId').html(user.userId);
+    getPostList();
     // $('#gender').html(user.gender);
     // $('#year').html(user.birthYear);
     // $('#email').html(user.email);
