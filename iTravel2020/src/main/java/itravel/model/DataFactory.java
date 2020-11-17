@@ -46,13 +46,11 @@ public class DataFactory {
     private static void initPostsData(){
 //        String[] userId = new String[] {"1", "2", "000-11-0319", "000-11-0930", "000-11-0931","000-61-1519", "000-61-1699", "000-61-1775", "000-61-1525", "000-61-1785", "000-61-1795", "000-61-1635"};
 
-        for (int j = 1; j<=3; j++) {
-
-            for (int i = 1; i <= 12; i++) {
+            for (int i = 1; i <= 30; i++) {
                 //String strUserID = String.valueOf(j);
 
                 String strID = String.format("%03d", i);
-                String strUserID = String.format("userId%03d", i);
+                String strUserID = String.format("userId%03d", i % 5);
 
                 String strImage = String.format("Image %03d", i);
                 String strTitle = String.format("Title %03d", i);
@@ -63,9 +61,6 @@ public class DataFactory {
                 String strLocation = String.format("Location %03d", i);
                 instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
             }
-        }
-
-
     }
 
 

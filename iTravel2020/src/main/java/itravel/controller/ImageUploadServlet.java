@@ -1,12 +1,13 @@
 package itravel.controller;
 
+import itravel.model.Data;
+import itravel.model.DataFactory;
+import itravel.model.Post;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +29,8 @@ public class ImageUploadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Data data = DataFactory.getInstance();
+
         System.out.println("post image");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -70,7 +73,13 @@ public class ImageUploadServlet extends HttpServlet {
         }else{
             out.print("<h1>Invalid Image Format</h1>");
         }
-        System.out.println(imageName+"test done");
+        // imagePath;
+        HttpSession session = request.getSession();
+        Post item = (Post) session.getAttribute("post");
+        String posId = item.getId();
+        String imageUrl = "resources/images/"+imageName;
+        data.getPost(posId).setImage(imageUrl);
+        System.out.println("--------------- 54645656565: ---------- " + imageUrl+"test done");
 
     }
 

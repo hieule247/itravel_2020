@@ -1,6 +1,12 @@
 $(document).ready(function () {
     onLoadInitData();
+
+    setTimeout(function (){
+        getPostList();
+    },1000)
+
     $('#add').click(onAdd);
+
     uploadImage();
     uploadImage1();
     getCurrPostList();
@@ -8,9 +14,6 @@ $(document).ready(function () {
     $('#upd').click(onUpdate);
     $('#del').click(onDelete);
     initMap();
-    setTimeout(function (){
-        getPostList();
-    },1500)
 
     //show and hide edit form
 
@@ -100,6 +103,17 @@ function onAdd(){
     let $tags = $('#tags').val();
     console.log($tags);
     let $image = $('#image').val();
+
+    var fullPath = $('#image').val();
+    if (fullPath) {
+        var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+        var filename = fullPath.substring(startIndex);
+        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+        }
+    }
+    let urlImage = "resources/images/" + filename;
+
     console.log($image);
     //var time = new Date();
     let $time= time.getMonth()+"-"+time.getDate()+"-"+time.getFullYear();
@@ -115,8 +129,9 @@ function onAdd(){
    //}
     $.post("UserPostServlet",
         {
-            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, time:$time
-        }, disPostList);
+            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time
+        }, displayPostListOnHomePage);
+       // }, disPostList);
     $('#formAdd').submit();
     uploadImage();
 
@@ -147,7 +162,8 @@ function onUpdate(){
     $.post("UserPostServlet",
         {
             cmdType: $cmdType, id:$id, userId: $userId, image:$image, title:$title, content:$content, category:$category, tags:$tags, time:$time
-        }, disPostList);
+        }, displayPostListOnHomePage);
+        // }, disPostList);
     $('#formUpdate').submit();
 
 }
@@ -169,7 +185,8 @@ function onDelete(){
     $.post("UserPostServlet",
         {
             cmdType:$cmdType, id:$id
-        }, disPostList())
+        // }, disPostList())
+        }, displayPostListOnHomePage())
     //$('#formAdd').submit();
 
 }

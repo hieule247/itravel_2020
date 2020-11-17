@@ -37,16 +37,17 @@ public class UserPostServlet extends HttpServlet {
 
         //check
         if (cmdType.equals("init")) {
-            // doLoadInitPost(data, request, response);
+            doLoadInitPost(data, request, response);
+
             System.out.println("init: post ...... loaddinggggg!!!!!");
 //            HttpSession session = request.getSession();
 //            String userId = (String) session.getAttribute("userId");
 //            System.out.println(userId);
             // send to client
-            String respJson = new Gson().toJson(data.findPostsByUserId(userID));
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(respJson);
+//            String respJson = new Gson().toJson(data.findPostsByUserId(userID));
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write(respJson);
         }
         else if(cmdType.equals("add")){
             doAddPost(data, request, response);
@@ -62,7 +63,8 @@ public class UserPostServlet extends HttpServlet {
 //        }
         else if(cmdType.equals("getPosts")){
             System.out.println("get posts ");
-            getPostList(data, request, response);
+            // getPostList(data, request, response);
+            doLoadInitPost(data, request, response);
         }
 
     }
@@ -106,10 +108,16 @@ public class UserPostServlet extends HttpServlet {
 //        }
 //        else {
         System.out.println("test - done");
-            id = data.getPostList().size() +1;
-            data.addPost(String.valueOf(id), userId, image, title, content, category, tags, LocalDate.now().toString(), location);
-            Post post = new Post(String.valueOf(id), userId, image, title, content, category, tags, time, location);
+            // id = data.getPostList().size() +1;
+            id = data.getMaxPostId() +1;
+        System.out.println("test - done............. dddddd" + id);
+
+            String strID 	= String.format("%03d", id);
+
+            data.addPost(strID, userId, image, title, content, category, tags, LocalDate.now().toString(), location);
+            Post post = new Post(strID, userId, image, title, content, category, tags, time, location);
             updatePostSession(request, post, true);
+
  //       }
         System.out.println(id);
 
@@ -154,7 +162,7 @@ public class UserPostServlet extends HttpServlet {
         sendToClient(data, request, response);
     }
     public void sendToClient(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String respJson = new Gson().toJson(data.getPostList());
+        String respJson = new Gson().toJson(data.getPostsReverse());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(respJson);

@@ -203,6 +203,8 @@
                 </div>
             </div>
             <dt></dt>
+
+            <!--
             <div class="w3-container w3-card w3-white w3-round w3-margin" id="post"><br>
                 <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
 
@@ -266,6 +268,7 @@
                 </div>
 
             </div>
+            -->
             <div id="all-post"></div>
 
 

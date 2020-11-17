@@ -263,6 +263,38 @@ public class Data {
         return postList;
     }
 
+    public List<Post> getPostsByUserId (String userId){
+        List<Post> result = new ArrayList<>();
+
+        for (int i = posts.size() - 1; i >= 0 ; i--) {
+            Post item = posts.get(i);
+            if (item.getUserId().equals(userId)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    public List<Post> getPostsReverse(){
+        List<Post> result = new ArrayList<>();
+        for (int i = posts.size() - 1; i >= 0 ; i--)
+            result.add(posts.get(i));
+        return result;
+    }
+
+    // Using for Login checking
+    public int getMaxPostId(){
+        int maxId = 0;
+        for (int i=0; i < posts.size(); i++){
+            int curId = Integer.parseInt(posts.get(i).getId());
+            if (curId > maxId){
+                maxId = curId;
+            }
+        }
+        // return value
+        return maxId;
+    }
+
     // ------------------- _Post Management
     public List<_Post> get_PostList(){
         return _posts;
