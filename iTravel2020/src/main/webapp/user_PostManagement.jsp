@@ -26,57 +26,28 @@
             <h1>POST MANAGEMENT</h1>
             <hr/>
             <div>
-                <div>Search: <input type="text" id="myInput"/></div>
+                <tr><td><label for="userId">User ID</label></td><td><span id="userId"></span></td></tr>
+                <tr><td><label for="name">Name</label></td><td><span id="name"></span></td></tr>
+<%--                <div>Search: <input type="text" id="myInput"/></div>--%>
                 <hr/>
                 <div id="upd_PostForm">
                     <form>
                         <table>
                             <%--                            <tr><td><label for="id">Post ID</label></td><td><input type="text" id="id" name="id"></td></tr>--%>
-                            <tr>
-                                <td>
-                                    <label for="image">Image</label><br>
-                                    <input type="text" id="image" name="image">
-                                </td>
-                                <td>
-                                    <label for="title">Title</label><br>
-                                    <input type="text" id="title" name="title">
-                                </td>
-                                <td>
-                                    <label for="content">Content</label><br>
-                                    <input type="text" id="content" name="content">
-                                </td>
-                                <td>
-                                    <label for="category">Category</label><br>
-                                    <input type="text" id="category" name="category">
-                                </td>
-                                <td>
-                                    <label for="tags">Tags</label><br>
-                                    <input type="text" id="tags" name="tags">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="time">Time</label><br>
-                                    <input type="text" id="time" name="time">
-                                </td>
-                                <td>
-                                    <label for="location">Tags</label><br>
-                                    <input type="text" id="location" name="location">
-                                </td>
-                                <td>
-                                    <input type="hidden" value="false" id="isValid">
-                                    <br>
-                                    <input type="button" value="Add" id="add">
-                                </td>
-                                <td>
-                                    <br>
-                                    <input type="button" value="Update" id="upd">
-                                </td>
-                                <td>
-                                    <br>
-                                    <input type="button" value="Delete" id="del">
-                                </td>
-                            </tr>
+                            <tr><td><label for="image">Image</label></td><td><input type="text" id="image" name="image"></td></tr>
+                            <tr><td><label for="title">Title</label></td><td><input type="text" id="title" name="title"></td></tr>
+                            <tr><td><label for="content">Content</label></td><td><input type="text" id="content" name="content"></td></tr>
+                            <tr><td><label for="category">Category</label></td><td><input type="text" id="category" name="category"></td></tr>
+                            <tr><td><label for="tags">Tags</label></td><td><input type="text" id="tags" name="tags"></td></tr>
+                            <tr><td><label for="time">Time</label></td><td><input type="text" id="time" name="time"></td></tr>
+                            <tr><td><label for="location">Tags</label></td><td><input type="text" id="location" name="location"></td></tr>
+
+                            <tr><td></td><td>
+                                <input type="hidden" value="false" id="isValid">
+                                <input type="button" value="Add" id="add">
+                                <input type="button" value="Update" id="upd">
+                                <input type="button" value="Delete" id="del">
+                            </td></tr>
                         </table>
                     </form>
                 </div>

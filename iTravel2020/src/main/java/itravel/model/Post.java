@@ -1,66 +1,44 @@
 package itravel.model;
 
-import java.sql.DataTruncation;
-import java.time.LocalDate;
-import java.util.List;
-
 public class Post {
-    String id;
-    String userId;
-    String image;
-    String title;
-    String content;
-    String category;
-    String tags;
-    String date;
-    String location;
-
-
-    //Using for admin
-    private String status; //active, deActive
+    private String id;
+    private String userId;
+    private String image;
+    private String title;
+    private String content;
+    private String category;
+    private String tags;
+    private String time;
+    private String location;
+    // Using for admin
+    private String status; // active, deActive
 
     public Post() {
-        this.id = "";
-        this.userId = "";
-        this.image = "";
-        this.title = "";
-        this.content = "";
-        this.category = "";
-        this.tags = "";
-        this.date = "";
-        this.location="";
-        this.status = "deActive";//changed
+        this.id         = "";
+        this.userId     = "";
+        this.image      = "";
+        this.title      = "";
+        this.content    = "";
+        this.category   = "";
+        this.tags       = "";
+        this.time       = "";
+        this.location   = "";
+        // using for admin
+        this.status     = "active";
     }
 
-    public Post(String id, String userId, String image, String title, String content, String category, String tags, String date, String location) {
-        this.id = id;
-        this.userId = userId;
-        this.image = image;
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.tags = tags;
-        this.date = date;
-        this.location = location;
-
-        //using for admin
-        this.status = "deActive";
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
+    public Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location) {
+        this.id         = id;
+        this.userId     = userId;
+        this.image      = image;
+        this.title      = title;
+        this.content    = content;
+        this.category   = category;
+        this.tags       = tags;
+        this.time       = time;
+        this.location   = location;
+        // using for admin
+        this.status     = "active";
     }
 
     public String getId() {
@@ -111,12 +89,12 @@ public class Post {
         this.category = category;
     }
 
-    public String getDate() {
-        return date;
+    public String getTags() {
+        return tags;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getStatus() {
@@ -127,21 +105,19 @@ public class Post {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", image='" + image + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", category='" + category + '\'' +
-                ", tags='" + tags + '\'' +
-                ", date='" + date + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+    public String getTime() {
+        return time;
     }
-//public static List<Post> getPosts(String userId) {
-//        return userId.getPosts();
-//    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

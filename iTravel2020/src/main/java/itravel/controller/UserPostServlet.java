@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import itravel.model.Data;
 import itravel.model.DataFactory;
 import itravel.model.Post;
+import itravel.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/UserPostServlet")
 public class UserPostServlet extends HttpServlet {
@@ -43,6 +46,9 @@ public class UserPostServlet extends HttpServlet {
         }
         else if(cmdType.equals("del")){
             doDelPost(data, request, response);
+        }
+        else if(cmdType.equals("getPostList")){
+            getUserPostList(data, request, response);
         }
 
     }
@@ -162,7 +168,7 @@ public class UserPostServlet extends HttpServlet {
 
         System.out.println("Updated session: " + post.getId() + ", " + post.getTags() + ", " +post.getCategory()
                 + ", "+ post.getTitle()+", "+ post.getContent()+", "+ post.getId()+", "+ post.getUserId()
-                +", "+ post.getImage()+ ", "+post.getDate()+", "+isLogged);
+                +", "+ post.getImage()+ ", "+post.getTime()+", "+isLogged);
     }
 //    public void uploadImage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 //        System.out.println("test test upload image");
@@ -212,4 +218,20 @@ public class UserPostServlet extends HttpServlet {
 //
 //        return false;
 //    }
+public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("user");
+    List<Post> posts = new ArrayList<>();
+    for (int i =0; i<data.getPostList().size(); i++){
+        if(data.getPostList().contains(user.getId())){
+            posts.add(data.getPost(user.getId()));
+        }
+    }
+    String respJson = new Gson().toJson(posts);
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    response.getWriter().write(respJson);
+
+
+    }
 }

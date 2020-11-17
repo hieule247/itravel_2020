@@ -110,13 +110,25 @@ input{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .center input{
-    width: 200px;
+    width: 100%;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    padding: 6px;
 }
-#image_frame {
-    width: 100px;
+#image_frame img{
+    width: 100%;
 }
 .hideform {
     display: none;
+}
+.update-userinfo-modal{
+    /*display: block;*/
+    position: fixed;
+    top: 5px;
+    left: 33%;
+    width: 400px;
+    z-index: 1000;
+    background-color: #fff;
 }
 /*.container {*/
 /*    width: 50%;*/

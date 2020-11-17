@@ -3,6 +3,7 @@ package itravel.controller;
 import com.google.gson.Gson;
 import itravel.model.Data;
 import itravel.model.DataFactory;
+import itravel.model.Post;
 import itravel.model.User;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/GetCurrentUserInfoServlet")
 public class GetCurrentUserInfoServlet extends HttpServlet {
@@ -49,6 +52,7 @@ public class GetCurrentUserInfoServlet extends HttpServlet {
         }
     }
 
+
 /*
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -64,6 +68,7 @@ public class GetCurrentUserInfoServlet extends HttpServlet {
         Data data = DataFactory.getInstance();
         // Process register
         displayUserInfo(data, request, response);
+        getUserPostList(data, request, response);
     }
 */
 
@@ -79,5 +84,21 @@ public class GetCurrentUserInfoServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(respJson);
+    }
+    public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Post> posts = new ArrayList<>();
+        for (int i =0; i<data.getPostList().size(); i++){
+            if(data.getPostList().contains(user.getId())){
+                posts.add(data.getPost(user.getId()));
+            }
+        }
+        String respJson = new Gson().toJson(posts);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
+
+
     }
 }

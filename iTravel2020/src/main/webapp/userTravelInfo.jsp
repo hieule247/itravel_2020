@@ -64,8 +64,9 @@
 								</div>
 							</div>
 
-							<div class="center hideform">
+							<div class="center hideform update-userinfo-modal">
 								<button id="close" style="float: right;">X</button>
+								<div class="clearfix">&nbsp;</div>
 								<form action="">
 
 									<label for="ename">Name</label>

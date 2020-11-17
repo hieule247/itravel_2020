@@ -183,9 +183,12 @@
                                 <br/>
                                 <label for="image" class="btn">Upload Photo</label>
                                 <input type="file" name="imageUpload" src="" id="image" accept="image/*" />
+
                                 <div id="floating-panel">
-                                    <input id="latlng" type="text" value="40.714224,-73.961452" />
-                                    <input id="location" type="button" value="Reverse Geocode" />
+                                    <input type="checkbox" id="location" name="gender" value="location">
+                                    <label for="location">post with location</label><br>
+<%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
+<%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
                                 </div>
                                 <div id="map"></div>
                                 <br/>
@@ -229,7 +232,7 @@
                 <br/>
                 <button id="show" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i>  Update</button>
                 <button id="del" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i>  Delete</button>
-                <div class="center hideform">
+                <div class="center hideform updateImageEdit">
                     <button id="close" style="float: right;">X</button>
                     <form id="formUpdate" action="ImageUploadServlet"
                           method="post"

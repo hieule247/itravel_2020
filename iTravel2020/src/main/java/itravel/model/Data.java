@@ -227,7 +227,7 @@ public class Data {
         curPost.setTitle(title);
         curPost.setCategory(category);
         curPost.setTags(tags);
-        curPost.setDate(time);
+        curPost.setTime(time);
         curPost.setLocation(location);
 
         // Update
