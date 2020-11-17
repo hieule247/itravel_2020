@@ -1,8 +1,7 @@
 package itravel.controller;
 
 import com.google.gson.Gson;
-import itravel.model.Data;
-import itravel.model.DataFactory;
+import itravel.model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/WordFilterServlet")
 public class WordFilterServlet extends HttpServlet {
@@ -23,9 +23,10 @@ public class WordFilterServlet extends HttpServlet {
         if (isLogged(req, resp) == false)
             return;
         Data data = DataFactory.getInstance();
+        Page<WordFilter> wordFilterPage = data.getwordFilterPage();
         String cmdType = req.getParameter("cmdType");
         // Check
-        if (cmdType.equals("init")) {
+        if (cmdType.equals("init")) {//传回一个json直接输出
             doLoadInitWordFilter(data, req, resp);
         } else if (cmdType.equals("add")){
             doAddWordFilter(data, req, resp);
@@ -33,6 +34,12 @@ public class WordFilterServlet extends HttpServlet {
             doUpdWordFilter(data, req, resp);
         } else if (cmdType.equals("del")){
             doDelWordFilter(data, req, resp);
+        }else if (cmdType.equals("ShowOnPage")){
+            doShowOnPage(wordFilterPage,data, req, resp);
+        }else if(cmdType.equals("nextPage")) {
+            doNextPage(wordFilterPage, data, req, resp);
+        }else if(cmdType.equals("prePage")){
+            doPrePage(wordFilterPage, data, req, resp);
         }
     }
 
@@ -96,5 +103,38 @@ public class WordFilterServlet extends HttpServlet {
         }
         // isLogged
         return true;
+    }
+    public void doShowOnPage(Page<WordFilter> pageWordFilter, Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        int pageNo = pageWordFilter.getPageNo();
+        System.out.println("doShowOnPage pageNo: "+pageNo);
+        int pageSize = pageWordFilter.getPageSize();
+        Page<WordFilter> wordFilterPage = data.filterWordsPage(pageNo, pageSize);
+        List<WordFilter> wordFilterList = wordFilterPage.getItems();
+        String respJson = new Gson().toJson(wordFilterList);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.getWriter().write(respJson);//resp里面的都是返回到action里面的，这里是把json的字符串返回到ajax的action里
+
+    }
+
+    public void doNextPage(Page<WordFilter> pageWordFilter, Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int pageNo = pageWordFilter.getPageNo() + 4;
+        System.out.println("进入doNextPage后的 pageNo: " + pageNo);
+        int pageSize = pageWordFilter.getPageSize() + 4;
+        System.out.println("进入doNextPage后的 pageSize:" + pageNo);
+        pageWordFilter.setPageNo(pageNo);
+        pageWordFilter.setPageSize(pageSize);
+        doShowOnPage(pageWordFilter, data, req, resp);
+    }
+    public void doPrePage(Page<WordFilter> pageWordFilter, Data data, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int pageNo = pageWordFilter.getPageNo()-4;
+        System.out.println("进入doNextPage后的 pageNo: "+pageNo);
+        int pageSize = pageWordFilter.getPageSize()-4;
+        System.out.println("进入doNextPage后的 pageSize:"+pageNo);
+        pageWordFilter.setPageNo(pageNo);
+        pageWordFilter.setPageSize(pageSize);
+        doShowOnPage(pageWordFilter, data, req, resp);
     }
 }

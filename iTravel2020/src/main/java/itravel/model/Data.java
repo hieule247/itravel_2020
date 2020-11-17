@@ -15,6 +15,8 @@ public class Data {
     private List<Post> posts;
     private ArrayList<Member> members;
     private Page<User> page = new Page<>();
+    private Page<Post> postPage = new Page<>();
+    private Page<WordFilter> wordFilterPage = new Page<>();
 
     public Data(){
         users   = new ArrayList<>();
@@ -30,6 +32,12 @@ public class Data {
 
     public Page<User> getPage() {
         return page;
+    }
+    public Page<Post> getPostPage() {
+        return postPage;
+    }
+    public Page<WordFilter> getwordFilterPage() {
+        return wordFilterPage;
     }
 
     public  Page<User> page(int pageNo, int pageSize) {
@@ -70,6 +78,30 @@ public class Data {
         System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
 
         return page;
+    }
+
+
+    public  Page<Post> postPage(int pageNo, int pageSize) {
+        List<Post> listPost = getPostList();
+        Integer pageTotalCount = listPost.size();
+        List<Post> onePagePost  = new LinkedList<>();
+        onePagePost = listPost.subList(pageNo,pageSize);
+        postPage.setItems(onePagePost);
+
+        System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
+
+        return postPage;
+    }
+    public  Page<WordFilter> filterWordsPage(int pageNo, int pageSize) {
+        List<WordFilter> listWordFilter = getWordFilterList();
+        Integer pageTotalCount = listWordFilter.size();
+        List<WordFilter> onePageWordFilter  = new LinkedList<>();
+        onePageWordFilter = listWordFilter.subList(pageNo,pageSize);
+        wordFilterPage.setItems(onePageWordFilter);
+
+        System.out.println("DATA: "+ page.getPageNo()+"DATA: "+page.getPageSize());
+
+        return wordFilterPage;
     }
 
 
@@ -539,6 +571,14 @@ public class Data {
             user.setActivType(false);
         }else{
             user.setActivType(true);
+        }
+    }
+    public void changePostActiveType(Post post){
+
+        if(post.getStatus().equals("deActive")){
+            post.setStatus("Active");
+        }else{
+            post.setStatus("deActive");
         }
     }
 

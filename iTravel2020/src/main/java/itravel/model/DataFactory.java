@@ -100,6 +100,7 @@ public class DataFactory {
             String strValue = String.format("%03d", i);
             instance.getWordFilterList().add(new WordFilter(strID, strValue));
         }
+        instance.getWordFilterList().add(new WordFilter("345", "^abc$"));
     }
 
     private static void initBooksData (){

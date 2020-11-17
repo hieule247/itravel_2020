@@ -26,7 +26,7 @@ public class Post {
         this.category = "";
         this.tags = "";
         this.date = "";
-        this.status = "active";
+        this.status = "deActive";//changed
     }
 
     public Post(String id, String userId, String image, String title, String content, String category, String tags, String date) {
@@ -40,7 +40,7 @@ public class Post {
         this.date = date;
 
         //using for admin
-        this.status = "active";
+        this.status = "deActive";
     }
 
     public String getTags() {
@@ -115,7 +115,21 @@ public class Post {
         this.status = status;
     }
 
-    //public static List<Post> getPosts(String userId) {
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", category='" + category + '\'' +
+                ", tags='" + tags + '\'' +
+                ", date='" + date + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+//public static List<Post> getPosts(String userId) {
 //        return userId.getPosts();
 //    }
 }

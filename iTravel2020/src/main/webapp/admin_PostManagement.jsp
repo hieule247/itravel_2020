@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/BookMnAjax.js"></script>
+    <script type="text/javascript" src="resources/js/admin_PostManagement.js"></script>
 
 </head>
 <body>
@@ -35,6 +35,7 @@
                             <tr><td><label for="content">Content</label></td><td><input type="text" id="content" name="content"></td></tr>
                             <tr><td><label for="category">Category</label></td><td><input type="text" id="category" name="category"></td></tr>
                             <tr><td><label for="tags">Tags</label></td><td><input type="text" id="tags" name="tags"></td></tr>
+
                             <tr><td></td><td>
                                 <input type="hidden" value="false" id="isValid">
                                 <input type="button" value="Add" id="add">
@@ -62,6 +63,7 @@
                         <tbody>
                         </tbody>
                     </table>
+
                 </div>
 
             </div>
