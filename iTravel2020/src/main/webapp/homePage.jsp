@@ -20,7 +20,7 @@
 <script src="resources/js/userTravelInfo.js" type="text/javascript"></script>
 <script src="resources/js/UserPostMn.js" type="text/javascript"></script>
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxbIy6hOaXxLbk0EW_gRGWdJZkm6FhX38&callback=initMap&libraries=&v=weekly"
         defer
 ></script>
 <style>
@@ -185,7 +185,7 @@
                                 <input type="file" name="imageUpload" src="" id="image" accept="image/*" />
 
                                 <div id="floating-panel">
-                                    <input type="checkbox" id="location" name="gender" value="location">
+                                    <input type="checkbox" id="location" name="gender">
                                     <label for="location">post with location</label><br>
 <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
 <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
@@ -203,6 +203,7 @@
                 </div>
             </div>
             <dt></dt>
+<%--            <div id="image_frame"></div>--%>
 
             <!--
             <div class="w3-container w3-card w3-white w3-round w3-margin" id="post"><br>
@@ -271,6 +272,39 @@
             -->
             <div id="all-post"></div>
 
+            <div class="center hideform updateImageEdit update-userinfo-modal" id="modalUpdateUser">
+                <button id="close" style="float: right;">X</button>
+                <form id="formUpdate" action="ImageUploadServlet"
+                      method="post"
+                      enctype="multipart/form-data">
+                    <input id="u-id" type="text" style="display: none" />
+                    <p id="u-title" contenteditable="true" class="w3-border w3-padding"/>
+                    <p id="u-content" contenteditable="true" class="w3-border w3-padding">Status: Freedom</p>
+                    <label for="u-category">Category</label>
+
+                    <select id="u-category" class="inline">
+                        <option selected>General</option>
+                        <option>Traveling</option>
+                        <option>Discussion</option>
+                        <option>Question</option>
+                    </select>
+                    <label for="u-tags">Feeling</label>
+                    <select id="u-tags">
+                        <option selected>Happy</option>
+                        <option>Sad</option>
+                        <option>Confuse</option>
+                        <option>Nothing</option>
+                    </select>
+                    <br/>
+                    <label for="u-image" class="btn">Upload Photo</label>
+                    <input type="file" name="imageUpload" src="" id="u-image" accept="image/*" />
+                    <input onclick="onUpdate()" type="button" value="Update"></form>
+                <%--                    <input type="hidden" value="false" id="isValid">--%>
+                <%--                    <input class="open-form" type="button" value="Submit" id="upd">--%>
+
+                </form>
+            </div>
+
 
 
 
@@ -293,7 +327,7 @@
             <div class="w3-card w3-round w3-white w3-center">
                 <div class="w3-container">
                     <p>Friend Request</p>
-                    <img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>
+                    <img src="resources/images/avatar.jpeg" alt="Avatar" style="width:50%"><br>
                     <span>Jane Doe</span>
                     <div class="w3-row w3-opacity">
                         <div class="w3-half">

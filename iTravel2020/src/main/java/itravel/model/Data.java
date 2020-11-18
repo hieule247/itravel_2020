@@ -204,6 +204,7 @@ public class Data {
         this.posts = posts;
     }
     public int getPostIdx(String id){
+        System.out.println(posts.size());
         for (int i=0; i < posts.size(); i++){
             if (posts.get(i).getId().equals(id))
                 return i;
@@ -239,7 +240,7 @@ public class Data {
     public void delPost(String id){
         int idx = getPostIdx(id);
         if (idx != -1)
-            users.remove(idx);
+            posts.remove(idx);
     }
 
     public List<Post> searchPost(String name){

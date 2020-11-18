@@ -13,33 +13,17 @@ $(document).ready(function () {
 
     $('#upd').click(onUpdate);
     $('#del').click(onDelete);
-    initMap();
+
+    $('.btnUpdate').click(openEdit);
 
     //show and hide edit form
 
     showHideForm();
-    $('#show').on('click', function () {
-        $('.center').show();
-        $(this).hide();
-    })
+    getLocation();
 
-    $('#close').on('click', function () {
-        $('.center').hide();
-        $('#show').show();
-    })
 });
-function checkValidate() {
-    // Prepare parameters
-    let $id = $("#id").val();
-    // Check validate
-    if ($id.trim().length == 0) {
-        alert("ID is required!");
-        $("#id").focus();
-        $('#isValid').val("false");
-        return;
-    }
-    $('#isValid').val("true");
-}
+
+
 
 function getCurrPostList(){
     let $cmdType = "getPostList";
@@ -50,19 +34,7 @@ function getPostList(){
     let $cmdType = "getPosts";
     let $userID = $('#userId').text();
     console.log("get post list");
-    // $.post("UserPostServLet",
-    //     {
-    //         cmdType : $cmdType
-    //     })
-    //     .done(function (posts){
-    //         console.log(posts);
-    //         displayPostListOnHomePage(posts);
-    //
-    //     })
-    //
-    //     .fail(function (error) {
-    //         alert(error);
-    //     });
+
     console.log($cmdType);
     $.post("UserPostServlet",
         {
@@ -103,6 +75,8 @@ function onAdd(){
     let $tags = $('#tags').val();
     console.log($tags);
     let $image = $('#image').val();
+    console.log($tags);
+    let $location = $('#location').val();
 
     var fullPath = $('#image').val();
     if (fullPath) {
@@ -129,7 +103,7 @@ function onAdd(){
    //}
     $.post("UserPostServlet",
         {
-            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time
+            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time, location:$location
         }, displayPostListOnHomePage);
        // }, disPostList);
     $('#formAdd').submit();
@@ -140,8 +114,9 @@ function onAdd(){
 function onUpdate(){
     $('.updateImageEdit').hide();
     //alert("on update");
+    alert("hello");
     let $cmdType = "upd";
-    let $id = $('#uid').html();
+    let $id = $('#u-id').val();
     console.log($id);
     let $userId = $('#userId').html();
     console.log($userId);
@@ -155,16 +130,29 @@ function onUpdate(){
     console.log($tags);
     let $image = $('#u-image').val();
     console.log($image);
+    var fullPath = $('#u-image').val();
+    console.log(fullPath);
+    if (fullPath) {
+        var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+        var filename = fullPath.substring(startIndex);
+        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+        }
+    }
+    let urlImage = "resources/images/" + filename;
+    console.log(urlImage +"-----------");
     // var $location = $('#aadddd').coords.latitude + "," + $('#add').coords.longitude;
 
     var $time= time.getMonth()+","+time.getDate()+","+time.getFullYear();
 
     $.post("UserPostServlet",
         {
-            cmdType: $cmdType, id:$id, userId: $userId, image:$image, title:$title, content:$content, category:$category, tags:$tags, time:$time
+            cmdType: $cmdType, id:$id, userId: $userId, image:urlImage, title:$title, content:$content, category:$category, tags:$tags, time:$time
         }, displayPostListOnHomePage);
         // }, disPostList);
     $('#formUpdate').submit();
+    uploadImage();
+
 
 }
 // var $location = navigator.geolocation.getCurrentPosition(coords.latitude +", "+ coords.longitude, );
@@ -179,13 +167,41 @@ function onUpdate(){
 // function curr(position) {
 //     $location = position.coords.latitude + ", " + position.coords.longitude;
 // }
-function onDelete(){
+function onDelete(postId){
+    let $cmdType = "del";
+    let $id = postId;
+    $.post("UserPostServlet",
+        {
+            cmdType:$cmdType, id:$id
+        // }, disPostList())
+        }).done(function(posts){
+            displayPostListOnHomePage(posts);
+    }).fail(function(error){
+
+    }
+
+    )
+    //$('#formAdd').submit();
+    // $.post("UserPostServlet", {"cmdType" : "load"})
+    //     .done(function (user){
+    //         console.log(user);
+    //         displayUserInfo(user);
+    //         updateUserInfoInEditForm(user);
+    //         UpdateUserInfoInHomePage(user);
+    //
+    //     })
+    //     .fail(function(error){
+    //         console.error(error);
+    //     });
+
+}
+function onDeleteCurrPost(){
     let $cmdType = "del";
     let $id = $('#id').val();
     $.post("UserPostServlet",
         {
             cmdType:$cmdType, id:$id
-        // }, disPostList())
+            // }, disPostList())
         }, displayPostListOnHomePage())
     //$('#formAdd').submit();
 
@@ -308,8 +324,8 @@ function uploadImage(){
             success : function(response) {
                 console.log(response);
                 $('#image_frame').html(response);
-                $('.center').hide();
-                $('#show').show();
+                // $('.center').hide();
+                // $('#show').show();
                 console.log("i'm here to test");
             },
             beforeSend : function() {
@@ -359,45 +375,88 @@ function uploadImage1(){
 }
 
 //show location
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            $.each(window.postList, function (i, item){
+                if(item.location==true){
 
-function initMap() {
-    const map = new google.maps.Map(document.getElementById("location"), {
-        zoom: 8,
-        center: { lat: 41.01347, lng: -91.9589057 },
-    });
-    const geocoder = new google.maps.Geocoder();
-    const infowindow = new google.maps.InfoWindow();
-    document.getElementById("location").addEventListener("click", () => {
-        geocodeLatLng(geocoder, map, infowindow);
-    });
+                    initMap(item.id, lat, long);
+                }
+                //initMap(item.id, lat, long);
+            })
+        });
+    } else {
+        console.log( "Geolocation is not supported by this browser.");
+    }
 }
 
-function geocodeLatLng(geocoder, map, infowindow) {
-    const input = document.getElementById("latlng").value;
-    const latlngStr = input.split(",", 2);
-    const latlng = {
-        lat: parseFloat(latlngStr[0]),
-        lng: parseFloat(latlngStr[1]),
-    };
-    geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK") {
-            if (results[0]) {
-                map.setZoom(11);
-                const marker = new google.maps.Marker({
-                    position: latlng,
-                    map: map,
-                });
-                infowindow.setContent(results[0].formatted_address);
-                infowindow.open(map, marker);
-            } else {
-                window.alert("No results found");
-            }
+
+
+function setupMap(){
+    getLocation();
+
+}
+
+let map, infoWindow;
+
+function initMap(postId, lat, long) {
+    if(postId == null){
+        return false;
+    }
+    $('#map'+postId).css({
+        width: '100%',
+        height: '250px'
+    })
+    map = new google.maps.Map(document.getElementById("map"+postId), {
+        center: { lat: lat, lng: long },
+        zoom: 6,
+    });
+    infoWindow = new google.maps.InfoWindow();
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("Location found.");
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                },
+                () => {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                }
+            );
         } else {
-            window.alert("Geocoder failed due to: " + status);
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
         }
     });
 }
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+}
+
 function displayPostListOnHomePage(respJson){
+    console.log("render list");
+    window.postList = respJson;
     let $table = $('#posts');
  //   $table.find($('._post')).remove();
 
@@ -420,21 +479,24 @@ function displayPostListOnHomePage(respJson){
     // for(var i =0; i<10; i++){
     //
     // }
+    setupMap();
 }
 function displaySinglePost(post){
+
     var postHTML = '<div class="w3-container w3-card w3-white w3-round w3-margin" id="post-@id1@"><br>' +
-        '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
+        '<img src="resources/images/avatar.jpeg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
 
         '<span class="w3-right w3-opacity">@date@</span>'+
     '<label for="uid-@id1@">Post ID: </label>'+
     '<span id="uid-@id1@">@id@</span><br>'+
         '<label for="utitle-@title1@">Title: </label>'+
         '<span id="utitle-@title1@">@title@</span><br>'+
-        '<div ><img src="@image@"></div>'+
+        '<div ><img src="@image@" style="width:100%"></div>'+
         '<hr class="w3-clear">'+
 
             '<span >@content@</span>'+
             '<img src="" style="width:100%" class="image" id="image">'+
+        '<div id="map@id@"></div>'+
                 '<div class="w3-row-padding" style="margin:0 -16px">'+
                     '<label for="ucategory-@category1@">@category@</label>'+
                     '<div class="w3-half" id="ucategory-@category1@">General</div>'+
@@ -445,17 +507,87 @@ function displaySinglePost(post){
                 '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>'+
                 '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> &nbsp;Comment</button>'+
                 '<br>'+
-                    '<button id="show" type="button" class="w3-button w3-theme-d1 w3-margin-bottom" style="display: none;"><i class="fa fa-delete"></i> &nbsp;Update</button>'+
-                    '<button id="del" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-delete"></i> &nbsp;Delete</button>'+
+                    '<button @cssUpdate@ id="@show@" type="button" class="btnUpdate w3-button w3-theme-d1 w3-margin-bottom" style="" onclick="openFormUpdate(@show@);"><i class="fa fa-delete"></i>  Update</button>'+
+                    '<button @cssDelete@ type="button" class="w3-button w3-theme-d1 w3-margin-bottom" onclick="onDelete(@id@);"><i class="fa fa-delete"></i>  Delete</button>'+
 
                 '</div>'
+    if(post.userId!==$('#userId').text()){
+        postHTML = postHTML.replace('@cssDelete@', ' style="display:none" ');
+        postHTML = postHTML.replace('@cssUpdate@', ' style="display:none" ');
 
-    postHTML = postHTML.replace('@id@', post.id);
-    postHTML = postHTML.replace('@date@', post.time);
-    postHTML = postHTML.replace('@image@', post.image);
-    postHTML = postHTML.replace('@title@', post.title);
-    postHTML = postHTML.replace('@content@', post.content);
-    postHTML = postHTML.replace('@category@', post.category);
-    postHTML = postHTML.replace('@tag@', post.tags);
+         //postHTML = postHTML.replace('id-@id@', post.id);
+    }
+    else {
+        postHTML = postHTML.replaceAll('@show@', post.id);
+        postHTML = postHTML.replaceAll('@id@', post.id);
+    }
+    //console.log(post.userId);
+
+        postHTML = postHTML.replaceAll('@id@', post.id);
+        postHTML = postHTML.replaceAll('@date@', post.time);
+        postHTML = postHTML.replace('@image@', post.image);
+        postHTML = postHTML.replace('@title@', post.title);
+        postHTML = postHTML.replace('@content@', post.content);
+        postHTML = postHTML.replace('@category@', post.category);
+        postHTML = postHTML.replace('@tag@', post.tags);
+
+
     return postHTML;
+}
+function openEdit(){
+    alert("hello")
+}
+
+function openFormUpdate(postId){
+    console.log(window.postList);
+    // $.each(window.postList, function (i, item){
+    //
+    // })
+    var foundPosts = window.postList.filter(function (post){
+        return post.id == postId;
+    });
+    console.log(foundPosts);
+    if(foundPosts.length==0){
+        alert("post not found");
+    }
+    var post = foundPosts[0];
+
+    var modal=$('#modalUpdateUser');
+
+    modal.data("postId", postId);
+
+
+
+    $('#modalUpdateUser').show();
+
+
+    $('#u-title').html(post.title);
+
+
+   $('#u-content').text(post.content);
+
+    $('#u-category').val(post.category);
+
+   $('#u-tags').val(post.tags);
+   $('#u-id').val(post.id);
+
+   // $('#u-image').val(post.image);
+
+    //let btn = document.getElementById(show);
+   //
+   // $('btn').click(abc);
+   // function abc(){
+   //     $('.center').show();
+   // ///     $('.center').show();
+   //  }
+    // $('#').on('click', function () {
+    // console.log("test")
+    //     $('.center').show();
+    //    z  $(this).hide();
+    // })
+
+    $('#close').on('click', function () {
+        $('.center').hide();
+        $('#show').show();
+    })
 }

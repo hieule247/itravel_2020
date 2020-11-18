@@ -9,6 +9,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/userTravelInfo.js"></script>
+	<script type="text/javascript" src="resources/js/userPostMn.js"></script>
 	<link href="resources/css/userinfo.css" type="text/css" rel="stylesheet" />
 
 	<%--	 <script src="register.js" type="text/javascript"></script>--%>
@@ -31,9 +32,17 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-5">
-									<div clas="file_input_wrap">
-										<input type="file" name="imageUpload" src="resources/images/bg/avatar.jpeg" id="imageUpload" class="hide" />
+
+									<div class="file_input_wrap">
+										<form  id="formAdd" action="ImageUploadServlet"
+											   method="post"
+											   enctype="multipart/form-data">
+<%--											<label for="image" class="btn">Upload Photo</label>--%>
+<%--											<input type="file" name="imageUpload" src="" id="image" accept="image/*" />--%>
+										<input type="file" name="imageUpload" src="resources/images/bg/avatar.jpeg" id="imageUpload" class="hide" accept="image/*" />
 										<label for="imageUpload" class="btn btn-large">Select file</label>
+										<input type="button" value="Submit"/>
+										</form>
 									</div>
 									<div class="img_preview_wrap">
 										<img src="resources/images/bg/avatar.jpeg" id="imagePreview" alt="Preview Image" width="200px" />

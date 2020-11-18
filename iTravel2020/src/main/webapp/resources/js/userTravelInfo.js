@@ -2,20 +2,28 @@ window.onload = function(){
     getCurrentUser();
     $('#myfile').click(uploadPhoto);
 
-    $('#imageUpload').change(function() {
-        readImgUrlAndPreview(this);
-
-        function readImgUrlAndPreview(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#imagePreview').removeClass('hide').attr('src', e.target.result);
-                }
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
+    // $('#imageUpload').change(function() {
+    //     readImgUrlAndPreview(this);
+    //
+    //     function readImgUrlAndPreview(input) {
+    //         if (input.files && input.files[0]) {
+    //             var reader = new FileReader();
+    //             reader.onload = function(e) {
+    //                 uploadImage();
+    //                 $('#imagePreview').removeClass('hide').attr('src', e.target.result);
+    //             }
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // });
     showHideForm();
+    $('#imageUpload').change(function (){
+        uploadImage();
+    });
+    // setTimeout(function (){
+    //     getPostList();
+    // },1000)
+
 
 
     $('#editinfo').click(editUserInfo);
@@ -240,5 +248,35 @@ function UpdateUserInfoInHomePage(user) {
     //$('#eid').val(user.id);
     $('#address').html(user.city + ", "+ user.state);
     $('#byear').html(user.birthYear);
+
+}
+function uploadImage(){
+    $('#formAdd').submit(function(event) {
+        console.log("form submit 1");
+        event.preventDefault();
+        console.log("form submit 2");
+
+        $.ajax({
+            url : $(this).attr('action'),
+            type : $(this).attr('method'),
+            data : new FormData(this),
+            contentType : false,
+            cache : false,
+            processData : false,
+            success : function(response) {
+                console.log(response);
+                $('#imagePreview').removeClass('hide');
+                $('#imageUpload').attr('src', response);
+                // $('.center').hide();
+                // $('#show').show();
+                console.log("i'm here to test");
+            },
+            beforeSend : function() {
+                console.log("before send");
+            }
+        });
+
+        return false;
+    });
 
 }

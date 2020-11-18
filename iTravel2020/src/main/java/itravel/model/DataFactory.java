@@ -49,7 +49,7 @@ public class DataFactory {
             for (int i = 1; i <= 30; i++) {
                 //String strUserID = String.valueOf(j);
 
-                String strID = String.format("%03d", i);
+                String strID = String.valueOf(i);
                 String strUserID = String.format("userId%03d", i % 5);
 
                 String strImage = String.format("Image %03d", i);
