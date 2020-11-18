@@ -5,5 +5,5 @@ Created by: Hieu Le, Ha Le, Hailian Zhang
 <div class="col-md-2 sidenav">
     <p><a href="search.jsp">Search By Post</a></p>
     <p><a href="search.jsp">Search By User</a></p>
-    <p><a href="search.jsp">Followed Post</a></p>
+    <p><a href="search.jsp">My Follow Post</a></p>
 </div>

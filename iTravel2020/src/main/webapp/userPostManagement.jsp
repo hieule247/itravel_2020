@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/BookMnAjax.js"></script>
+    <script type="text/javascript" src="resources/js/UserPostMnAjax.js"></script>
 
 </head>
 <body>
@@ -29,25 +29,50 @@
                 <div id="upd_PostForm">
                     <form>
                         <table>
-                            <tr><td><label for="id">Post ID</label></td><td><input type="text" id="id" name="id"></td></tr>
-                            <tr><td><label for="image">Image</label></td><td><input type="text" id="image" name="image"></td></tr>
-                            <tr><td><label for="title">Title</label></td><td><input type="text" id="title" name="title"></td></tr>
-                            <tr><td><label for="content">Content</label></td><td><input type="text" id="content" name="content"></td></tr>
-                            <tr><td><label for="category">Category</label></td><td><input type="text" id="category" name="category"></td></tr>
-                            <tr><td><label for="tags">Tags</label></td><td><input type="text" id="tags" name="tags"></td></tr>
-                            <tr><td></td><td>
-                                <input type="hidden" value="false" id="isValid">
-                                <input type="button" value="Add" id="add">
-                                <input type="button" value="Update" id="upd">
-                                <input type="button" value="Delete" id="del">
-                            </td></tr>
+                            <tr>
+                                <td><label for="id">Post ID</label><br>
+                                    <input type="text" id="id" name="id">
+                                </td>
+                                <td><label for="image">Image</label><br>
+                                    <input type="text" id="image" name="image">
+                                </td>
+                                <td><label for="title">Title</label><br>
+                                    <input type="text" id="title" name="title">
+                                </td>
+                                <td><label for="content">Content</label><br>
+                                    <input type="text" id="content" name="content">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="category">Category</label><br>
+                                    <input type="text" id="category" name="category">
+                                </td>
+                                <td><label for="tags">Tags</label><br>
+                                    <input type="text" id="tags" name="tags">
+                                </td>
+                                <td><label for="time">Time</label><br>
+                                    <input type="text" id="time" name="time">
+                                </td>
+                                <td><label for="location">Location</label><br>
+                                    <input type="text" id="location" name="location">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" value="false" id="isValid">
+                                    <input type="button" value="Add" id="add">
+                                </td>
+                                <td><input type="button" value="Update" id="upd">
+                                </td>
+                                <td><input type="button" value="Delete" id="del">
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </div>
                 <!-- List Display -->
                 <hr/>
                 <div>
-                    <table id="_posts" class="table">
+                    <table id="posts" class="table">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -56,10 +81,12 @@
                             <th>CONTENT</th>
                             <th>CATEGORY</th>
                             <th>TAGS</th>
+                            <th>TIME</th>
+                            <th>LOCATION</th>
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                         </tbody>
                     </table>
                 </div>
@@ -71,7 +98,6 @@
         <%@include file="userRContent.jsp"%>
     </div>
 </div>
-
 <%@include file="footer.jsp"%>
 </body>
 </html>

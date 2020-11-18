@@ -18,25 +18,23 @@ function onLogin() {
     let $cmdType = "login";
     let $txtUserName = $("#txtUserName").val();
     let $txtPassword = $("#txtPassword").val();
-    alert($cmdType +": "+ $txtUserName + " " + $txtPassword);
     // Check validate
     checkValidate();
     if ($('#isValid').val() === "false")
         return;
     // post and receive datas
-    // $.post("loginServlet",
-    //     {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword})
-    //     .done(doLoginResult);
-
     $.post("loginServlet",
-        {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword},
-        doLoginResult);
+        {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword})
+        .done(doLoginResult)
+        .fail(doLoginFail);
+    //
+    // $.post("loginServlet",
+    //     {cmdType: $cmdType, userName:$txtUserName, password:$txtPassword},
+    //     doLoginResult);
 }
 
 function checkValidate() {
-/*
     // Prepare parameters
-
     let $id = $("#id").val();
     // Check validate
     if ($id.trim().length == 0) {
@@ -46,8 +44,6 @@ function checkValidate() {
         return;
     }
     $('#isValid').val("true");
-*/
-    return true;
 }
 
 function doLoginResult(respJson) {

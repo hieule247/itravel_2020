@@ -1,6 +1,7 @@
 $(document).ready(function () {//可以把$(document).ready写成$
     console.log("Document is ready!!!");
     onLoadInitData();
+
     $('#showDeactiveUser').click(onDisplyShowDeactiveUserOnPage);
     $('#prePage').click(onPreviousPage);
     $('#nextPage').click(onNextPage);
@@ -11,6 +12,7 @@ $(document).ready(function () {//可以把$(document).ready写成$
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+    $('#btnSetActive').click(onUpdStatus_1);
 });
 
 $(document).on("click",".deactiveUser",function(){
@@ -68,6 +70,21 @@ function onUpdStatus(){//因为是动态的，要用anonymous function或 $(docu
     // Prepare parameters
     let $cmdType = "updActType";
     let $id = $(".deactiveUser").val();
+
+    // post and receive data
+    $.post("AdminServlet",
+        {cmdType: $cmdType, id:$id},
+        //displayDeactiveUser
+        onDisplyShowDeactiveUserOnPage
+    );
+    alert("The user is actived!");
+}
+
+function onUpdStatus_1(){//因为是动态的，要用anonymous function或 $(document).on
+     // Prepare parameters
+    let $cmdType = "updActType";
+    let $id = $("#myInput").val();
+
     // post and receive data
     $.post("AdminServlet",
         {cmdType: $cmdType, id:$id},

@@ -43,12 +43,13 @@ public class LoginServlet extends HttpServlet {
             // Check for deactive user
             if (data.needDeactiveUser(userName) == true) {
                 data.deActiveUser(userName);
-                // resp.sendRedirect("pageErrorDeactiveUser.jsp");
+                data.deActiveUserByEmail(userName);
+                resp.sendRedirect("pageErrorDeactiveUser.jsp");
                 sendToClient("Error 3 times in 10 min...deActive Account", req, resp);
             } else {
                 // try to login
                 System.out.println("login....FAIL!!!!");
-                // resp.sendRedirect("index.jsp");
+                resp.sendRedirect("pageErrorLoginFail.jsp");
                 // sendToClient("If fail 3 times will be deActive account...!", req, resp);
             }
         } else {

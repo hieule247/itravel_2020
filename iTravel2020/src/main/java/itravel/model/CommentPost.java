@@ -15,7 +15,7 @@ public class CommentPost {
 
     public CommentPost(String id, String postId, String userId, String content) {
         this.id         = id;
-        this.postId         = id;
+        this.postId     = postId;
         this.userId     = userId;
         this.content    = content;
     }

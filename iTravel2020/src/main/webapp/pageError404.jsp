@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Oooooop!... Page not found!</h1>
+    <hr>
     <a href="index.jsp">return to home</a>
 </body>
 </html>

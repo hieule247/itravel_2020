@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>User Page</title>
+    <title>Post Management</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,10 +29,17 @@
         <%@include file="adminLContent.jsp"%>
         <!-- Main content -->
         <div class="col-md-8 text-left">
-            <h1>USER MANAGEMENT</h1>
+            <h1>POST MANAGEMENT</h1>
             <hr/>
             <div>
-                <div>Search: <input type="text" id="myInput"/></div>
+                <table>
+                    <div>
+                        Search: <input type="text" id="myInput"/>
+<%--                        <input id="btnSetActive" size=" " name="btnSetActive" type="button" value="Set Active" />--%>
+                        <button id="btnSetActive" name="btnSetActive">Change Status</button>
+
+                    </div>
+                </table>
                 <!-- List Display -->
                 <hr/>
                 <div>
@@ -41,11 +48,11 @@
                         <tr>
                             <th>User ID</th>
                             <th>User Title</th>
-                            <th>Contant</th>
+                            <th>Content</th>
                             <th>Category</th>
                             <th>Tags</th>
                             <th>Date</th>
-                            <th>IsHeath</th>
+                            <th>Is Heath</th>
                             <th></th>
                         </tr>
                         </thead>

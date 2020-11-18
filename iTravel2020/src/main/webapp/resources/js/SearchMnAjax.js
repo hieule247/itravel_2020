@@ -64,12 +64,12 @@ function showFollowedPosts(data){
     var noRecord = "No record(s) found.";
     if(data.list.length > 0) {
         $("#id").html("ID");
-        $("#f1").html("Title");
-        $("#f2").html("Content");
-        $("#f3").html("Category");
+        $("#f1").html("Traveller ID");
+        $("#f2").html("Title");
+        $("#f3").html("Content");
         $("#list tr").remove();
         $.each(data.list, function (index, value) {
-            let item = "<tr><td>" + value.id + "</td><td>" + value.title + "</td><td>" + value.content + "</td><td>" + value.category + "</td></tr>";
+            let item = "<tr><td>" + value.id + "</td><td>" + value.userId + "</td><td>" + value.title + "</td><td>" + value.content + "</td></tr>";
             $("#list").append(item);
         });
         paging("followedPost", data.total, "showFollowedPosts");

@@ -54,7 +54,7 @@ function onLoadInitData(){
     //checkValidate();
     $.post("UserPostServLet", {cmdType : $cmdType, userId : userId}, disp_PostList);
 */
-    alert ("loooooaaaaaddd.... User post");
+   // alert ("loooooaaaaaddd.... User post");
     //prepare parameters
     let $cmdType = "init";
     //checkValidate();

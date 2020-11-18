@@ -56,17 +56,17 @@ public class _PostMnServlet extends HttpServlet {
         String location     = req.getParameter("location");
 
         // Not Exist: Add new _Post
-        if (data.get_Post(id) == null)
-            data.add_Post(id, userId, image, title, content, category, tags, time, location);
+        if (data.getPost(id) == null)
+            data.addPost(id, userId, image, title, content, category, tags, time, location);
 
         //add for filter
         String healthy = (String)req.getAttribute("content");
         if(healthy.equals("false")){
-            _Post post = data.get_Post(id);
-            post.setStatus("deActive");
+            Post post = data.getPost(id);
+            post.setStatus(false);
         }else{
-            _Post post = data.get_Post(id);
-            post.setStatus("Active");
+            Post post = data.getPost(id);
+            post.setStatus(true);
         }
 // send data to client
         sendToClient(data, req, resp);
@@ -84,7 +84,7 @@ public class _PostMnServlet extends HttpServlet {
         String time = req.getParameter("time");
         String location = req.getParameter("location");
         // Update the _Post
-        data.upd_Post(id, userId, image, title, content, category, tags, time, location);
+        data.updPost(id, userId, image, title, content, category, tags, time, location);
         // Send data to client
         sendToClient(data, req, resp);
     }
@@ -93,7 +93,7 @@ public class _PostMnServlet extends HttpServlet {
         // Get Data from parameter
         String id = req.getParameter("id");
         // Delete the _Post
-        data.del_Post(id);
+        data.delPost(id);
         // send data to client
         sendToClient(data, req, resp);
     }
@@ -103,7 +103,7 @@ public class _PostMnServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String userId = (String)session.getAttribute("userId");
 
-        String respJson = new Gson().toJson(data.get_PostsByUserId(userId));
+        String respJson = new Gson().toJson(data.getPostsByUserId(userId));
         // String respJson = new Gson().toJson(data.get_PostList());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/_PostMnAjax.js"></script>
+    <script type="text/javascript" src="resources/js/UserCommentMnAjax.js"></script>
 
 </head>
 <body>
@@ -29,16 +29,28 @@
                 <div id="updCommentForm">
                     <form>
                         <table>
-                            <tr><td><label for="id">ID</label></td><td><input type="text" id="id" name="id"></td></tr>
-                            <tr><td><label for="postId">Post ID</label></td><td><input type="text" id="postId" name="postId"></td></tr>
-                            <tr><td><label for="userId">User ID</label></td><td><input type="text" id="userId" name="userId"></td></tr>
-                            <tr><td><label for="content">Content</label></td><td><input type="text" id="content" name="content"></td></tr>
-                            <tr><td></td><td>
-                                <input type="hidden" value="false" id="isValid">
-                                <input type="button" value="Add" id="add">
-                                <input type="button" value="Update" id="upd">
-                                <input type="button" value="Delete" id="del">
-                            </td></tr>
+                            <tr>
+                                <td><label for="id">ID</label><br>
+                                    <input type="text" id="id" name="id">
+                                </td>
+                                <td><label for="postId">Post ID</label><br>
+                                    <input type="text" id="postId" name="postId">
+                                </td>
+                                <td><label for="userId">User ID</label><br>
+                                    <input type="text" id="userId" name="userId">
+                                </td>
+                                <td><label for="content">Content</label><br>
+                                    <input type="text" id="content" name="content">
+                                </td>
+                            </tr>
+                            <tr><td><input type="hidden" value="false" id="isValid">
+                                    <input type="button" value="Add" id="add">
+                                </td>
+                                    <td><input type="button" value="Update" id="upd">
+                                    </td>
+                                <td><input type="button" value="Delete" id="del">
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </div>
@@ -55,7 +67,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                         </tbody>
                     </table>
                 </div>

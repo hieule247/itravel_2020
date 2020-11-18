@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link href="resources/css/admin.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/_PostMnAjax.js"></script>
+    <script type="text/javascript" src="resources/js/UserFollowMnAjax.js"></script>
 
 </head>
 <body>
@@ -29,15 +29,26 @@
                 <div id="updFollowForm">
                     <form>
                         <table>
-                            <tr><td><label for="id">ID</label></td><td><input type="text" id="id" name="id"></td></tr>
-                            <tr><td><label for="travellerId">Traveller ID</label></td><td><input type="text" id="travellerId" name="travellerId"></td></tr>
-                            <tr><td><label for="userId">User ID</label></td><td><input type="text" id="userId" name="userId"></td></tr>
-                            <tr><td></td><td>
-                                <input type="hidden" value="false" id="isValid">
-                                <input type="button" value="Add" id="add">
-                                <input type="button" value="Update" id="upd">
-                                <input type="button" value="Delete" id="del">
-                            </td></tr>
+                            <tr>
+                                <td><label for="id">ID</label><br>
+                                    <input type="text" id="id" name="id">
+                                </td>
+                                <td><label for="travellerId">Traveller ID</label><br>
+                                    <input type="text" id="travellerId" name="travellerId">
+                                </td>
+                                <td><label for="userId">User ID</label><br>
+                                    <input type="text" id="userId" name="userId">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" value="false" id="isValid">
+                                    <input type="button" value="Add" id="add">
+                                </td>
+                                <td><input type="button" value="Update" id="upd">
+                                </td>
+                                <td><input type="button" value="Delete" id="del">
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </div>
@@ -53,7 +64,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                         </tbody>
                     </table>
                 </div>

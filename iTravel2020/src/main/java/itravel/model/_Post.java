@@ -1,7 +1,7 @@
 package itravel.model;
 
 public class _Post {
-    private String id;
+/*    private String id;
     private String userId;
     private String image;
     private String title;
@@ -120,4 +120,5 @@ public class _Post {
     public void setLocation(String location) {
         this.location = location;
     }
+*/
 }

@@ -162,15 +162,15 @@ public class Data {
     }
 
     public List<User> searchUser(String name){
-/*
-        return users.parallelStream()
-
-                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
-                        || b.getAuthor().toLowerCase().contains(name.toLowerCase())
-                        || b.getIsbn().toLowerCase().contains(name.toLowerCase()))
+    return users.parallelStream()
+                .filter(b -> b.getId().toLowerCase().contains(name.toLowerCase())
+                        || b.getFullName().toLowerCase().contains(name.toLowerCase())
+                        || b.getState().toLowerCase().contains(name.toLowerCase())
+                        || b.getCity().toLowerCase().contains(name.toLowerCase())
+                        || b.getStreet().toLowerCase().contains(name.toLowerCase())
+                        || b.getZipCode().toLowerCase().contains(name.toLowerCase())
+                        || b.getEmail().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
-*/
-        return null;
     }
 
     public User getUserByEmail(String email){
@@ -187,8 +187,10 @@ public class Data {
 
     public User login(String userName, String password){
         User item = getUserByEmail(userName);
+
         if (item != null){
-            if (password.equals(item.getPassword())){
+            // check password and active
+            if (password.equals(item.getPassword()) && item.getActivType()) {
                 return item;
             }
         }
@@ -299,69 +301,69 @@ public class Data {
     }
 
     // ------------------- _Post Management
-    public List<_Post> get_PostList(){
-        return _posts;
-    }
-
-    public List<_Post> get_PostsByUserId (String userId){
-        List<_Post> result = new ArrayList<>();
-
-        for (int i = _posts.size() - 1; i >= 0 ; i--) {
-            _Post item = _posts.get(i);
-            if (item.getUserId().equals(userId)) {
-                result.add(item);
-            }
-        }
-        return result;
-    }
-
-    public _Post get_Post(String id){
-        return _posts.parallelStream().filter(b -> b.getId().equals(id)).findAny().orElse(null);
-    }
-
-    public int get_PostIdx(String id){
-        for (int i=0; i < _posts.size(); i++){
-            if (_posts.get(i).getId().equals(id))
-                return i;
-        }
-        // not found
-        return -1;
-    }
-
-    public void add_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
-        _posts.add(new _Post(id, userId, image, title, content, category, tags, time, location));
-    }
-
-    public void upd_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
-        int curIdx = get_PostIdx(id);
-        _Post cur_Post = get_Post(id);
-
-        cur_Post.setImage(image);
-        cur_Post.setTitle(title);
-        cur_Post.setContent(content);
-        cur_Post.setCategory(category);
-        cur_Post.setTags(tags);
-        cur_Post.setTime(tags);
-        cur_Post.setLocation(tags);
-        // Update
-        _posts.set(curIdx, cur_Post);
-    }
-
-    public void del_Post(String id){
-        int idx = get_PostIdx(id);
-        if (idx != -1)
-            _posts.remove(idx);
-    }
-
-    public List<_Post> search_Post(String name){
-        return _posts.parallelStream()
-                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
-                        || b.getContent().toLowerCase().contains(name.toLowerCase())
-                        || b.getCategory().toLowerCase().contains(name.toLowerCase())
-                        || b.getTags().toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toList());
-    }
-
+//    public List<_Post> get_PostList(){
+//        return _posts;
+//    }
+//
+//    public List<_Post> get_PostsByUserId (String userId){
+//        List<_Post> result = new ArrayList<>();
+//
+//        for (int i = _posts.size() - 1; i >= 0 ; i--) {
+//            _Post item = _posts.get(i);
+//            if (item.getUserId().equals(userId)) {
+//                result.add(item);
+//            }
+//        }
+//        return result;
+//    }
+//
+//    public _Post get_Post(String id){
+//        return _posts.parallelStream().filter(b -> b.getId().equals(id)).findAny().orElse(null);
+//    }
+//
+//    public int get_PostIdx(String id){
+//        for (int i=0; i < _posts.size(); i++){
+//            if (_posts.get(i).getId().equals(id))
+//                return i;
+//        }
+//        // not found
+//        return -1;
+//    }
+//
+//    public void add_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
+//        //  _posts.add(new _Post(id, userId, image, title, content, category, tags, time, location));
+//    }
+//
+//    public void upd_Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location){
+//        int curIdx = get_PostIdx(id);
+//        _Post cur_Post = get_Post(id);
+//
+//        cur_Post.setImage(image);
+//        cur_Post.setTitle(title);
+//        cur_Post.setContent(content);
+//        cur_Post.setCategory(category);
+//        cur_Post.setTags(tags);
+//        cur_Post.setTime(tags);
+//        cur_Post.setLocation(tags);
+//        // Update
+//        _posts.set(curIdx, cur_Post);
+//    }
+//
+//    public void del_Post(String id){
+//        int idx = get_PostIdx(id);
+//        if (idx != -1)
+//            _posts.remove(idx);
+//    }
+//
+//    public List<_Post> search_Post(String name){
+//        return _posts.parallelStream()
+//                .filter(b -> b.getTitle().toLowerCase().contains(name.toLowerCase())
+//                        || b.getContent().toLowerCase().contains(name.toLowerCase())
+//                        || b.getCategory().toLowerCase().contains(name.toLowerCase())
+//                        || b.getTags().toLowerCase().contains(name.toLowerCase()))
+//                .collect(Collectors.toList());
+//    }
+//
     // ------------------- Comment Management
     public List<CommentPost> getCommentList(){
         return comments;
@@ -454,6 +456,35 @@ public class Data {
                         || b.getTravellerId().toLowerCase().contains(name.toLowerCase())
                         || b.getUserId().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Post> searchFollowedPost(String myId, String name){
+        List<Post> result = new ArrayList<>();
+        // Build my Followed list
+        List<Follow> myFollowList = new ArrayList<>();
+        for (int i = 0; i < follows.size(); i++) {
+            Follow item = follows.get(i);
+            // Not me: continue
+            if (item.getUserId().equals(myId))
+                myFollowList.add(item);
+        }
+
+        // loop in post: by follower order by newest
+        for (int i = posts.size()-1; i >= 0; i--)
+        {
+            Post post = posts.get(i);
+            String posterId = post.getUserId();
+            // check in myList
+            for (int j = 0; j < myFollowList.size(); j++)
+            {
+                Follow item = myFollowList.get(j);
+                // Found
+                if (item.getTravellerId().equals(posterId))
+                    result.add(post);
+            }
+        }
+        // return value
+        return result;
     }
 
     // ------------------- WordFilter Management
@@ -604,6 +635,12 @@ public class Data {
         if (item != null)
             item.setActivType(false);
     }
+    public void deActiveUserByEmail (String email){
+        User item = getUserByEmail(email);
+        if (item != null)
+            item.setActivType(false);
+    }
+
     // ------------------- Book Management
     public List<Book> getBookList(){
         return books;

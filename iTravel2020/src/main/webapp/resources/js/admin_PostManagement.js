@@ -2,6 +2,7 @@ $(document).ready(function () {//可以把$(document).ready写成$
     console.log("Document is ready!!!");
     onLoadInitData();
     $('.deactiveUser').click(onUpdStatus);
+    // $('.deactiveUser').click(refreshCallbacks);
     $('#prePage').click(onPreviousPage);
     $('#nextPage').click(onNextPage);
     // Search local
@@ -11,12 +12,12 @@ $(document).ready(function () {//可以把$(document).ready写成$
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+    $('#btnSetActive').click(onUpdStatus_1);
 });
-/*
-$(document).on("click",".deactiveUser",function(){
-    onUpdStatus();
-});
-*/
+
+// $(document).on("click",".deactiveUser",function(){
+//     onUpdStatus();
+// });
 
 function onLoadInitData() {
     alert("init");
@@ -34,7 +35,7 @@ function onDisplyShowDeactiveUserOnPage() {
     let $cmdType = "ShowOnPage";
     // post and receive data
     $.post("AdminPostServlet",
-        {cmdType: $cmdType, },//json数据格式
+        {cmdType: $cmdType},//json数据格式
 
         displayDeactiveUserOnPage);
     alert("onDisplyShowDeactiveUserOnPage2");
@@ -48,7 +49,8 @@ function displayDeactiveUserOnPage(data){
     //Update new data
     $.each(data, function(i, user){
 
-        let $aStatus = '<button class="deactiveUser" value=' + user.id + '>ChangeActiveStatus</button>'
+        let $aStatus = '<button class="deactiveUser" value=' + user.id + '>Change Status</button>'
+        // let $aStatus = '<button class="deactiveUser" value=' + user.id + '>' +user.id+ '</button>'
 
         let $user = "<tr class=\"user\">" +
             "<td>"+ user.id + "</td>" +
@@ -61,25 +63,37 @@ function displayDeactiveUserOnPage(data){
             "<td>" + $aStatus + "</td>" +
             "</tr>";
         $("#users").append($user);
-
     });
 }
-
 
 
 function onUpdStatus(){//因为是动态的，要用anonymous function或 $(document).on
     // Prepare parameters
     let $cmdType = "updActType";
-    let $id = $(".deactiveUser").val();
-    alert("rttteett update post e6654656..." + $id);
-
+    // let $id = $(".deactiveUser").val();
+    let $id = $(this).val();
     // post and receive data
     $.post("AdminPostServlet",
         {cmdType: $cmdType, id:$id},
-        //displayDeactiveUser
         onDisplyShowDeactiveUserOnPage
     );
     alert("The post is changed!");
+    // Refresh data
+    onLoadInitData();
+}
+
+function onUpdStatus_1(){//因为是动态的，要用anonymous function或 $(document).on
+    // Prepare parameters
+    let $cmdType = "updActType";
+    let $id = $("#myInput").val();
+    // post and receive data
+    $.post("AdminPostServlet",
+        {cmdType: $cmdType, id:$id},
+        onDisplyShowDeactiveUserOnPage
+    );
+    alert("The post is changed!");
+    // Refresh data
+    onLoadInitData();
 }
 
 function onNextPage(){

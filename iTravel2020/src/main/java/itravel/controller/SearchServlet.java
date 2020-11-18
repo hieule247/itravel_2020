@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -30,10 +31,10 @@ public class SearchServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         String json = "";
-        int pageSize = 10;
+        int pageSize = 9;
         if(kind.equals("post")) {
-            List<_Post> list = search_Post(name);
-            List<_Post> lst = list.stream()
+            List<Post> list = searchPost(name);
+            List<Post> lst = list.stream()
                     .skip((pageno - 1) * pageSize)
                     .limit(pageSize)
                     .collect(Collectors.toList());
@@ -50,8 +51,11 @@ public class SearchServlet extends HttpServlet {
             json = gson.toJson(jdata);
         }
         else if(kind.equals("followedPost")) {
-            List<_Post> list = searchFollowPost(name);
-            List<_Post> lst = list.stream()
+            // Get user Id
+            String userId = getCurrentId(request, response);
+            // Process search
+            List<Post> list = searchFollowPost(userId, name);
+            List<Post> lst = list.stream()
                     .skip((pageno - 1) * pageSize)
                     .limit(pageSize)
                     .collect(Collectors.toList());
@@ -67,9 +71,9 @@ public class SearchServlet extends HttpServlet {
         doPost(request, response);
     }
 
-    private List<_Post> search_Post(String name){
+    private List<Post> searchPost(String name){
         Data data = DataFactory.getInstance();
-        return data.search_Post(name);
+        return data.searchPost(name);
     }
 
     private List<User> searchUser(String name){
@@ -77,9 +81,13 @@ public class SearchServlet extends HttpServlet {
         return data.searchUser(name);
     }
 
-    private List<_Post> searchFollowPost(String name){
+    private List<Post> searchFollowPost(String userId, String textSearch){
         Data data = DataFactory.getInstance();
-        // return data.searchFollowedPost(name);
-        return data.search_Post(name);
+        return data.searchFollowedPost(userId, textSearch);
     }
+
+    public String getCurrentId (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        return (String)req.getSession().getAttribute("userId");
+    }
+
 }

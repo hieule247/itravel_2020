@@ -20,7 +20,9 @@
         <%@include file="adminLContent.jsp"%>
         <!-- Main content -->
         <div class="col-md-8 text-left">
-            <h1>USER PAGE</h1>
+            <h1>ADMIN PANEL CONTROL</h1>
+            <hr>
+            <h3>Welcome to Admin tools...!</h3>
         </div>
         <!-- End Main content -->
         <%@include file="adminRContent.jsp"%>

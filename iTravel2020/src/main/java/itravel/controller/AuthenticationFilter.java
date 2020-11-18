@@ -4,9 +4,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-// @WebFilter("/*")
+@WebFilter("/*")
 public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, IOException, ServletException {
@@ -14,33 +15,19 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         String action = req.getServletPath();
-        if("/".equals(action) || "/login".equals(action) || "/login.jsp".equals(action)
-//                || "/*.css".equals(action)
-//                || "/*.js".equals(action)
-//                || "/loginServlet".equals(action)
-//                || "/index.jsp".equals(action)
-//                // Using for Ha
-//                || "/signupForm.jsp".equals(action)
-//                || "/register.js".equals(action)
-//                || "/RegisterServlet".equals(action)
-//                || "/userTravelInfo.jsp".equals(action)
-//                || "/GetCurrentUserInfoServlet".equals(action)
-
-                || "/loginServlet".equals(action)
-                || "/index.jsp".equals(action)
-                // Using for Ha
-                || "/signupForm.jsp".equals(action)
-                || "/register.js".equals(action)
-                || "/RegisterServlet".equals(action)
-                || "/userTravelInfo.jsp".equals(action)
-                || "/GetCurrentUserInfoServlet".equals(action)
+        if ("/".equals(action) || "/login".equals(action) || "/login.jsp".equals(action)
+                || "/loginServlet".equals(action) || "/index.jsp".equals(action)
+                || "/signupForm.jsp".equals(action)  || "/RegisterServlet".equals(action)
+                || "/userTravelInfo.jsp".equals(action)  || "/GetCurrentUserInfoServlet".equals(action)
+                || action.contains("resources") || action.contains("pageError")
+                || action.contains("Data") || action.contains("Deactive")
         ){
             filterChain.doFilter(servletRequest, servletResponse);
-        } else{
+        } else {
             Object isLoggedObj = req.getSession().getAttribute("isLogged");
-            if(isLoggedObj != null){
+            if (isLoggedObj != null) {
                 boolean isLoggedIn = (Boolean) isLoggedObj;
-                if(isLoggedIn){
+                if (isLoggedIn) {
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 }
@@ -49,6 +36,5 @@ public class AuthenticationFilter implements Filter {
             String path = req.getContextPath()+ "/";
             resp.sendRedirect(path);
         }
-//        System.out.println("AuthenticationFilter ---2-------");
     }
 }

@@ -42,6 +42,24 @@ public class User {
         activType = false;
     }
 
+    public User(boolean activType, String id, String userType, String fullName, String gender, String state, String city, String street,
+                String zipCode, Integer birthYear, String email, String password) {
+        this.id         = id;
+        this.userType   = userType;
+        this.fullName   = fullName;
+        this.gender     = gender;
+        this.state      = state;
+        this.city       = city;
+        this.street     = street;
+        this.zipCode    = zipCode;
+        this.birthYear  = birthYear;
+        this.email      = email;
+        this.password   = password;
+        // using for admin
+//        this.status      = "active";
+        this.activType = activType;
+    }
+
     public User(String id, String userType, String fullName, String gender, String state, String city, String street,
                 String zipCode, Integer birthYear, String email, String password) {
         this.id         = id;
@@ -59,7 +77,6 @@ public class User {
 //        this.status      = "active";
         this.activType = false;
     }
-
     public String getId() {
         return id;
     }

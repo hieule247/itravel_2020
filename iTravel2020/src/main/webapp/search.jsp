@@ -20,8 +20,8 @@
         <p><label for="name">Enter some text: </label><input id='name' type='text' name='name'/>
             <button id='btnPost' type='button' value='post'>Search Post</button>
             <button id='btnUser' type='button' value='user'>Search User</button>
-            <button id='btnFollowedPost' type='button' value='followedPost'>Followed Post</button>
-            <a href="index.jsp">Back Home</a>
+            <button id='btnFollowedPost' type='button' value='followedPost'>My Follow Post</button>
+            <a href="homePage.jsp">Back Home</a>
         </p>
         <table class="table table-bordered">
             <thead>

@@ -32,7 +32,13 @@
             <h1>USER MANAGEMENT</h1>
             <hr/>
             <div>
-                <div>Search: <input type="text" id="myInput"/></div>
+                <table>
+                    <div>
+                        Search: <input type="text" id="myInput"/>
+                        <input id="btnSetActive" size=" " name="btnSetActive" type="button" value="Set Active" />
+                    </div>
+                 </table>
+
                 <!-- List Display -->
                 <hr/>
                 <div>
