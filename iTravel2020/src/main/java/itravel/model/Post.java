@@ -24,7 +24,7 @@ public class Post {
         this.time       = "";
         this.location   = "";
         // using for admin
-        this.status     = false;
+        this.status     = true;
     }
 
     public Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location) {
@@ -38,7 +38,7 @@ public class Post {
         this.time       = time;
         this.location   = location;
         // using for admin
-        this.status     = false;
+        this.status     = true;
     }
 
     public String getId() {
