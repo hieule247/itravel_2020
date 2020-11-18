@@ -134,7 +134,7 @@
 									</label>
 									<br/>
 									<label for="eemail">Email</label>
-									<input id="eemail" type="email" required/>
+									<input id="eemail" type="email" readonly/>
 									<label for="epassword">Password</label>
 									<input id="epassword" type="password"/>
 									<label for="estate">State</label>

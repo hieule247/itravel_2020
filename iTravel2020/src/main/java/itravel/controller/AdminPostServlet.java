@@ -117,6 +117,8 @@ public class AdminPostServlet extends HttpServlet {
         System.out.println(post);
         data.changePostActiveType(post);
         System.out.println(post.getStatus());
+
+
         sendToClient(data, req, resp);
 
     }

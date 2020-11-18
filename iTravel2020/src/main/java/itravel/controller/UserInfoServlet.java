@@ -31,7 +31,7 @@ public class UserInfoServlet extends HttpServlet {
         // Get Data from parameter
         //String cmdType = request.getParameter("cmdType");
         String id = request.getParameter("id");
-        System.out.println(id);
+        System.out.println("43545435455454355 ------" + id);
         String gender = request.getParameter("gender");
         System.out.println(gender);
         String state = request.getParameter("state");
@@ -51,38 +51,39 @@ public class UserInfoServlet extends HttpServlet {
         System.out.println(pwd);
         String year = request.getParameter("year");
         System.out.println(year);
-        // Check email
-
-        User item = data.getUserByEmail(email);
         System.out.println("test in userinfo");
+        // Check email
+        User item = data.getUserByEmail(email);
         //System.out.println(item);
-        List<User> listUser = data.getUserList();
-        int count = listUser.size();
-
+//        List<User> listUser = data.getUserList();
+//        int count = listUser.size();
         //GetCurrentUserInfoServlet currInfo = new GetCurrentUserInfoServlet();
-        HttpSession session = request.getSession();
+        // String nEmail = user.getEmail();
+//        if (!(nEmail.equals(email))&& item!=null) {
+//            System.out.println("QQQQQQQQ: (nEmail.equals(email))&& item!=nulldx" + id);
+//
+//
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write("{\"status\": \"false\", \"message\": \"email in used\"}");
+//        }
 
-        User user = (User) session.getAttribute("user");
-
-        String nEmail = user.getEmail();
-
-        if (!(nEmail.equals(email))&& item!=null) {
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"status\": \"false\", \"message\": \"email in used\"}");
-        }
-
+        // Update the user
+        System.out.println("in user...+ curIdx" + id);
+        data.updUser(id, "user", fname, gender, state, city, street,
+                zip,parseInt(year) , email, pwd);
+        // Update session
         User newUser = new User(id, "user", fname, gender, state, city, street,
                 zip,parseInt(year) , email, pwd);
-
-
+        updateEditSession(request, newUser, true);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        // Send data to client
         String respJson = new Gson().toJson(newUser);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(respJson);
 
-        updateEditSession(request, newUser, true);
         return;
     }
 

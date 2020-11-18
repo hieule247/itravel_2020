@@ -149,6 +149,8 @@ public class Data {
         curUser.setPassword(password);
         // Update
         users.set(curIdx, curUser);
+
+        System.out.println("in user...." + curIdx);
     }
 
 

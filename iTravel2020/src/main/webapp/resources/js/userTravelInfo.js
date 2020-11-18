@@ -109,7 +109,10 @@ function editUserInfo(){
                 if (user.status === 'false') {
                     alert(user.message);
                 }else {
+                    alert(user.password);
+
                     displayUserInfo(user);
+
                     updateUserInfoInEditForm(user);
                 }
 
