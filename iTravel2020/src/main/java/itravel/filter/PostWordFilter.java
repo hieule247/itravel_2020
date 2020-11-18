@@ -26,15 +26,17 @@ public class PostWordFilter implements Filter {
         HttpSession session = httpServletRequest.getSession();
 //        String uri = httpServletRequest.getRequestURI();
          String post =  (String) servletRequest.getParameter("content");//sentence
-         for(WordFilter wordFilter : wordFiltersList){
-             if (wordFilter.getValue().equals(post)) {
-                 // servletRequest.getRequestDispatcher("/login.jsp").forward(servletRequest,servletResponse);//把结果发回去的网址
-                 session.setAttribute("content","false");
-                 break;
-             } else {
-// 让程序继续往下访问用户的目标资源
-                 session.setAttribute("content","true");
-             }
+        String[] contentList = post.split(post);
+        for(String contentWord : contentList){
+            for(WordFilter wordFilter : wordFiltersList) {
+                if(wordFilter.getValue().equals(contentWord)){
+                    session.setAttribute("content","false");
+                    break;
+            }else{
+                    session.setAttribute("content","true");
+                }
+        }
+
              filterChain.doFilter(servletRequest,servletResponse);
          }
 

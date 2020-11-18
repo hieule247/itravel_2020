@@ -18,20 +18,25 @@ public class PostTest {
 
         Data data = DataFactory.getInstance();
         List<Post> postList = DataFactory.getInstance().getPostList();
+        Post post = postList.get(postList.size() -1);
+        System.out.println(post);
 
-
+//        for(Post post : postList){
+//            System.out.println(post);
+//        }
 
         System.out.println(postList);
-       Post post = data.getPost("001");//这个确定是哪个
-        System.out.println(post.getStatus());
-        if(post.getStatus() == false){
-            System.out.println("yes");
-        }
-        post.setStatus(true);
-        System.out.println(post.getStatus());
+        //postList.add()
+
+        //System.out.println(postList);
+      // Post post = data.getPost("002");//这个确定是哪个
+        //System.out.println(post);
+
 //        System.out.println(post);
 //        data.changePostActiveType(post);
 //        System.out.println(post);
 //        sendToClient(data, req, resp);
+        //System.out.println(data.getWordFilterList());
+
     }
 }

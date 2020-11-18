@@ -130,6 +130,23 @@ input{
     z-index: 1000;
     background-color: #fff;
 }
+#box {
+    width:500px;
+    height:400px;
+    margin:0 auto;
+    /*border:solid 1px red;
+    */
+}
+.txt {
+    width:450px;
+    height:150px;
+}
+.pl {
+    background: #faebd7;
+}
+#len {
+    float:right;
+}
 /*.container {*/
 /*    width: 50%;*/
 /*    margin-left: 25%;*/

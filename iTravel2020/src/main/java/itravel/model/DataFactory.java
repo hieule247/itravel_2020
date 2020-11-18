@@ -60,6 +60,9 @@ public class DataFactory {
                 String strTime = LocalDate.of(2020, 11, i).toString();
                 String strLocation = String.format("Location %03d", i);
                 instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
+                int commentId = i;
+                int likeId = i;
+
             }
     }
 
@@ -76,6 +79,7 @@ public class DataFactory {
             String strTags = String.format("Tags %03d", i);
             String strTime = String.format("Time %03d", i);
             String strLocation = String.format("Location %03d", i);
+
 
             instance.get_PostList().add(new _Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
         }

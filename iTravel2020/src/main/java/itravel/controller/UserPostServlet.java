@@ -121,7 +121,7 @@ public class UserPostServlet extends HttpServlet {
  //       }
         System.out.println(id);
 
-
+        checkHealthy(post, request, response);
         //uploadImage(request, response);
         sendToClient(data, request, response);
         return;
@@ -145,7 +145,7 @@ public class UserPostServlet extends HttpServlet {
         System.out.println(tags);
         String time = request.getParameter("time");
         String location = request.getParameter("location");
-        
+
 
         //update post
         data.updPost(id, userId, image, title, content, category, tags, time, location);
@@ -276,4 +276,15 @@ public void getUserPostList(Data data, HttpServletRequest request, HttpServletRe
 
 
     }
+
+    public void checkHealthy(Post post, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String s = (String)request.getSession().getAttribute("content");
+        if(s.equals("false")){
+            post.setStatus(false);
+        }else if(s.equals("true")){
+            post.setStatus(true);
+        }
+        request.getSession().removeAttribute("content");
+    }
+
 }
