@@ -76,7 +76,7 @@ function onAdd(){
     console.log($tags);
     let $image = $('#image').val();
     console.log($tags);
-    let $location = $('#location').val();
+    let $location = $('#location').is(":checked");
 
     var fullPath = $('#image').val();
     if (fullPath) {
@@ -381,7 +381,7 @@ function getLocation() {
             var lat = position.coords.latitude;
             var long = position.coords.longitude;
             $.each(window.postList, function (i, item){
-                if(item.location==true){
+                if(item.location=='true' || item.location== 'on'){
 
                     initMap(item.id, lat, long);
                 }
