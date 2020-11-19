@@ -260,9 +260,8 @@ public class Data {
         //List<Post> list = new ArrayList<>();
         List<Post> postList = new ArrayList<>();
         for (Post b : posts) {
-            if (b.getUserId() == userId) {
+            if (b.getUserId().equals(userId)) {
                 postList.add(b);
-
             }
         }
         return postList;
@@ -485,6 +484,20 @@ public class Data {
         }
         // return value
         return result;
+    }
+
+    public List<Follow> findFollowersByUserId(String userId){
+        //List<Post> list = new ArrayList<>();
+        List<Follow> followList = new ArrayList<>();
+        System.out.println(userId);;
+        for (Follow b : follows) {
+            System.out.println(b.getUserId());
+            if (b.getUserId().equals(userId)) {
+                followList.add(b);
+
+            }
+        }
+        return followList;
     }
 
     // ------------------- WordFilter Management

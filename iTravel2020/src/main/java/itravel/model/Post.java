@@ -10,6 +10,20 @@ public class Post {
     private String tags;
     private String time;
     private String location;
+
+
+    public boolean isNotification() {
+        return notification;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
+    }
+
+    //check Notification
+    private boolean notification;
+
+
     // Using for admin
     private boolean status; // active, deActive
 
@@ -23,6 +37,7 @@ public class Post {
         this.tags       = "";
         this.time       = "";
         this.location   = "";
+        this.notification = false;
         // using for admin
         this.status     = true;
     }
@@ -37,6 +52,7 @@ public class Post {
         this.tags       = tags;
         this.time       = time;
         this.location   = location;
+        this.notification = false;
         // using for admin
         this.status     = true;
     }
@@ -120,6 +136,7 @@ public class Post {
     public void setLocation(String location) {
         this.location = location;
     }
+
 
     @Override
     public String toString() {

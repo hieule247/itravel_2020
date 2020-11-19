@@ -100,6 +100,8 @@ public class UserPostMnServlet extends HttpServlet {
         int id = 0;
         System.out.println(data.getPostList());
         System.out.println(data.findPostsByUserId(userId).size());
+        //if notification is tun on
+
 //        if (data.findPostsByUserId(userId).size() == 0){
 //            count = data.getPostList().size();
 //            //data.addPost(String.valueOf(count), userId, image, title, content, category, tags, LocalDate.now().toString());

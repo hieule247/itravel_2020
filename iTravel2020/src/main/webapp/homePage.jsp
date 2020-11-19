@@ -185,12 +185,18 @@
                                 <input type="file" name="imageUpload" src="" id="image" accept="image/*" />
 
                                 <div id="floating-panel">
-                                    <input type="checkbox" id="location" name="gender">
-                                    <label for="location">post with location</label><br>
+                                    <input type="checkbox" id="location" name="location">
+                                    <label for="location">Post With Location</label><br>
 <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
 <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
                                 </div>
                                 <div id="map"></div>
+                                    <div id="floating-panel">
+                                        <input type="checkbox" id="notification" name="notification">
+                                        <label for="notification">Post With Notification</label><br>
+                                        <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
+                                        <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
+                                    </div>
                                 <br/>
 
                                 <%--                            <button id="add" type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>--%>

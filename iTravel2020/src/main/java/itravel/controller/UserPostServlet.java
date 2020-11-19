@@ -1,10 +1,7 @@
 package itravel.controller;
 
 import com.google.gson.Gson;
-import itravel.model.Data;
-import itravel.model.DataFactory;
-import itravel.model.Post;
-import itravel.model.User;
+import itravel.model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +23,9 @@ public class UserPostServlet extends HttpServlet {
         System.out.println("do post request");
         Data data = DataFactory.getInstance();
         String cmdType = request.getParameter("cmdType");
-        String userID = request.getParameter("userID");
+        //String userID = request.getParameter("userID");
         System.out.println(cmdType+"command type");
-        System.out.println(userID+"USer ID get");
+        //System.out.println(userID+"USer ID get");
         System.out.println("init: post ...... loaddinggggg!!!!!");
 //        HttpSession session = request.getSession();
 //        User user = (User) session.getAttribute("user");
@@ -74,6 +71,7 @@ public class UserPostServlet extends HttpServlet {
     }
 
     private void doLoadInitPost(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+       // List <Post> postList = data.getPostList();
         sendToClient(data, request, response);
     }
 
@@ -83,8 +81,8 @@ public class UserPostServlet extends HttpServlet {
 
         String userId = request.getParameter("userId");
         System.out.println(userId);
-        String image = request.getParameter("image");
-        System.out.println(image);
+//        String image = request.getParameter("image");
+//        System.out.println(image);
         String title = request.getParameter("title");
         System.out.println(title);
         String content = request.getParameter("content");
@@ -95,18 +93,13 @@ public class UserPostServlet extends HttpServlet {
         System.out.println(tags);
         String time = request.getParameter("time");
         String location = request.getParameter("location");
+        String notification = request.getParameter("notification");
 
         //if post not exist, add new Post
         int id = 0;
         System.out.println(data.getPostList());
         System.out.println(data.findPostsByUserId(userId).size());
-//        if (data.findPostsByUserId(userId).size() == 0){
-//            count = data.getPostList().size();
-//            //data.addPost(String.valueOf(count), userId, image, title, content, category, tags, LocalDate.now().toString());
-//            Post post = new Post(String.valueOf(count), userId, image, title, content, category, tags, LocalDate.now().toString());
-//            updatePostSession(request, post, true);
-//        }
-//        else {
+
         System.out.println("test - done");
             // id = data.getPostList().size() +1;
             id = data.getMaxPostId() +1;
@@ -114,9 +107,23 @@ public class UserPostServlet extends HttpServlet {
 
             String strID 	= String.valueOf(id);
 
-            data.addPost(strID, userId, image, title, content, category, tags, LocalDate.now().toString(), location);
-            Post post = new Post(strID, userId, image, title, content, category, tags, time, location);
+            data.addPost(strID, userId, "image", title, content, category, tags, LocalDate.now().toString(), location);
+
+            Post post = new Post(strID, userId, "image", title, content, category, tags, time, location);
+            post.setNotification(Boolean.getBoolean(notification));
+
             updatePostSession(request, post, true);
+            System.out.println(notification);
+            //check if notification is enabled
+        if(notification.equals("true")){
+            System.out.println("get followers");
+           // List<Follow> followList = data.findFollowersByUserId(userId);
+//            getFollowerList(userId, data, request, response);
+//            sendToClient(data, request, response);
+            sendToClientFollowerList(userId, data, request, response);
+
+
+        }
 
  //       }
         System.out.println(id);
@@ -168,6 +175,12 @@ public class UserPostServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(respJson);
     }
+    public void sendToClientFollowerList(String userId, Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String respJson = new Gson().toJson(data.getFollowList().contains(userId));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
+    }
 
     public  Boolean isLogged(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
@@ -193,54 +206,7 @@ public class UserPostServlet extends HttpServlet {
                 + ", "+ post.getTitle()+", "+ post.getContent()+", "+ post.getId()+", "+ post.getUserId()
                 +", "+ post.getImage()+ ", "+post.getTime()+", "+isLogged);
     }
-//    public void uploadImage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        System.out.println("test test upload image");
-//
-//
-//
-//        // Getting File data
-//        Part part = request.getPart("imageData");
-//
-//        // Getting Application Path
-//        String appPath = request.getServletContext().getRealPath("");
-//        System.out.println("imagePath");
-//        // File path where all files will be stored
-//        String imagePath = appPath + "/upload";
-//        System.out.println("imagePath");
-//        System.out.println(imagePath);
-//
-//        // Creates the file directory if it does not exists
-//        File fileDir = new File(imagePath);
-//        if (!fileDir.exists()) {
-//            fileDir.mkdirs();
-//        }
-//
-//        response.setContentType("text/html");
-//        PrintWriter out = response.getWriter(); //Get Image Name
-//        String imageName = part.getSubmittedFileName();
-//
-//        if(validateImage(imageName)){
-//            try{
-//                part.write(imagePath + File.separator + imageName);
-//                out.print("<img src=\"images/"+imageName+"\" >");
-//            }catch (Exception ex) {
-//                out.print("<h1>"+ex.getMessage()+"</h1>");
-//            }
-//        }else{
-//            out.print("<h1>Invalid Image Format</h1>");
-//        }
-//    }
-//
-//
-//
-//    //Validates uploaded file is Image or not
-//    private boolean validateImage(String imageName){
-//        String fileExt = imageName.substring(imageName.length()-3);
-//        if("jpg".equals(fileExt) || "png".equals(fileExt) || "gif".equals(fileExt))
-//            return true;
-//
-//        return false;
-//    }
+
 public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute("user");
@@ -255,20 +221,11 @@ public void getUserPostList(Data data, HttpServletRequest request, HttpServletRe
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     response.getWriter().write(respJson);
-
-
     }
     public void getPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        HttpSession session = request.getSession();
-//        Post post = (Post) session.getAttribute("post");
-//        System.out.println(post);
-//        List<Post> posts = new ArrayList<>();
-//        for (int i =0; i<data.getPostList().size(); i++){
-//            if(data.getPostList().contains(user.getId())){
-//                posts.add(data.getPost(user.getId()));
-//            }
-//        }
+
         List <Post> postList = data.getPostList();
+
         String respJson = new Gson().toJson(postList);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -285,6 +242,22 @@ public void getUserPostList(Data data, HttpServletRequest request, HttpServletRe
             post.setStatus(true);
         }
         request.getSession().removeAttribute("content");
+    }
+    public void getFollowerList(String userId, Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("follower");
+        System.out.println(userId);
+        List<Follow> followList = data.findFollowersByUserId(userId);
+        System.out.println(followList);
+        for (Follow f: followList){
+            System.out.println(f.getTravellerId());
+        }
+        String respJson = new Gson().toJson(followList.get(2));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
+       // sendToClient(data, request, response);
+
+
     }
 
 }

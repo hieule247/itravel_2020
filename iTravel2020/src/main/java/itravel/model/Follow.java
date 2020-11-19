@@ -40,4 +40,13 @@ public class Follow {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Traveler{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", travelerId='" + travellerId + '\'' +
+                '}';
+    }
 }
