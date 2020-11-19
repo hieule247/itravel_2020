@@ -1,9 +1,22 @@
 package itravel.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Follow {
     private String id;
+
+    public void setList(List<Post> list) {
+        this.list = list;
+    }
+
     private String travellerId;
     private String userId;
+    private List<Post> list = new ArrayList<>();
+
+    public List<Post> getList() {
+        return list;
+    }
 
     public Follow() {
         this.id             = "";

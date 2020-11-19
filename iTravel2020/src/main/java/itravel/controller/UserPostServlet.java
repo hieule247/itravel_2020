@@ -160,6 +160,15 @@ public class UserPostServlet extends HttpServlet {
            // List<Follow> followList = data.findFollowersByUserId(userId);
 //            getFollowerList(userId, data, request, response);
 //            sendToClient(data, request, response);
+            List<Follow> followList = data.getFollowList();
+            List<Post> postsWithNoti = new ArrayList<>();
+            postsWithNoti.add(post);
+            for(Follow follow: followList){
+                if(follow.getUserId().equals(userId)){
+                    follow.setList(postsWithNoti);
+
+                }
+            }
             sendToClientFollowerList(userId, data, request, response);
 
 
@@ -216,7 +225,7 @@ public class UserPostServlet extends HttpServlet {
         response.getWriter().write(respJson);
     }
     public void sendToClientFollowerList(String userId, Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String respJson = new Gson().toJson(data.getFollowList().contains(userId));
+        String respJson = new Gson().toJson(data.getFollowList().get(3));
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(respJson);
