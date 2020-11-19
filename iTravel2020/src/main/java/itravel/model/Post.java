@@ -10,6 +10,29 @@ public class Post {
     private String tags;
     private String time;
     private String location;
+    private boolean likeStatus;
+    private int countlike = 0;
+
+    public int getCountLike() {
+        return countlike;
+    }
+
+    public void setCountLike(int addCount) {
+        this.countlike += addCount;
+    }
+
+    public boolean isLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(boolean likeStatus) {
+        this.likeStatus = likeStatus;
+    }
+
+
+
+
+
 
 
     public boolean isNotification() {
@@ -40,6 +63,7 @@ public class Post {
         this.notification = false;
         // using for admin
         this.status     = true;
+        this.likeStatus = false;
     }
 
     public Post(String id, String userId, String image, String title, String content, String category, String tags, String time, String location) {
@@ -55,6 +79,7 @@ public class Post {
         this.notification = false;
         // using for admin
         this.status     = true;
+        this.likeStatus = false;
     }
 
     public String getId() {

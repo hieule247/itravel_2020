@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //onLoadInitData();
+    onLoadInitData();
 
     setTimeout(function (){
         getPostList();
@@ -8,9 +8,8 @@ $(document).ready(function () {
     $('#add').click(onAdd);
 
     uploadImage();
-    //uploadImage1();
-    //getPostList();
-    //getCurrPostList();
+    uploadImage1();
+    getCurrPostList();
 
     $('#upd').click(onUpdate);
     $('#del').click(onDelete);
@@ -44,11 +43,22 @@ function getPostList(){
 }
 
 function onLoadInitData(){
-
+/*    // Get parameter from url
+    let searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('userId') == false)
+        return;
+    let userId = searchParams.get('userId');
+    alert (userId);
     //prepare parameters
     let $cmdType = "init";
     //checkValidate();
-    $.post("UserPostServLet", {cmdType : $cmdType}, displayPostListOnHomePage);
+    $.post("UserPostServLet", {cmdType : $cmdType, userId : userId}, disp_PostList);
+*/
+   // alert ("loooooaaaaaddd.... User post");
+    //prepare parameters
+    let $cmdType = "init";
+    //checkValidate();
+    $.post("UserPostServLet", {cmdType : $cmdType}, disp_PostList);
 }
 
 var time = new Date();
@@ -57,9 +67,7 @@ function onAdd(){
     // let $id = $('#id').html();
     // console.log($id);
     let $userId = $('#userId').html();
-    console.log($userId);
     let $title = $('#title').html();
-    console.log($title);
     let $content = $('#content').text();
     console.log($content);
     let $category = $('#category').val();
@@ -67,9 +75,8 @@ function onAdd(){
     let $tags = $('#tags').val();
     console.log($tags);
     let $image = $('#image').val();
-    console.log($image);
+    console.log($tags);
     let $location = $('#location').is(":checked");
-    let $notification = $('#notification').is(":checked");
 
     var fullPath = $('#image').val();
     if (fullPath) {
@@ -84,16 +91,21 @@ function onAdd(){
     console.log($image);
     //var time = new Date();
     let $time= time.getMonth()+"-"+time.getDate()+"-"+time.getFullYear();
-
+    // let $location;
+    // if ($('#position').val()==false){
+    //     $location="";
+    // }
+//     else {
+//         function curr(position) {
+// //     $location = position.coords.latitude + ", " + position.coords.longitude;
+ //       }
+// }
+   //}
     $.post("UserPostServlet",
         {
-            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time, location:$location, notification:$notification
+            cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time, location:$location
         }, displayPostListOnHomePage);
-
-
-
-
-    // }, disPostList);
+       // }, disPostList);
     $('#formAdd').submit();
     uploadImage();
 
@@ -101,7 +113,8 @@ function onAdd(){
 
 function onUpdate(){
     $('.updateImageEdit').hide();
-
+    //alert("on update");
+    alert("hello");
     let $cmdType = "upd";
     let $id = $('#u-id').val();
     console.log($id);
@@ -128,6 +141,7 @@ function onUpdate(){
     }
     let urlImage = "resources/images/" + filename;
     console.log(urlImage +"-----------");
+    // var $location = $('#aadddd').coords.latitude + "," + $('#add').coords.longitude;
 
     var $time= time.getMonth()+","+time.getDate()+","+time.getFullYear();
 
@@ -135,27 +149,50 @@ function onUpdate(){
         {
             cmdType: $cmdType, id:$id, userId: $userId, image:urlImage, title:$title, content:$content, category:$category, tags:$tags, time:$time
         }, displayPostListOnHomePage);
-    // }, disPostList);
+        // }, disPostList);
     $('#formUpdate').submit();
     uploadImage();
 
 
 }
-
+// var $location = navigator.geolocation.getCurrentPosition(coords.latitude +", "+ coords.longitude, );
+// function getCurrPosition(){
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(curr);
+//
+//     } else {
+//          alert("Geolocation is not supported by this browser.");
+//     }
+// }
+// function curr(position) {
+//     $location = position.coords.latitude + ", " + position.coords.longitude;
+// }
 function onDelete(postId){
     let $cmdType = "del";
     let $id = postId;
     $.post("UserPostServlet",
         {
             cmdType:$cmdType, id:$id
-            // }, disPostList())
+        // }, disPostList())
         }).done(function(posts){
-        displayPostListOnHomePage(posts);
+            displayPostListOnHomePage(posts);
     }).fail(function(error){
 
-        }
+    }
 
     )
+    //$('#formAdd').submit();
+    // $.post("UserPostServlet", {"cmdType" : "load"})
+    //     .done(function (user){
+    //         console.log(user);
+    //         displayUserInfo(user);
+    //         updateUserInfoInEditForm(user);
+    //         UpdateUserInfoInHomePage(user);
+    //
+    //     })
+    //     .fail(function(error){
+    //         console.error(error);
+    //     });
 
 }
 function onDeleteCurrPost(){
@@ -226,24 +263,24 @@ function disPostList(respJson){
             // // Copy the <li> element and its child nodes
             //     var cln = itm.cloneNode(true);
 
-            // // Append the cloned <li> element to <ul> with id="myList1"
-            //     var $original = $("#post");
-            //     var $newClone = original.clone();
-            //     $original.appendChild($newClone);
-            //     console.log($newClone);
-            //   document.getElementById("post").appendChild(cln);
-            let $col = "<td class=\"w3-container w3-card w3-white w3-round w3-margin\">"
-                + "<td>" + $('.w3-border w3-padding').html(item.id) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.image) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.title) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.content) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.category) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.tags) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.time) + "</td>"
-                + "<td>" + $('.w3-border w3-padding').html(item.location) + "</td>";
+    // // Append the cloned <li> element to <ul> with id="myList1"
+    //     var $original = $("#post");
+    //     var $newClone = original.clone();
+    //     $original.appendChild($newClone);
+    //     console.log($newClone);
+      //   document.getElementById("post").appendChild(cln);
+        let $col = "<td class=\"w3-container w3-card w3-white w3-round w3-margin\">"
+            + "<td>" + $('.w3-border w3-padding').html(item.id) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.image) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.title) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.content) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.category) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.tags) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.time) + "</td>"
+            + "<td>" + $('.w3-border w3-padding').html(item.location) + "</td>";
 
-            $table.append($col);
-        }
+        $table.append($col);
+    }
 
         if ($('#u-title').html()!=item.title)
             $('#u-title').html(item.title);
@@ -254,7 +291,7 @@ function disPostList(respJson){
         // if ($('#u-tags').html()!=item.tags)
         //     $('#u-tags').html(item.tags);
 
-    })
+})
 }
 function checkValidate() {
     // Prepare parameters
@@ -265,9 +302,12 @@ function checkValidate() {
         alert("Session expired. Please login again");
         return;
     }
-
+    // if ($id==0){
+    //     alert("Post Id is required");
+    // }
 }
-
+//     $('#isValid').val("true");
+// }
 function uploadImage(){
     $('#formAdd').submit(function(event) {
         console.log("form submit 1");
@@ -302,7 +342,14 @@ function uploadImage1(){
         console.log("form submit 1");
         event.preventDefault();
         console.log("form submit 2");
-
+        // let $imageName = $('#u-image').val();
+        // $.post("ImageUploadServlet", {
+        //     imageName: $imageName, data: new FormData(this)
+        // }, function (response) {
+        //     console.log(response);
+        //     $('#image_frame').html(response);
+        //     $('#center').hide();
+        // })
 
         // Calling AJAX
         $.ajax({
@@ -408,16 +455,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function displayPostListOnHomePage(respJson){
-    //console.log("render list");
+    console.log("render list");
     window.postList = respJson;
     let $table = $('#posts');
-    //   $table.find($('._post')).remove();
+ //   $table.find($('._post')).remove();
 
     var allPostHTML = "";
     // Update new data
     $.each(respJson, function(i, item) {
         allPostHTML +=displaySinglePost(item);
 
+        // $("#uimage").html(item.image);
+        // $("#uid").html(item.id);
+        // $('#utitle').html(item.title);
+        // $('#ucontent').html(item.content);
+        // $('#ucategory').html(item.category);
+        // $('#utag').html(item.tags);
+        // $('#utime').html(item.time);
+        // $table.append(displaySinglePost(item));
     });
     $('#all-post').html(allPostHTML);
     //console.log(item.time);
@@ -454,8 +509,24 @@ function displaySinglePost(post){
         '<br>'+
         '<button @cssUpdate@ id="@show@" type="button" class="btnUpdate w3-button w3-theme-d1 w3-margin-bottom" style="" onclick="openFormUpdate(@show@);"><i class="fa fa-delete"></i>  Update</button>'+
         '<button @cssDelete@ type="button" class="w3-button w3-theme-d1 w3-margin-bottom" onclick="onDelete(@id@);"><i class="fa fa-delete"></i>  Delete</button>'+
+                '<button type="button" id="like-@id@" class="w3-button w3-theme-d1 w3-margin-bottom" onclick="likePost(@id@);">' +
+        '<i class="fa fa-thumbs-up"></i> &nbsp</button>'+
+                '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">' +
+        '<i class="fa fa-comment"></i> &nbsp;Comment</button>'+
+                '<br>'+
+                    '<button @cssUpdate@ id="@show@" type="button" class="btnUpdate w3-button w3-theme-d1 w3-margin-bottom" style="" onclick="openFormUpdate(@show@);"><i class="fa fa-delete"></i>  Update</button>'+
+                    '<button @cssDelete@ type="button" class="w3-button w3-theme-d1 w3-margin-bottom" onclick="onDelete(@id@);"><i class="fa fa-delete"></i>  Delete</button>'+
 
         '</div>'
+        '<div id="box">'+
+        '<p>Comment：</p>'+
+        '<textarea class="txt"   rows="10" cols="10"></textarea ><br>'+
+        '<button class="submitComment">Submit</button><span id="len">0</span>'+
+        '<p class="pl">Comment Area:</p>'+
+        '</div>'+
+
+
+                '</div>'
     if(post.userId!==$('#userId').text()){
         postHTML = postHTML.replaceAll('@cssDelete@', ' style="display:none" ');
         postHTML = postHTML.replaceAll('@cssUpdate@', ' style="display:none" ');
@@ -480,7 +551,7 @@ function displaySinglePost(post){
     return postHTML;
 }
 function openEdit(){
-    //alert("hello")
+    alert("hello")
 }
 
 function openFormUpdate(postId){
@@ -509,12 +580,27 @@ function openFormUpdate(postId){
     $('#u-title').html(post.title);
 
 
-    $('#u-content').text(post.content);
+   $('#u-content').text(post.content);
 
     $('#u-category').val(post.category);
 
-    $('#u-tags').val(post.tags);
-    $('#u-id').val(post.id);
+   $('#u-tags').val(post.tags);
+   $('#u-id').val(post.id);
+
+   // $('#u-image').val(post.image);
+
+    //let btn = document.getElementById(show);
+   //
+   // $('btn').click(abc);
+   // function abc(){
+   //     $('.center').show();
+   // ///     $('.center').show();
+   //  }
+    // $('#').on('click', function () {
+    // console.log("test")
+    //     $('.center').show();
+    //    z  $(this).hide();
+    // })
 
     $('#close').on('click', function () {
         $('.center').hide();
@@ -538,5 +624,67 @@ function dispNotification(posts, followers){
                 console.log(item.title + ", "+ item.textContent + ", "+ item.category + ", "+ item.tags + item.category + item.time)
             }
         });
+
+}
+
+    function likePost(postId) {
+        let likeId = "#like-"+postId;
+        $.get('UserPostServlet', {
+            'should_like': true,
+            'postId': postId
+        }).done(function (data) {
+            $(likeId).text(data + " Like");
+            //$('#like-024').text(data + " Like");
+        }).fail(function () {
+            console.log("Failed");
+        })
+        console.log("js, likePost, excuted");
+    }
+
+
+    // let $cmdType = "init";
+    // $.post("AdminPostServlet",
+    //     {cmdType: $cmdType},
+    //     onDisplyShowDeactiveUserOnPage
+    // );
+    // alert("init");
+
+
+
+
+
+
+function showComment() {
+    var txt = document.getElementsByClassName('txt')[0];
+    var btn = document.getElementsByClassName('submitComment')[0];
+    var pl = document.getElementsByClassName('pl')[0];
+    var Olen = document.getElementById('len');
+
+    if (txt.value == '') {
+        confirm("you don't want to input something")
+        return false;
+    } else {
+        var ul = document.createElement('ul');
+        pl.appendChild(ul);
+        var li = document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML = txt.value;
+        txt.value = ''
+        var li = document.createElement('li');
+        ul.appendChild(li);
+        var date = new Date();
+        li.innerHTML = date.toLocaleDateString();
+
+        var oa = document.createElement('a');
+        li.appendChild(oa);
+        oa.innerHTML = 'delete';
+        oa.style.float = 'right';
+        oa.style.href = '#'
+    }
+    oa.onclick = function() {
+        oa.parentNode.parentNode.remove()
+        oa.style.cursor = 'pointer'
+    }
+
 
 }

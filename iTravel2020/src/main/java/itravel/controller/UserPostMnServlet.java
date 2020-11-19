@@ -114,7 +114,7 @@ public class UserPostMnServlet extends HttpServlet {
         id = data.getMaxPostId() +1;
         System.out.println("test - done............. dddddd" + id);
 
-        String strID 	= String.format("%03d", id);
+        String strID 	= String.format("d", id);
 
         data.addPost(strID, userId, image, title, content, category, tags, LocalDate.now().toString(), location);
         Post post = new Post(strID, userId, image, title, content, category, tags, time, location);

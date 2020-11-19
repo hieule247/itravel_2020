@@ -66,8 +66,48 @@ public class UserPostServlet extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        System.out.println("step1");
+
+        Data data = DataFactory.getInstance();
+//一个user like 一个post
+        String postId = req.getParameter("postId");
+        boolean shouldLike = Boolean.parseBoolean(req.getParameter("should_like"));
+
+        //判断这个user以前有不有like过，like过就不执行，没like过，再执行
+        //1.根据post id,找出这个post，再找出这个user
+        //2.根据user查出post
+        //3.如果user对这个post like过，不执行，没like过，再执行
+        /* List<Post> posts = data.getPostList();
+        Post post = data.getPost(postId);
+        String userId = post.getUserId();
+        User user = data.getUser(userId);
+        System.out.println("step1");
+       // List<Post> userPostList = user.getPosts();
+        /*
+        for(Post userPost : userPostList){
+            if(postId.equals(userPost.getId())){
+                if(!userPost.isLikeStatus()){
+                    post.setLikeStatus(true);
+                    System.out.println("step2 "+post.isLikeStatus());
+
+                    post.setCountLike(1);//post中如果有userLikedList会好很多
+                }
+            }
+        }
+        *
+
+        System.out.println("step3");
+        post.setCountLike(1);
+        int count = post.getCountLike();
+
+
+*/
+        String jsonString = new Gson().toJson(5);
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonString);
     }
 
     private void doLoadInitPost(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
