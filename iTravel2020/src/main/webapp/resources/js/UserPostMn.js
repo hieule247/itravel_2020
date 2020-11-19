@@ -28,7 +28,7 @@ $(document).ready(function () {
 function getCurrPostList(){
     let $cmdType = "getPostList";
     //checkValidate();
-    $.post("UserPostServLet", {cmdType : $cmdType}, disp_PostList);
+    $.post("UserPostServLet", {cmdType : $cmdType}, dispPostList);
 }
 function getPostList(){
     let $cmdType = "getPosts";
@@ -58,7 +58,7 @@ function onLoadInitData(){
     //prepare parameters
     let $cmdType = "init";
     //checkValidate();
-    $.post("UserPostServLet", {cmdType : $cmdType}, disp_PostList);
+    $.post("UserPostServLet", {cmdType : $cmdType}, displayPostListOnHomePage);
 }
 
 var time = new Date();
@@ -504,8 +504,8 @@ function displaySinglePost(post){
         '<div class="w3-half" id="utag-@tag1@">@tag@</div>'+
         '</div>'+
 
-        '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>'+
-        '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> &nbsp;Comment</button>'+
+        // '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>'+
+        // '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> &nbsp;Comment</button>'+
         '<br>'+
         '<button @cssUpdate@ id="@show@" type="button" class="btnUpdate w3-button w3-theme-d1 w3-margin-bottom" style="" onclick="openFormUpdate(@show@);"><i class="fa fa-delete"></i>  Update</button>'+
         '<button @cssDelete@ type="button" class="w3-button w3-theme-d1 w3-margin-bottom" onclick="onDelete(@id@);"><i class="fa fa-delete"></i>  Delete</button>'+
