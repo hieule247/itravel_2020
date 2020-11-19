@@ -30,6 +30,8 @@
     </div>
     <div id="contentBody">
         <form name="loginForm" method="post" action="loginServlet">
+            Using for log in:
+            admin/admin or user/user
             <table class="table">
                 <tr>
                     <td><label for="txtUserName">Email</label></td>
