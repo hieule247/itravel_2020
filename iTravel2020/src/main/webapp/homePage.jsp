@@ -35,11 +35,11 @@
         <a href="userTravelInfo.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="My Profile"><i class="fa fa-user"></i></a>
         <%--        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>--%>
         <div class="w3-dropdown-hover w3-hide-small">
-            <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>
-            <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-                <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-                <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-                <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+            <button class="w3-button w3-padding-large" title="Notifications" id="btnNotifyList"><i class="fa fa-bell" id="beforecountNotify"></i><span class="w3-badge w3-right w3-small w3-green" id="countNotify">3</span></button>
+            <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px" id="containerNotify">
+                <a href="#" class="w3-bar-item w3-button notifyDetail">One new friend request</a>
+                <a href="#" class="w3-bar-item w3-button notifyDetail">John Doe posted on your wall</a>
+                <a href="#" class="w3-bar-item w3-button notifyDetail">Jane likes your post</a>
             </div>
         </div>
         <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
@@ -187,16 +187,16 @@
                                 <div id="floating-panel">
                                     <input type="checkbox" id="location" name="location">
                                     <label for="location">Post With Location</label><br>
-<%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
-<%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
+                                    <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
+                                    <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
                                 </div>
                                 <div id="map"></div>
-                                    <div id="floating-panel">
-                                        <input type="checkbox" id="notification" name="notification">
-                                        <label for="notification">Post With Notification</label><br>
-                                        <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
-                                        <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
-                                    </div>
+                                <div id="floating-panel">
+                                    <input type="checkbox" id="notification" name="notification">
+                                    <label for="notification">Post With Notification</label><br>
+                                    <%--                                    <input id="latlng" type="text" value="40.714224,-73.961452" />--%>
+                                    <%--                                    <input id="location" type="button" value="Reverse Geocode" />--%>
+                                </div>
                                 <br/>
 
                                 <%--                            <button id="add" type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>--%>
@@ -209,7 +209,7 @@
                 </div>
             </div>
             <dt></dt>
-<%--            <div id="image_frame"></div>--%>
+            <%--            <div id="image_frame"></div>--%>
 
             <!--
             <div class="w3-container w3-card w3-white w3-round w3-margin" id="post"><br>

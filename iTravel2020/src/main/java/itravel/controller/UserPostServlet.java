@@ -18,7 +18,7 @@ import java.util.List;
 public class UserPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //check isLogged - no need to check because client already check
-       // if(isLogged(request, response)== false)
+        // if(isLogged(request, response)== false)
         //    return;
         System.out.println("do post request");
         Data data = DataFactory.getInstance();
@@ -29,8 +29,8 @@ public class UserPostServlet extends HttpServlet {
         System.out.println("init: post ...... loaddinggggg!!!!!");
 //        HttpSession session = request.getSession();
 //        User user = (User) session.getAttribute("user");
-      // String userId = user.getId();
-       // System.out.println(user.getId());
+        // String userId = user.getId();
+        // System.out.println(user.getId());
 
         //check
         if (cmdType.equals("init")) {
@@ -55,6 +55,12 @@ public class UserPostServlet extends HttpServlet {
         else if(cmdType.equals("del")){
             doDelPost(data, request, response);
         }
+        else if(cmdType.equals("loadNotify")){
+            doLoadNotify(data, request, response);
+        }
+        else if(cmdType.equals("loadNotifyDetail")){
+            doLoadNotifyDetail(data, request, response);
+        }
 //        else if(cmdType.equals("getPostList")){
 //            getUserPostList(data, request, response);
 //        }
@@ -63,6 +69,7 @@ public class UserPostServlet extends HttpServlet {
             // getPostList(data, request, response);
             doLoadInitPost(data, request, response);
         }
+
 
     }
 
@@ -111,7 +118,7 @@ public class UserPostServlet extends HttpServlet {
     }
 
     private void doLoadInitPost(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
-       // List <Post> postList = data.getPostList();
+        // List <Post> postList = data.getPostList();
         sendToClient(data, request, response);
     }
 
@@ -134,47 +141,38 @@ public class UserPostServlet extends HttpServlet {
         String time = request.getParameter("time");
         String location = request.getParameter("location");
         String notification = request.getParameter("notification");
-
+        Boolean bNotification = Boolean.parseBoolean(request.getParameter("notification"));
         //if post not exist, add new Post
         int id = 0;
         System.out.println(data.getPostList());
         System.out.println(data.findPostsByUserId(userId).size());
 
         System.out.println("test - done");
-            // id = data.getPostList().size() +1;
-            id = data.getMaxPostId() +1;
+        // id = data.getPostList().size() +1;
+        id = data.getMaxPostId() +1;
         System.out.println("test - done............. dddddd" + id);
 
-            String strID 	= String.valueOf(id);
+        String strID 	= String.valueOf(id);
 
-            data.addPost(strID, userId, "image", title, content, category, tags, LocalDate.now().toString(), location);
+        data.addPost(strID, userId, "image", title, content, category, tags, LocalDate.now().toString(), location);
+        // Update Notification in DB
+        Post postInDb = data.getPost(strID);
+        postInDb.setNotification(bNotification);
 
-            Post post = new Post(strID, userId, "image", title, content, category, tags, time, location);
-            post.setNotification(Boolean.getBoolean(notification));
+        Post post = new Post(strID, userId, "image", title, content, category, tags, time, location);
+        post.setNotification(Boolean.getBoolean(notification));
 
-            updatePostSession(request, post, true);
-            System.out.println(notification);
-            //check if notification is enabled
-        if(notification.equals("true")){
-            System.out.println("get followers");
-           // List<Follow> followList = data.findFollowersByUserId(userId);
-//            getFollowerList(userId, data, request, response);
-//            sendToClient(data, request, response);
-            List<Follow> followList = data.getFollowList();
-            List<Post> postsWithNoti = new ArrayList<>();
-            postsWithNoti.add(post);
-            for(Follow follow: followList){
-                if(follow.getUserId().equals(userId)){
-                    follow.setList(postsWithNoti);
+        updatePostSession(request, post, true);
+        /// Noti
+        System.out.println(notification);
+        //check if notification is enabled
 
-                }
-            }
-            sendToClientFollowerList(userId, data, request, response);
-
-
+        if (bNotification){
+            // sendNotify2Follower
+            data.sendNotify2Follower(strID, userId);
         }
 
- //       }
+        //       }
         System.out.println(id);
 
         checkHealthy(post, request, response);
@@ -218,6 +216,30 @@ public class UserPostServlet extends HttpServlet {
         //send to client;
         sendToClient(data, request, response);
     }
+
+    public void doLoadNotify(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("in side doLoadNotifydoLoadNotifydoLoadNotifydoLoadNotify");
+        // sendToClient
+        String userId = getCurrentId(request, response);
+        String respJson = new Gson().toJson(data.getNotifybyUser(userId));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
+    }
+
+    public void doLoadNotifyDetail(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("in side doLoadNotifydoLoadNotifydoLoadNotifydoLoadNotify");
+        // sendToClient
+        String userId = getCurrentId(request, response);
+        List listNotify = data.getNotifybyUser(userId);
+
+        List list = data.getPostByNotify(listNotify);
+        String respJson = new Gson().toJson(list);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
+    }
+
     public void sendToClient(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String respJson = new Gson().toJson(data.getPostsReverse());
         response.setContentType("application/json");
@@ -256,20 +278,20 @@ public class UserPostServlet extends HttpServlet {
                 +", "+ post.getImage()+ ", "+post.getTime()+", "+isLogged);
     }
 
-public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    HttpSession session = request.getSession();
-    User user = (User) session.getAttribute("user");
-    System.out.println(user);
-    List<Post> posts = new ArrayList<>();
-    for (int i =0; i<data.getPostList().size(); i++){
-        if(data.getPostList().contains(user.getId())){
-            posts.add(data.getPost(user.getId()));
+    public void getUserPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        System.out.println(user);
+        List<Post> posts = new ArrayList<>();
+        for (int i =0; i<data.getPostList().size(); i++){
+            if(data.getPostList().contains(user.getId())){
+                posts.add(data.getPost(user.getId()));
+            }
         }
-    }
-    String respJson = new Gson().toJson(posts);
-    response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-    response.getWriter().write(respJson);
+        String respJson = new Gson().toJson(posts);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respJson);
     }
     public void getPostList(Data data, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -304,9 +326,12 @@ public void getUserPostList(Data data, HttpServletRequest request, HttpServletRe
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(respJson);
-       // sendToClient(data, request, response);
+        // sendToClient(data, request, response);
 
 
     }
 
+    public String getCurrentId (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        return (String)req.getSession().getAttribute("userId");
+    }
 }

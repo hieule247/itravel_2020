@@ -19,6 +19,7 @@ public class DataFactory {
                     initWordFiltersData();
                     initBooksData();
                     initPostsData();
+                    initNotifyPost2UsersData();
                 }
             }
         }
@@ -40,31 +41,31 @@ public class DataFactory {
         instance.getUserList().add(new User("userId011", "user", "Hailian Zhang", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "hzhang@miu.edu", "h"));
 
         instance.getUserList().add(new User("userId012", "user", "Le Hieu Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "lle@mum.edu", "l"));
-    // set active user/admin: using for present
+        // set active user/admin: using for present
         instance.getUserList().add(new User(true, "u111", "user", "Hailain", "F", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "111", ""));
         instance.getUserList().add(new User(true, "a222", "admin", "Hieu Le", "M", "IA", "Fairfield", "1000 N 4th", "52557", 1990, "222", ""));
     }
     private static void initPostsData(){
 //        String[] userId = new String[] {"1", "2", "000-11-0319", "000-11-0930", "000-11-0931","000-61-1519", "000-61-1699", "000-61-1775", "000-61-1525", "000-61-1785", "000-61-1795", "000-61-1635"};
 
-            for (int i = 1; i <= 30; i++) {
-                //String strUserID = String.valueOf(j);
+        for (int i = 1; i <= 30; i++) {
+            //String strUserID = String.valueOf(j);
 
-                String strID = String.format("%d", i);
-                String strUserID = String.format("userId%03d", i % 5);
+            String strID = String.format("%d", i);
+            String strUserID = String.format("userId%03d", i % 5);
 
-                String strImage = String.format("Image %03d", i);
-                String strTitle = String.format("Title %03d", i);
-                String strContent = String.format("Content %03d", i);
-                String strCategory = String.format("Category %03d", i);
-                String strTags = String.format("Tags %03d", i);
-                String strTime = LocalDate.of(2020, 11, i).toString();
-                String strLocation = String.format("Location %03d", i);
-                instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
-                int commentId = i;
-                int likeId = i;
+            String strImage = String.format("Image %03d", i);
+            String strTitle = String.format("Title %03d", i);
+            String strContent = String.format("Content %03d", i);
+            String strCategory = String.format("Category %03d", i);
+            String strTags = String.format("Tags %03d", i);
+            String strTime = LocalDate.of(2020, 11, i).toString();
+            String strLocation = String.format("Location %03d", i);
+            instance.getPostList().add(new Post(strID, strUserID, strImage, strTitle, strContent, strCategory, strTags, strTime, strLocation));
+            int commentId = i;
+            int likeId = i;
 
-            }
+        }
     }
 
 
@@ -89,8 +90,8 @@ public class DataFactory {
     private static void initCommentsData (){
         for (int i = 1; i <= 30; i++)
         {
-            String strID 	= String.format("%03d", i);
-            String strPostID   = String.format("%03d", i);
+            String strID 	= String.format("%d", i);
+            String strPostID   = String.format("%d", i);
             String strUserID= String.format("userId%03d", i);
             String strContent = String.format("Content %03d", i);
             instance.getCommentList().add(new CommentPost(strID, strPostID, strUserID, strContent));
@@ -98,14 +99,27 @@ public class DataFactory {
     }
 
     private static void initFollowsData (){
-        for (int i = 1; i <= 30; i++)
+        for (int i = 1; i <= 12; i++)
         {
-            String strID 	= String.format("%03d", i);
-            String strTravellerID= String.format("userId%03d", i);
-            String strUserID= String.format("userId%03d", i % 5);
+            String strID 	= String.format("%d", i);
+            String strTravellerID= String.format("userId%03d", i%3 + 1);
+           // String strUserID= String.format("userId001");
+           String strUserID= String.format("userId%03d", i);
             instance.getFollowList().add(new Follow(strID, strTravellerID, strUserID));
         }
     }
+
+    private static void initNotifyPost2UsersData (){
+        for (int i = 1; i <= 30; i++)
+        {
+            String strID 	= String.format("%d", i);
+            String strPostID= String.format("%d", i%3 + 1);
+            // String strUserID= String.format("userId001");
+            String strUserID= String.format("userId%03d", i);
+            instance.getNotifyPost2UserList().add(new NotifyPost2User(strID, strPostID, strUserID));
+        }
+    }
+
     private static void initWordFiltersData (){
         for (int i = 1; i <= 20; i++)
         {

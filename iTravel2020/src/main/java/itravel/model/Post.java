@@ -10,8 +10,12 @@ public class Post {
     private String tags;
     private String time;
     private String location;
+    //check Notification
+    private boolean notification;
+
     private boolean likeStatus;
     private int countlike = 0;
+
 
     public int getCountLike() {
         return countlike;
@@ -43,8 +47,6 @@ public class Post {
         this.notification = notification;
     }
 
-    //check Notification
-    private boolean notification;
 
 
     // Using for admin
@@ -80,6 +82,22 @@ public class Post {
         // using for admin
         this.status     = true;
         this.likeStatus = false;
+    }
+
+    public Post(Post post) {
+        this.id         = post.id;
+        this.userId     = post.userId;
+        this.image      = post.image;
+        this.title      = post.title;
+        this.content    = post.content;
+        this.category   = post.category;
+        this.tags       = post.tags;
+        this.time       = post.time;
+        this.location   = post.location;
+        this.notification = post.notification;
+        // using for admin
+        this.status     = post.status;
+        this.likeStatus = post.likeStatus;
     }
 
     public String getId() {

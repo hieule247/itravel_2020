@@ -15,6 +15,7 @@ public class Data {
     private List<Follow> follows;
     private List<WordFilter> wordFilters;
     private List<LogLogin> logLogins;
+    private List<NotifyPost2User> notifyPost2Users;
 
     private List<Book> books;
     private List<Post> posts;
@@ -35,6 +36,7 @@ public class Data {
         members = new ArrayList<>();
         posts = new ArrayList<>();
         logLogins = new ArrayList<>();
+        notifyPost2Users = new ArrayList<>();
     }
 
     public Page<User> getPage() {
@@ -162,7 +164,7 @@ public class Data {
     }
 
     public List<User> searchUser(String name){
-    return users.parallelStream()
+        return users.parallelStream()
                 .filter(b -> b.getId().toLowerCase().contains(name.toLowerCase())
                         || b.getFullName().toLowerCase().contains(name.toLowerCase())
                         || b.getState().toLowerCase().contains(name.toLowerCase())
@@ -456,6 +458,7 @@ public class Data {
                         || b.getUserId().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
 
     public List<Post> searchFollowedPost(String myId, String name){
         List<Post> result = new ArrayList<>();
@@ -790,5 +793,77 @@ public class Data {
         }
     }
 
+
+    public List<User> getFollowersByPosterId(String posterId) {
+        List<User> result = new ArrayList<>();
+        // loop on follows list
+        for (int i = 0; i < follows.size(); i++) {
+            Follow item = follows.get(i);
+            // Not me: continue
+            if (item.getTravellerId().equals(posterId))
+            {
+                User user = getUser(item.getUserId());
+                result.add(user);
+            }
+        }
+        // return value
+        return result;
+    }
+
+    // Using for Login checking
+    public int getMaxNotify2User(){
+        int maxId = 0;
+        for (int i=0; i < notifyPost2Users.size(); i++){
+            int curId = Integer.parseInt(notifyPost2Users.get(i).getId());
+            if (curId > maxId){
+                maxId = curId;
+            }
+        }
+        // return value
+        return maxId;
+    }
+
+    public void sendNotify2Follower (String postId, String posterId){
+        // get Follower List by posterId
+        List <User> listFollowes = getFollowersByPosterId(posterId);
+        // Loop and update data for NotifyPost2User
+        for (int i = 0; i < listFollowes.size(); i++){
+            User user = listFollowes.get(i);
+            String id = String.format("%d", getMaxNotify2User());
+            notifyPost2Users.add(new NotifyPost2User(id, postId, user.getId()));
+        }
+    }
+
+    // ------------------- Follow Management
+    public List<NotifyPost2User> getNotifyPost2UserList(){
+        return notifyPost2Users;
+    }
+
+    public List<NotifyPost2User> getNotifybyUser (String userId){
+        List<NotifyPost2User> result = new ArrayList<>();
+        // Loop notifyPost2Users
+        for (int i = 0; i < notifyPost2Users.size(); i++){
+            NotifyPost2User item = notifyPost2Users.get(i);
+            if (item.getUserId().equals(userId)){
+                result.add(new NotifyPost2User(item));
+            }
+        }
+        // return value
+        return result;
+    }
+
+    public List<Post> getPostByNotify (List<NotifyPost2User> listNotify){
+        List<Post> result = new ArrayList<>();
+        // Loop notifyPost2Users
+        for (int i = 0; i < listNotify.size(); i++){
+            NotifyPost2User item = listNotify.get(i);
+            // Get Post
+            Post postFound = getPost(item.getPostId());
+            if (postFound != null)
+                result.add(new Post(postFound));
+        }
+        // return value
+        return result;
+    }
 
 }
