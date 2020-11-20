@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    onLoadInitData();
+    //onLoadInitData();
     onLoadNotify();
 
     setTimeout(function (){
@@ -10,7 +10,7 @@ $(document).ready(function () {
     $('#btnNotifyList').mouseover(onShowNotifyList);
     uploadImage();
     uploadImage1();
-    getCurrPostList();
+    //getCurrPostList();
 
     $('#upd').click(onUpdate);
     $('#del').click(onDelete);
@@ -26,11 +26,11 @@ $(document).ready(function () {
 
 
 
-function getCurrPostList(){
-    let $cmdType = "getPostList";
-    //checkValidate();
-    $.post("UserPostServLet", {cmdType : $cmdType}, dispPostList);
-}
+// function getCurrPostList(){
+//     let $cmdType = "getPostList";
+//     //checkValidate();
+//     $.post("UserPostServLet", {cmdType : $cmdType}, dispPostList);
+// }
 function getPostList(){
     let $cmdType = "getPosts";
     let $userID = $('#userId').text();
@@ -43,24 +43,12 @@ function getPostList(){
         }, displayPostListOnHomePage);
 }
 
-function onLoadInitData(){
-    /*    // Get parameter from url
-        let searchParams = new URLSearchParams(window.location.search);
-        if (searchParams.has('userId') == false)
-            return;
-        let userId = searchParams.get('userId');
-        alert (userId);
-        //prepare parameters
-        let $cmdType = "init";
-        //checkValidate();
-        $.post("UserPostServLet", {cmdType : $cmdType, userId : userId}, disp_PostList);
-    */
-    // alert ("loooooaaaaaddd.... User post");
-    //prepare parameters
-    let $cmdType = "init";
-    //checkValidate();
-    $.post("UserPostServLet", {cmdType : $cmdType}, displayPostListOnHomePage);
-}
+// function onLoadInitData(){
+//
+//     let $cmdType = "init";
+//     //checkValidate();
+//     $.post("UserPostMn", {cmdType : $cmdType}, displayPostListOnHomePage);
+// }
 
 var time = new Date();
 function onAdd(){
@@ -93,16 +81,7 @@ function onAdd(){
     console.log($image);
     //var time = new Date();
     let $time= time.getMonth()+"-"+time.getDate()+"-"+time.getFullYear();
-    // let $location;
-    // if ($('#position').val()==false){
-    //     $location="";
-    // }
-//     else {
-//         function curr(position) {
-// //     $location = position.coords.latitude + ", " + position.coords.longitude;
-    //       }
-// }
-    //}
+
     $.post("UserPostServlet",
         {
             cmdType: $cmdType, userId: $userId,  title:$title, content:$content, category:$category, tags:$tags, image:urlImage, time:$time, location:$location, notification:$notification
@@ -116,7 +95,7 @@ function onAdd(){
 function onUpdate(){
     $('.updateImageEdit').hide();
     //alert("on update");
-    alert("hello");
+    //alert("hello");
     let $cmdType = "upd";
     let $id = $('#u-id').val();
     console.log($id);
@@ -157,18 +136,7 @@ function onUpdate(){
 
 
 }
-// var $location = navigator.geolocation.getCurrentPosition(coords.latitude +", "+ coords.longitude, );
-// function getCurrPosition(){
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(curr);
-//
-//     } else {
-//          alert("Geolocation is not supported by this browser.");
-//     }
-// }
-// function curr(position) {
-//     $location = position.coords.latitude + ", " + position.coords.longitude;
-// }
+
 function onDelete(postId){
     let $cmdType = "del";
     let $id = postId;
@@ -183,18 +151,7 @@ function onDelete(postId){
         }
 
     )
-    //$('#formAdd').submit();
-    // $.post("UserPostServlet", {"cmdType" : "load"})
-    //     .done(function (user){
-    //         console.log(user);
-    //         displayUserInfo(user);
-    //         updateUserInfoInEditForm(user);
-    //         UpdateUserInfoInHomePage(user);
-    //
-    //     })
-    //     .fail(function(error){
-    //         console.error(error);
-    //     });
+
 
 }
 function onDeleteCurrPost(){
@@ -208,30 +165,7 @@ function onDeleteCurrPost(){
     //$('#formAdd').submit();
 
 }
-// function disp_PostList(respJson) {
-//     // Remove old Data
-//     //alert("hello");
-//     let $table = $('#_posts');
-//     $table.find($('._post')).remove();
-//
-//
-//     // Update new data
-//     $.each(respJson, function(i, item){
-//         // New Row
-//         console.log(item);
-//         let $row = "<tr class=\"_post\">"
-//             + "<td>" + item.id + "</td>"
-//             + "<td>" + item.image + "</td>"
-//             + "<td>" + item.title + "</td>"
-//             + "<td>" + item.content + "</td>"
-//             + "<td>" + item.category + "</td>"
-//             + "<td>" + item.tags + "</td>"
-//             + "<td>" + item.time + "</td>"
-//             + "<td>" + item.location + "</td>";
-//         $("#_posts").append($row);
-//     });
-//     //alert("DOne")
-// }
+
 function disPostList(respJson){
     //alert("dis play post");
 
@@ -258,19 +192,7 @@ function disPostList(respJson){
             //console.log(('#utime'));
         }else {
             console.log("display col");
-            //console.log($('.w3-border w3-padding').html())
-            //create div
-            //      var itm = document.getElementById("post");
-            //
-            // // Copy the <li> element and its child nodes
-            //     var cln = itm.cloneNode(true);
 
-            // // Append the cloned <li> element to <ul> with id="myList1"
-            //     var $original = $("#post");
-            //     var $newClone = original.clone();
-            //     $original.appendChild($newClone);
-            //     console.log($newClone);
-            //   document.getElementById("post").appendChild(cln);
             let $col = "<td class=\"w3-container w3-card w3-white w3-round w3-margin\">"
                 + "<td>" + $('.w3-border w3-padding').html(item.id) + "</td>"
                 + "<td>" + $('.w3-border w3-padding').html(item.image) + "</td>"
@@ -288,10 +210,6 @@ function disPostList(respJson){
             $('#u-title').html(item.title);
         if ($('#u-content').html()!=item.content)
             $('#u-content').html(item.content);
-        // if ($('#u-category').html()!=item.category)
-        //     $('#u-category').html(item.category);
-        // if ($('#u-tags').html()!=item.tags)
-        //     $('#u-tags').html(item.tags);
 
     })
 }
@@ -467,14 +385,6 @@ function displayPostListOnHomePage(respJson){
     $.each(respJson, function(i, item) {
         allPostHTML +=displaySinglePost(item);
 
-        // $("#uimage").html(item.image);
-        // $("#uid").html(item.id);
-        // $('#utitle').html(item.title);
-        // $('#ucontent').html(item.content);
-        // $('#ucategory').html(item.category);
-        // $('#utag').html(item.tags);
-        // $('#utime').html(item.time);
-        // $table.append(displaySinglePost(item));
     });
     $('#all-post').html(allPostHTML);
     //console.log(item.time);
@@ -556,7 +466,10 @@ function displaySinglePost(post){
     return postHTML;
 }
 function openEdit(){
-    alert("hello")
+   //
+    //
+    //
+    // alert("hello")
 }
 
 function openFormUpdate(postId){
@@ -648,18 +561,6 @@ function likePost(postId) {
 }
 
 
-// let $cmdType = "init";
-// $.post("AdminPostServlet",
-//     {cmdType: $cmdType},
-//     onDisplyShowDeactiveUserOnPage
-// );
-// alert("init");
-
-
-
-
-
-
 function showComment() {
     var txt = document.getElementsByClassName('txt')[0];
     var btn = document.getElementsByClassName('submitComment')[0];
@@ -711,9 +612,6 @@ function dispNotifyInfo(respJson) {
     $.each(respJson, function(i, book){
         // New Row
         count++;
-        // let $aCheckOut = "<a href=bookCheckout.jsp?bookId=" + book.id + ">Checkout</a>";
-        // let $book = "<tr class=\"book\"><td>" + book.id + "</td><td>" + book.title + "</td><td>" + book.author + "</td><td>" + book.subject + "</td><td>" + book.isbn + "</td><td>" + $aCheckOut + "</td></tr>";
-        // $("#books").append($book);
     });
     // let item = '<span class="w3-badge w3-right w3-small w3-green" id="countNotify">' + count > 0 ? count : "" + '</span>'
     let item = '<span class="w3-badge w3-right w3-small w3-green" id="countNotify">' + count + '</span>'

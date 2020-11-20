@@ -2,20 +2,6 @@ window.onload = function(){
     getCurrentUser();
     $('#myfile').click(uploadPhoto);
 
-    // $('#imageUpload').change(function() {
-    //     readImgUrlAndPreview(this);
-    //
-    //     function readImgUrlAndPreview(input) {
-    //         if (input.files && input.files[0]) {
-    //             var reader = new FileReader();
-    //             reader.onload = function(e) {
-    //                 uploadImage();
-    //                 $('#imagePreview').removeClass('hide').attr('src', e.target.result);
-    //             }
-    //         }
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    // });
     showHideForm();
     $('#imageUpload').change(function (){
         uploadImage();
@@ -97,7 +83,7 @@ function editUserInfo(){
                 if (user.status === 'false') {
                     alert(user.message);
                 }else {
-                    alert(user.password);
+                    //alert(user.password);
 
                     displayUserInfo(user);
 

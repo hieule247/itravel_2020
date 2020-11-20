@@ -93,22 +93,22 @@
                         <div class="w3-row-padding">
                             <br>
                             <div class="w3-half">
-                                <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                             <div class="w3-half">
-                                <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
+                                <img src="" style="width:100%" class="w3-margin-bottom">
                             </div>
                         </div>
                     </div>
@@ -322,7 +322,7 @@
             <div class="w3-card w3-round w3-white w3-center">
                 <div class="w3-container">
                     <p>Upcoming Events:</p>
-                    <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
+                    <img src="" alt="Forest" style="width:100%;">
                     <p><strong>Holiday</strong></p>
                     <p>Friday 15:00</p>
                     <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
